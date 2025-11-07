@@ -5,6 +5,26 @@
   text-align: center;
 }
 
+:root {
+  --bg: #00140F;
+  --surface: #0B1F1A;
+  --text: #B5FFE1;
+  --primary: #65B891;
+  --secondary: #93E5AB;
+  --accent: #4E878C;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+:root[data-theme="light"] {
+  --bg: #F5FFFC;
+  --surface: #ECFFFA;
+  --text: #00140F;
+  --primary: #4E878C;
+  --secondary: #93E5AB;
+  --accent: #65B891;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
