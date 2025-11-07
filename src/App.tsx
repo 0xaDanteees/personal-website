@@ -1,35 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Header } from "./components/molecules/Header"
+import Home from './pages/Home'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] relative overflow-x-hidden">
+      <Header />
+      <div className="mx-auto max-w-6xl relative z-10">
+        <Home />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <footer className="py-8 text-center text-xs text-[var(--text)]/40 border-t border-[var(--text)]/5 relative z-10">
+        &copy; {new Date().getFullYear()} Daniel Ortega
+      </footer>
+    </div>
   )
 }
-
-export default App
