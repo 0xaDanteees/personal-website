@@ -30,6 +30,11 @@ For the color palette I'll use the following colors:
 - Background: #00140F
 - Surface: #0B1F1A
 
+**NOTE: Colors were indeed not final, will update once I get the light mode final style, dark mode is final though.**
+
+I was looking into animations to use and fill the gaps within the UI + enhance UX.
+After some research I found some anymations that I liked and implemented; and decided to go berserk with it including liquid glass.
+
 ## References
 
 - [Atomic design](https://bradfrost.com/blog/post/atomic-design/)
@@ -38,3 +43,6 @@ For the color palette I'll use the following colors:
 - [Vite](https://vite.dev/)
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Animations](https://prismic.io/blog/css-animation-examples)
+- [Liquid Glass](https://www.google.com/search?q=liquid+glass+css&sca_esv=f9a4d5dbb28ed665&ei=0M4NaYGaL8jdkPIPr4WF8AY&ved=0ahUKEwiBwoSI79-QAxXILkQIHa9CAW4Q4dUDCBE&uact=5&oq=liquid+glass+css&gs_lp=Egxnd3Mtd2l6LXNlcnAiEGxpcXVpZCBnbGFzcyBjc3MyBRAAGIAEMgYQABgHGB4yBhAAGAcYHjIGEAAYBxgeMgYQABgHGB4yBhAAGAcYHjIGEAAYBxgeMgYQABgHGB4yBhAAGAcYHjIGEAAYBxgeSOAPUJEEWM8NcAF4AZABAJgBV6AB2wOqAQE2uAEDyAEA-AEBmAIHoAL8A8ICChAAGLADGNYEGEfCAg0QLhiABBiwAxhDGIoFwgIIEAAYExgHGB7CAg0QABiABBixAxiDARgNwgIHEAAYgAQYDcICChAAGIAEGLEDGA2YAwCIBgGQBgmSBwE3oAeWJbIHATa4B_sDwgcFMC4yLjXIBxU&sclient=gws-wiz-serp#cobssid=s)
+- [More Liquid Glass](https://freefrontend.com/css-liquid-glass/)

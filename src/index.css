@@ -228,3 +228,582 @@ html {
 .scale-in-scroll {
   animation: scale-in 0.6s ease-out;
 }
+
+/* ========================================
+   LIQUID GLASS EFFECT
+   ======================================== */
+
+/* Base liquid glass styling */
+.liquid-glass-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(101, 184, 145, 0.15);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow: 
+    0 8px 32px 0 rgba(101, 184, 145, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(101, 184, 145, 0.2);
+  filter: url(#liquid-glass-filter);
+}
+
+/* Mobile splash screen - premium full coverage */
+.liquid-glass-splash {
+  pointer-events: none;
+  background: linear-gradient(135deg, var(--bg) 0%, #001410 50%, var(--bg) 100%);
+  transition: opacity 0.8s ease-out;
+}
+
+.liquid-glass-splash.liquid-glass-hiding {
+  opacity: 0;
+}
+
+/* Premium logo container */
+.splash-logo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  animation: splash-logo-appear 0.6s ease-out;
+}
+
+@keyframes splash-logo-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Central logo with glassmorphism */
+.splash-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(101, 184, 145, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 50%;
+  border: 2px solid rgba(101, 184, 145, 0.3);
+  box-shadow: 
+    0 8px 32px 0 rgba(101, 184, 145, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: splash-logo-pulse 2s ease-in-out infinite;
+}
+
+@keyframes splash-logo-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      0 8px 32px 0 rgba(101, 184, 145, 0.4),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 
+      0 12px 48px 0 rgba(101, 184, 145, 0.6),
+      inset 0 0 30px rgba(255, 255, 255, 0.15);
+  }
+}
+
+.splash-logo-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.1em;
+  animation: splash-text-glow 2s ease-in-out infinite;
+}
+
+@keyframes splash-text-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(101, 184, 145, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(101, 184, 145, 0.8));
+  }
+}
+
+/* Animated rings */
+.splash-logo-ring {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  border: 2px solid rgba(101, 184, 145, 0.2);
+  animation: splash-ring-pulse 2s ease-in-out infinite;
+}
+
+.splash-logo-ring-2 {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  border: 1px solid rgba(101, 184, 145, 0.1);
+  animation: splash-ring-pulse 2s ease-in-out infinite 0.5s;
+}
+
+@keyframes splash-ring-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* Shimmer overlay effect */
+.splash-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(101, 184, 145, 0.1) 50%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  animation: splash-shimmer 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes splash-shimmer {
+  0% {
+    background-position: -200% -200%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+/* Full screen mobile splash blobs */
+.blob-mobile-splash {
+  background: rgba(101, 184, 145, 0.2) !important;
+  backdrop-filter: blur(50px) !important;
+  -webkit-backdrop-filter: blur(50px) !important;
+  box-shadow: 
+    0 8px 40px 0 rgba(101, 184, 145, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.15) !important;
+}
+
+.liquid-glass-splash .blob-1 {
+  width: 400px;
+  height: 400px;
+  top: 10%;
+  left: -50px;
+  animation: liquid-splash-1 3s ease-in-out infinite;
+}
+
+.liquid-glass-splash .blob-2 {
+  width: 350px;
+  height: 350px;
+  top: 40%;
+  right: -30px;
+  animation: liquid-splash-2 3.5s ease-in-out infinite 0.5s;
+}
+
+.liquid-glass-splash .blob-3 {
+  width: 300px;
+  height: 300px;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: liquid-splash-3 4s ease-in-out infinite 1s;
+}
+
+/* Desktop blobs - perpetual animation */
+.liquid-glass-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Hiding animation for desktop */
+.liquid-glass-hiding .liquid-glass-container {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.liquid-glass-hiding .liquid-glass-gradient {
+  opacity: 0;
+}
+
+.blob-desktop-1 {
+  width: 400px;
+  height: 400px;
+  top: 10%;
+  right: -50px;
+  animation: liquid-float-desktop-1 8s ease-in-out infinite;
+}
+
+.blob-desktop-2 {
+  width: 350px;
+  height: 350px;
+  top: 40%;
+  right: 20%;
+  animation: liquid-float-desktop-2 10s ease-in-out infinite 2s;
+}
+
+.blob-desktop-3 {
+  width: 300px;
+  height: 300px;
+  bottom: 15%;
+  right: 10%;
+  animation: liquid-float-desktop-3 12s ease-in-out infinite 4s;
+}
+
+/* Gradient overlay for depth effect */
+.liquid-glass-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(101, 184, 145, 0.05) 0%,
+    rgba(78, 135, 140, 0.08) 50%,
+    rgba(147, 229, 171, 0.05) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+  pointer-events: none;
+  filter: url(#liquid-glass-glow);
+}
+
+/* Splash animations for mobile */
+@keyframes liquid-splash-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, 40px) scale(1.1);
+  }
+}
+
+@keyframes liquid-splash-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-40px, -30px) scale(1.15) rotate(10deg);
+  }
+}
+
+@keyframes liquid-splash-3 {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-40px) scale(1.2);
+  }
+}
+
+/* Float animations for desktop - more subtle and perpetual */
+@keyframes liquid-float-desktop-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-30px, 40px) scale(1.05);
+  }
+  50% {
+    transform: translate(-50px, 80px) scale(0.98);
+  }
+  75% {
+    transform: translate(-20px, 50px) scale(1.02);
+  }
+}
+
+@keyframes liquid-float-desktop-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(40px, -30px) scale(1.08) rotate(3deg);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.95) rotate(-3deg);
+  }
+}
+
+@keyframes liquid-float-desktop-3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(25px, -25px) scale(1.06);
+  }
+  40% {
+    transform: translate(-20px, -40px) scale(0.94);
+  }
+  60% {
+    transform: translate(30px, -15px) scale(1.03);
+  }
+  80% {
+    transform: translate(-15px, -30px) scale(0.97);
+  }
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .liquid-glass-blob {
+  background: rgba(45, 122, 94, 0.12);
+  box-shadow: 
+    0 8px 32px 0 rgba(45, 122, 94, 0.15),
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(45, 122, 94, 0.25);
+}
+
+[data-theme="light"] .liquid-glass-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(45, 122, 94, 0.08) 0%,
+    rgba(31, 90, 74, 0.12) 50%,
+    rgba(74, 155, 122, 0.08) 100%
+  );
+}
+
+/* ========================================
+   DESKTOP SPLASH SCREEN
+   ======================================== */
+
+.liquid-glass-splash-desktop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: linear-gradient(135deg, var(--bg) 0%, #001410 30%, #002820 50%, #001410 70%, var(--bg) 100%);
+  animation: desktop-splash-fade-in 0.6s ease-out;
+}
+
+@keyframes desktop-splash-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Desktop splash blobs - larger and more prominent */
+.blob-desktop-splash {
+  background: rgba(101, 184, 145, 0.18) !important;
+  backdrop-filter: blur(60px) !important;
+  -webkit-backdrop-filter: blur(60px) !important;
+  box-shadow: 
+    0 12px 60px 0 rgba(101, 184, 145, 0.35),
+    inset 0 0 40px rgba(255, 255, 255, 0.12) !important;
+}
+
+.liquid-glass-splash-desktop .blob-1 {
+  width: 500px;
+  height: 500px;
+  top: 5%;
+  left: -100px;
+  animation: liquid-splash-desktop-1 4s ease-in-out infinite;
+}
+
+.liquid-glass-splash-desktop .blob-2 {
+  width: 450px;
+  height: 450px;
+  top: 30%;
+  right: -80px;
+  animation: liquid-splash-desktop-2 4.5s ease-in-out infinite 0.5s;
+}
+
+.liquid-glass-splash-desktop .blob-3 {
+  width: 400px;
+  height: 400px;
+  bottom: 10%;
+  left: 20%;
+  animation: liquid-splash-desktop-3 5s ease-in-out infinite 1s;
+}
+
+.liquid-glass-splash-desktop .blob-4 {
+  width: 350px;
+  height: 350px;
+  bottom: 20%;
+  right: 15%;
+  animation: liquid-splash-desktop-4 5.5s ease-in-out infinite 1.5s;
+}
+
+/* Desktop splash animations */
+@keyframes liquid-splash-desktop-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, 50px) scale(1.08);
+  }
+}
+
+@keyframes liquid-splash-desktop-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-50px, -40px) scale(1.12) rotate(8deg);
+  }
+}
+
+@keyframes liquid-splash-desktop-3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, -50px) scale(1.15);
+  }
+}
+
+@keyframes liquid-splash-desktop-4 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-40px, 40px) scale(1.1) rotate(-8deg);
+  }
+}
+
+/* Desktop logo container - larger */
+.splash-logo-container-desktop {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  animation: splash-logo-appear 0.8s ease-out;
+}
+
+.splash-logo-desktop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(101, 184, 145, 0.18);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 50%;
+  border: 3px solid rgba(101, 184, 145, 0.35);
+  box-shadow: 
+    0 12px 48px 0 rgba(101, 184, 145, 0.5),
+    inset 0 0 30px rgba(255, 255, 255, 0.15);
+  animation: splash-logo-pulse 2.5s ease-in-out infinite;
+}
+
+.splash-logo-text-desktop {
+  font-size: 4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.15em;
+  animation: splash-text-glow 2.5s ease-in-out infinite;
+}
+
+/* Desktop rings - 3 rings for more impact */
+.splash-logo-ring-desktop {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 3px solid rgba(101, 184, 145, 0.25);
+  animation: splash-ring-pulse 2.5s ease-in-out infinite;
+}
+
+.splash-logo-ring-2-desktop {
+  position: absolute;
+  inset: -45px;
+  border-radius: 50%;
+  border: 2px solid rgba(101, 184, 145, 0.18);
+  animation: splash-ring-pulse 2.5s ease-in-out infinite 0.4s;
+}
+
+.splash-logo-ring-3-desktop {
+  position: absolute;
+  inset: -70px;
+  border-radius: 50%;
+  border: 1px solid rgba(101, 184, 145, 0.12);
+  animation: splash-ring-pulse 2.5s ease-in-out infinite 0.8s;
+}
+
+/* Desktop shimmer - more intense */
+.splash-shimmer-desktop {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(101, 184, 145, 0.15) 50%,
+    transparent 75%
+  );
+  background-size: 200% 200%;
+  animation: splash-shimmer 2.5s linear infinite;
+  pointer-events: none;
+}
+
+/* Particles for desktop */
+.splash-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(101, 184, 145, 0.7);
+  box-shadow: 0 0 15px rgba(101, 184, 145, 0.9);
+}
+
+.particle-1 {
+  top: 15%;
+  left: 10%;
+  animation: particle-float-desktop 5s ease-in-out infinite;
+}
+
+.particle-2 {
+  top: 25%;
+  right: 12%;
+  animation: particle-float-desktop 6s ease-in-out infinite 1s;
+}
+
+.particle-3 {
+  top: 60%;
+  left: 15%;
+  animation: particle-float-desktop 5.5s ease-in-out infinite 2s;
+}
+
+.particle-4 {
+  bottom: 20%;
+  right: 20%;
+  animation: particle-float-desktop 6.5s ease-in-out infinite 0.5s;
+}
+
+.particle-5 {
+  bottom: 35%;
+  left: 25%;
+  animation: particle-float-desktop 7s ease-in-out infinite 1.5s;
+}
+
+@keyframes particle-float-desktop {
+  0%, 100% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(80px, -150px) scale(0.5);
+    opacity: 0;
+  }
+}
