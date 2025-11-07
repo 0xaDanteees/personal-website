@@ -4,6 +4,7 @@ import { LiquidGlass } from "./LiquidGlass";
 import { Github, Linkedin, FileDown, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useSplashTiming } from "../hooks/useSplashTiming";
+import { EXTERNAL_LINKS } from "../../config/constants";
 
 export function Hero() {
     const [animKey, setAnimKey] = useState(0);
@@ -43,17 +44,17 @@ export function Hero() {
                 </p>
             </div>
             <div className={`flex gap-3 float-animation relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                <a href="https://github.com/0xaDanteees" target="_blank" rel="noopener noreferrer">
+                <a href={EXTERNAL_LINKS.github} target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost">
                         <Github size={18} />
                     </Button>
                 </a>
-                <a href="https://www.linkedin.com/in/daniel-r-ortega/" target="_blank" rel="noopener noreferrer">
+                <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
                     <Button variant="accent">
                         <Linkedin size={18} />
                     </Button>
                 </a>
-                <a href="/DanielOrtega_CV.pdf" download="danielOrtegaCV.pdf">
+                <a href={EXTERNAL_LINKS.cv} target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost" className="fizzy-button">
                         <FileDown size={18} />
                     </Button>

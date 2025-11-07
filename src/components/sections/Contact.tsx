@@ -3,6 +3,7 @@ import { SectionTitle } from '../atoms/SectionTitle'
 import { Card } from '../atoms/Card'
 import { IconBadge } from '../atoms/IconBadge'
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
+import { EXTERNAL_LINKS, SOCIAL_HANDLES } from '../../config/constants'
 
 export default function Contact() {
   const sectionRef = useRevealOnScroll<HTMLElement>()
@@ -28,19 +29,19 @@ export default function Contact() {
             </Card>
           </a>
 
-          <a href="https://github.com/0xaDanteees" target="_blank" rel="noreferrer" className="reveal">
+          <a href={EXTERNAL_LINKS.github} target="_blank" rel="noreferrer" className="reveal">
             <Card hover className="flex items-center gap-3">
               <IconBadge icon={Github} size={20} />
               <div>
                 <p className="text-sm text-[var(--secondary)]">GitHub</p>
                 <p className="text-[var(--text)] font-medium group-hover:text-[var(--primary)] transition-colors">
-                  @0xaDanteees
+                  @{SOCIAL_HANDLES.github}
                 </p>
               </div>
             </Card>
           </a>
 
-          <a href="https://www.linkedin.com/in/daniel-r-ortega/" target="_blank" rel="noreferrer" className="reveal">
+          <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noreferrer" className="reveal">
             <Card hover className="flex items-center gap-3">
               <IconBadge icon={Linkedin} size={20} />
               <div>
