@@ -12,7 +12,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
 ) {
   const base = clsx(
     'relative inline-flex items-center gap-2 rounded-md pl-5 pr-4 py-2',
-    'text-sm font-medium transition-colors',
+    'text-sm font-medium transition-all duration-200',
     'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     'focus-visible:ring-[var(--primary)] focus-visible:ring-offset-[var(--bg)]',
     'before:content-[""] before:absolute before:left-0 before:top-0 before:bottom-0',
