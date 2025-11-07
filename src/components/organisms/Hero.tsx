@@ -1,28 +1,39 @@
 import { Animated } from "../atoms/Animated";
 import { Button } from "../atoms/Button";
+import { LiquidGlass } from "./LiquidGlass";
 import { Github, Linkedin, FileDown, ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { useSplashTiming } from "../hooks/useSplashTiming";
 
 export function Hero() {
     const [animKey, setAnimKey] = useState(0);
     const [isRotating, setIsRotating] = useState(false);
+    const [triggerHide, setTriggerHide] = useState(false);
+    
+    const { showContent, startAnimation } = useSplashTiming();
 
     const scrollToAbout = () => {
         setIsRotating(true);
+        setTriggerHide(true); // Trigger liquid glass to hide
         setTimeout(() => {
             document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             setTimeout(() => setIsRotating(false), 600);
-        }, 300);
+        }, 800); // Wait for liquid glass animation
     };
 
     return (
-        <section id="hero" className="min-h-screen flex flex-col justify-center gap-8 px-5 md:px-8 relative">
-            <div className="space-y-4">
+        <section id="hero" className="min-h-screen flex flex-col justify-center gap-8 px-5 md:px-8 md:pr-[35%] relative overflow-hidden">
+            <LiquidGlass onScrollRequest={triggerHide ? () => {} : undefined} />
+            <div className={`space-y-4 relative z-10 transition-all duration-700 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <h1 
                     className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight text-[var(--text)] cursor-pointer"
-                    onMouseEnter={() => setAnimKey(prev => prev + 1)}
+                    onMouseEnter={() => startAnimation && setAnimKey(prev => prev + 1)}
                 >
-                    <Animated key={animKey} text="Daniel Ortega" />
+                    {startAnimation ? (
+                        <Animated key={animKey} text="Daniel Ortega" />
+                    ) : (
+                        <span className="opacity-0">Daniel Ortega</span>
+                    )}
                 </h1>
                 <p className="text-xl sm:text-2xl text-[var(--primary)] font-light">
                     Full-stack Developer
@@ -31,7 +42,7 @@ export function Hero() {
                     Building digital experiences with React, Django, Node & Web3
                 </p>
             </div>
-            <div className="flex gap-3 float-animation">
+            <div className={`flex gap-3 float-animation relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
                 <a href="https://github.com/0xaDanteees" target="_blank" rel="noopener noreferrer">
                     <Button variant="ghost">
                         <Github size={18} />

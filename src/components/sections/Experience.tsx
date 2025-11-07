@@ -4,7 +4,7 @@ import { SectionTitle } from '../atoms/SectionTitle'
 const experiences = [
   { company: 'Rubidex', role: 'Frontend Developer', period: 'Present' },
   { company: 'ASCM (CDMX Government)', role: 'Fullstack Developer', period: '2024-2025' },
-  { company: 'Stealth Startup DeFi', role: 'Lead Frontend', period: '2023-2024' },
+  { company: 'Stealth Startup DeFi', role: 'Lead Frontend Developer', period: '2023-2024' },
   { company: 'Freelance', role: 'Fullstack Developer', period: '2022-2023' },
   { company: 'Crypto background', role: 'Having fun', period: '2020-2022' }
 ]
