@@ -1,17 +1,29 @@
-import { ThemeToggle } from "../atoms/ThemeToggle";
+import { ThemeToggle } from "../atoms/ThemeToggle"
 
 export function Header() {
+    const scrollToSection = (id: string) => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
     return (
-        <header 
-            className="sticky top-0 z-10 backdrop-blur border-b border-white/10 bg-[color-mix(in_oklab, var(--bg), transparent_75%)]"
-        >
-            <div className="mx-auto max-w-6xl px-5 md:px-8 h-14 flex items-center justify-between">
-                <a href="#hero" className="font-semibold text-[var(--text)]">DO</a>
-                <nav className="flex items-center gap-4">
-                    <a href="#contact" className="text-sm text-[var(--text)] hover:underline">Contact</a>
+        <header className="sticky top-0 z-50 backdrop-blur-lg bg-[var(--bg)]/80 border-b border-[var(--text)]/10 dark:border-white/5">
+            <nav className="mx-auto max-w-6xl px-5 md:px-8 py-4 flex justify-between items-center">
+                <button 
+                    onClick={() => scrollToSection('hero')}
+                    className="text-lg font-bold text-[var(--text)] hover:text-[var(--primary)] transition-colors"
+                >
+                    DO
+                </button>
+                <div className="flex items-center gap-6">
+                    <button 
+                        onClick={() => scrollToSection('contact')} 
+                        className="text-sm text-[var(--text)]/70 hover:text-[var(--primary)] transition-colors font-medium hover:underline"
+                    >
+                        Contact
+                    </button>
                     <ThemeToggle />
-                </nav>
-            </div>
+                </div>
+            </nav>
         </header>
     )
 }
