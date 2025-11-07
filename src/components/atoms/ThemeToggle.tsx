@@ -1,10 +1,10 @@
 export function ThemeToggle() {
     const theme = document.documentElement.dataset.theme;
-    const next = theme === 'dark' ? 'light' : 'dark';
     return (
         <button
             onClick={() => {
-                document.documentElement.dataset.theme = next
+                const next = (document.documentElement.dataset.theme === 'light') ? 'dark' : 'light';
+                document.documentElement.dataset.theme = next;
                 try { localStorage.setItem('theme', next) } catch {}
             }}
             aria-label="Toggle theme"
