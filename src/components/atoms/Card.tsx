@@ -11,8 +11,11 @@ export function Card({ children, className, hover = false, accent = true }: Prop
   return (
     <div
       className={clsx(
-        'relative p-6 rounded-lg border border-white/10 bg-[var(--surface)] transition-colors',
-        hover && 'hover:border-[var(--primary)] group',
+        'relative p-6 rounded-lg transition-all',
+        'border border-[var(--text)]/10',
+        'bg-[var(--surface)]',
+        'dark:border-white/10',
+        hover && 'hover:border-[var(--primary)] hover:shadow-lg group',
         className
       )}
     >
