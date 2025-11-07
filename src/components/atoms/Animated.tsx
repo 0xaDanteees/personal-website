@@ -13,8 +13,8 @@ export function Animated(props: Props) {
             {props.text.split('').map((char, idx) => (
                 <span
                     key={idx}
-                    className="inline-block will-change-transform motion--reduce:animate-none animate-[fall_0.7s_cubic_bezier(.2,.8,.2,1)_both]"
-                    style={{ animationDelay: props.delayMs ? `${idx * props.delayMs}ms` : undefined }}
+                    className="inline-block will-change-transform motion-reduce:animate-[fall_0.7s_cubic-bezier(.2,.8,.2,1)_both] animate-[fall_0.7s_cubic-bezier(.2,.8,.2,1)_both]"
+                    style={{ animationDelay: props.delayMs ? `${idx * props.delayMs}ms` : `${idx * 70}ms` }}
                 >
                     {char === ' ' ? '\u00a0' : char}
                 </span>
