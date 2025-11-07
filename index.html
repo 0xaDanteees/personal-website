@@ -1,6 +1,18 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function(){
+        try {
+          const ls = localStorage.getItem('theme');
+          const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          const theme = ls || (prefersLight ? 'light' : 'dark');
+          document.documentElement.dataset.theme = theme;
+        } catch(e) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
