@@ -1,74 +1,40 @@
-# React + TypeScript + Vite
+# personal-landing
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+After some years I decided to make a personal website, its ironic that I'm currently more focused on the frontend than the backend and to this point I had no personal website. This change now as a practical project to improve some of my skills and to actually have a personal website.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React
+- TypeScript
+- TailwindCSS
+- Vite
 
-## React Compiler
+## Thiking process
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+I'll try and address this page as an SPA, and will try to implement the following features:
 
-## Expanding the ESLint configuration
+- Atomic design
+- Mobile first design
+- Responsive layout
+- Theme toggle (dark/light)
+- Animated text
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+All of this with ass little external dependencies as possible.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+For the color palette I'll use the following colors:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Primary: #65B891
+- Secondary: #93E5AB
+- Accent: #4E878C
+- Text: #B5FFE1
+- Background: #00140F
+- Surface: #0B1F1A
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## References
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# personal-website
+- [Atomic design](https://bradfrost.com/blog/post/atomic-design/)
+- [Color inspiration](https://coolors.co/b5ffe1-93e5ab-65b891-4e878c-00140f)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Vite](https://vite.dev/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
