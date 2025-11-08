@@ -44,19 +44,19 @@ export function Hero() {
                 </p>
             </div>
             <div className={`flex gap-3 float-animation relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                <a href={EXTERNAL_LINKS.github} target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost">
-                        <Github size={18} />
+                <a href={EXTERNAL_LINKS.github} target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
+                    <Button variant="ghost" aria-label="GitHub">
+                        <Github size={18} aria-hidden="true" />
                     </Button>
                 </a>
-                <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
-                    <Button variant="accent">
-                        <Linkedin size={18} />
+                <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">
+                    <Button variant="accent" aria-label="LinkedIn">
+                        <Linkedin size={18} aria-hidden="true" />
                     </Button>
                 </a>
-                <a href={EXTERNAL_LINKS.cv} target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost" className="fizzy-button">
-                        <FileDown size={18} />
+                <a href={EXTERNAL_LINKS.cv} target="_blank" rel="noopener noreferrer" aria-label="Download my CV">
+                    <Button variant="ghost" className="fizzy-button" aria-label="Download CV">
+                        <FileDown size={18} aria-hidden="true" />
                     </Button>
                 </a>
             </div>
@@ -69,6 +69,7 @@ export function Hero() {
                 <ChevronDown 
                     size={32} 
                     className={`transition-transform duration-300 ${isRotating ? 'rotate-180' : 'rotate-0'}`}
+                    aria-hidden="true"
                 />
             </button>
         </section>

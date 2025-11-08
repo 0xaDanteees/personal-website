@@ -17,7 +17,7 @@ export default function Contact() {
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a href="mailto:adros.dev17@gmail.com" className="reveal">
+          <a href="mailto:adros.dev17@gmail.com" className="reveal" aria-label="Send email to adros.dev17@gmail.com">
             <Card hover className="flex items-center gap-3">
               <IconBadge icon={Mail} size={20} />
               <div>
@@ -29,7 +29,7 @@ export default function Contact() {
             </Card>
           </a>
 
-          <a href={EXTERNAL_LINKS.github} target="_blank" rel="noreferrer" className="reveal">
+          <a href={EXTERNAL_LINKS.github} target="_blank" rel="noreferrer" className="reveal" aria-label="Visit GitHub profile">
             <Card hover className="flex items-center gap-3">
               <IconBadge icon={Github} size={20} />
               <div>
@@ -41,7 +41,7 @@ export default function Contact() {
             </Card>
           </a>
 
-          <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noreferrer" className="reveal">
+          <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noreferrer" className="reveal" aria-label="Visit LinkedIn profile">
             <Card hover className="flex items-center gap-3">
               <IconBadge icon={Linkedin} size={20} />
               <div>

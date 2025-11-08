@@ -11,6 +11,7 @@ export function Header() {
                 <button 
                     onClick={() => scrollToSection('hero')}
                     className="text-lg font-bold text-[var(--text)] hover:text-[var(--primary)] transition-colors"
+                    aria-label="Go to home section"
                 >
                     DO
                 </button>
@@ -18,6 +19,7 @@ export function Header() {
                     <button 
                         onClick={() => scrollToSection('contact')} 
                         className="text-sm text-[var(--text)]/70 hover:text-[var(--primary)] transition-colors font-medium hover:underline"
+                        aria-label="Go to contact section"
                     >
                         Contact
                     </button>

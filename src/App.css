@@ -12,8 +12,8 @@
 [data-theme="light"] {
   --bg: #FAFAFA;
   --surface: #FFFFFF;
-  --text: #1A1A1A;
-  --primary: #2D7A5E;
-  --secondary: #4A9B7A;
-  --accent: #1F5A4A;
+  --text: #0D0D0D;
+  --primary: #1E6B4E;
+  --secondary: #2A7D5F;
+  --accent: #164A3D;
 }
