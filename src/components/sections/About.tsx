@@ -12,8 +12,7 @@ export default function About() {
           I build scalable web applications with a focus on performance and user experience.
         </p>
         <p className="text-base text-[var(--secondary)]/80 leading-relaxed reveal">
-          Specialized in <span className="text-[var(--primary)] font-medium">React</span>, <span className="text-[var(--primary)] font-medium">Django</span>, and <span className="text-[var(--primary)] font-medium">Web3</span> technologies. 
-          Experience with real-time data systems, AI agents, and DeFi platforms.
+          Career spans <span className="text-[var(--primary)] font-medium">crypto infrastructure</span>, <span className="text-[var(--primary)] font-medium">IoT</span>, <span className="text-[var(--primary)] font-medium">ETL pipelines</span>, web scraping, and <span className="text-[var(--primary)] font-medium">AI agents</span> for compliance and legal workflows. Contributed as frontend lead on a DeFi trading platform and currently driving backend architecture and infrastructure decisions on a Real Estate tokenization (RWA) platform.
         </p>
       </div>
     </section>

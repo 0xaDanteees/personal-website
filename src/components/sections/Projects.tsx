@@ -5,25 +5,41 @@ import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
 
 const projects = [
   {
+    title: 'Agentic Companion Platform',
+    period: 'Sept 2025 — Present',
+    description: 'FastAPI microservices system with API gateway, SQLAlchemy + PostgreSQL, Vercel deployment, and integrated chat & voice AI with streaming.',
+    tech: ['FastAPI', 'PostgreSQL', 'SQLAlchemy', 'Sentry', 'Vercel', 'Docker'],
+  },
+  {
+    title: 'Agentic Voice Assistant',
+    period: 'Jan 2026 — Feb 2026',
+    description: 'Agentic voice assistant for a US restaurant chain capable of taking orders and advertising new menus, built with OpenAI and Vapi.',
+    tech: ['OpenAI', 'Vapi', 'Python', 'FastAPI'],
+  },
+  {
     title: 'DeFi Trading Platform',
-    description: 'Decentralized trading gamified platform with real-time market data, smart contract integration, and SIWE authentication.',
-    tech: ['TypeScript', 'ethers.js', 'WebSockets', 'BitQuery', 'Graphql', 'SIWE'],
+    period: 'Jun 2024 — Mar 2025',
+    description: 'Decentralized trading platform with real-time market data, SIWE + JWT authentication, BitQuery integration, and high-performance Go WebSocket proxy.',
+    tech: ['TypeScript', 'Next.js', 'ethers.js', 'WebSockets', 'BitQuery', 'GraphQL', 'SIWE'],
   },
   {
-    title: 'ETL processes with RAG',
-    description: 'ETL processes with agentic properties for legal entities.',
-    tech: ['Django', 'PostgreSQL', 'pgvector', 'React', 'Azure', 'CentOs'],
+    title: 'AI Agents & ETL for Legal Audit',
+    period: 'May 2024 — Feb 2025',
+    description: 'AI-driven ETL pipelines and RAG systems for legal audit workflows achieving 82% reduction in processing times and 96% OCR accuracy.',
+    tech: ['Django', 'PostgreSQL', 'pgvector', 'React', 'Azure', 'CentOS'],
   },
   {
-    title: 'IoT Building Management System',
-    description: 'Real-time alert system with WebSockets for IoT devices, MFA authentication, and monitoring dashboard.',
-    tech: ['React', 'WebSockets', 'JWT', 'Docker'],
+    title: 'Consulting: ASCM Data Pipelines',
+    period: 'Jun 2025 — Aug 2025',
+    description: 'Automated contract validation, preprocessing pipelines for public procurement, PDF annotation UI, schema optimization, and improved RAG scoring.',
+    tech: ['Python', 'PostgreSQL', 'RAG', 'React'],
   },
   {
-    title: 'Crypto Trading Bots & algorithms',
-    description: 'Algorithmic bots for automated trading with on-chain analysis, risk monitoring, and quantitative strategies.',
-    tech: ['Python', 'Web3.py', 'PyVollib', 'Pandas', 'NumPy'],
-  }
+    title: 'Crypto Trading Bots & Algorithms',
+    period: '2020 — 2023',
+    description: 'Algorithmic trading systems with on-chain analysis, risk monitoring, Solidity contract analysis, and quantitative non-directional strategies.',
+    tech: ['Python', 'Web3.py', 'Pandas', 'NumPy', 'Solidity'],
+  },
 ]
 
 export default function Projects() {
@@ -37,7 +53,12 @@ export default function Projects() {
           <Card key={idx} hover className="reveal">
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-semibold text-[var(--text)] mb-2">{project.title}</h3>
+                <div className="flex justify-between items-start gap-2 mb-2">
+                  <h3 className="text-xl font-semibold text-[var(--text)]">{project.title}</h3>
+                  {project.period && (
+                    <span className="text-xs text-[var(--secondary)]/50 whitespace-nowrap mt-1">{project.period}</span>
+                  )}
+                </div>
                 <p className="text-sm text-[var(--secondary)] leading-relaxed">
                   {project.description}
                 </p>

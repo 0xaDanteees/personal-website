@@ -37,10 +37,10 @@ export function Hero() {
                     )}
                 </h1>
                 <p className="text-xl sm:text-2xl text-[var(--primary)] font-light">
-                    Full-stack Developer
+                    Full stack Developer, building User-centric experiences.
                 </p>
                 <p className="max-w-md text-sm text-[var(--secondary)]/60">
-                    Building digital experiences with React, Django, Node & Web3
+                    Fintech · RWA · AI Agents · DeFi · IoT
                 </p>
             </div>
             <div className={`flex gap-3 float-animation relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>

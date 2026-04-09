@@ -8,23 +8,23 @@ const skillCategories = [
   {
     title: 'Frontend',
     icon: Code2,
-    skills: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'WebSockets', 'Vite']
+    skills: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'WebSockets', 'GraphQL']
   },
   {
     title: 'Backend',
     icon: Database,
-    skills: ['Django', 'FastAPI', 'Node.js', 'PostgreSQL', 'pgvector']
+    skills: ['Python', 'Django', 'FastAPI', 'Node.js / Express', 'PostgreSQL', 'pgvector', 'SQLAlchemy']
+  },
+  {
+    title: 'Cloud & Infra',
+    icon: Cloud,
+    skills: ['AWS', 'Azure', 'Docker', 'CentOS / Httpd', 'Vercel', 'Sentry']
   },
   {
     title: 'Web3 & DeFi',
     icon: Blocks,
-    skills: ['Thirdweb', 'ethers.js', 'Hardhat', 'SIWE', 'Solidity', 'BitQuery']
+    skills: ['Solidity', 'ethers.js', 'SIWE', 'BitQuery', 'EVM / Ethereum', 'MetaMask']
   },
-  {
-    title: 'Tools',
-    icon: Cloud,
-    skills: ['Docker', 'Azure', 'AWS', 'CentOS', 'Git', 'JWT/MFA']
-  }
 ]
 
 export default function Skills() {
