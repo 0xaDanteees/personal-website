@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 
 type LiquidGlassConfig = {
   isMobile: boolean
-  onScrollRequest?: () => void
+  onHeroVisibilityChange?: (isHeroVisible: boolean) => void
 }
 
-export function useLiquidGlassState({ isMobile, onScrollRequest }: LiquidGlassConfig) {
+export function useLiquidGlassState({ isMobile, onHeroVisibilityChange }: LiquidGlassConfig) {
   const [isVisible, setIsVisible] = useState(true)
   const [isHiding, setIsHiding] = useState(false)
   const [isSplashActive, setIsSplashActive] = useState(false)
@@ -35,37 +35,29 @@ export function useLiquidGlassState({ isMobile, onScrollRequest }: LiquidGlassCo
     return () => clearTimeout(timer)
   }, [isMobile])
 
-  // Desktop: Hero visibility tracking
+  // Desktop: hero visibility drives the glass in both directions, no matter how
+  // the user got there (wheel, keyboard, chevron click or anchor jump).
   useEffect(() => {
     if (isMobile || !splashDone) return
 
-    const handleScroll = () => {
-      const heroSection = document.getElementById('hero')
-      if (!heroSection) return
+    const heroSection = document.getElementById('hero')
+    if (!heroSection) return
 
-      const heroRect = heroSection.getBoundingClientRect()
-      const isHeroVisible = heroRect.bottom > 100 && heroRect.top < window.innerHeight - 100
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const isHeroVisible = entry.isIntersecting
+        setIsHiding(!isHeroVisible)
+        if (isHeroVisible) setIsVisible(true)
+        onHeroVisibilityChange?.(isHeroVisible)
+      },
+      // Shrinking the viewport box keeps the old ~100px dead zone at both edges,
+      // so the glass does not flicker while the hero is barely peeking in.
+      { rootMargin: '-100px 0px -100px 0px', threshold: 0 }
+    )
 
-      if (!isHeroVisible && !isHiding) {
-        setIsHiding(true)
-      } else if (isHeroVisible && isHiding) {
-        setIsHiding(false)
-        setIsVisible(true)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [isMobile, isHiding, splashDone])
-
-  // External trigger (chevron click)
-  // Note: I need to track when we go back to Hero section to show the liquid glass again if the chevron is clicked
-  // will to later
-  useEffect(() => {
-    if (onScrollRequest && !isHiding) {
-      setIsHiding(true)
-    }
-  }, [onScrollRequest, isHiding])
+    observer.observe(heroSection)
+    return () => observer.disconnect()
+  }, [isMobile, splashDone, onHeroVisibilityChange])
 
   return {
     isVisible,
