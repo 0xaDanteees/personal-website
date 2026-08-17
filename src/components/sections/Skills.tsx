@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { Tag } from '../atoms/Tag'
+import { useI18n } from '../../i18n/useI18n'
 
 /**
  * Ordered as a system gets built, from the ground up: infrastructure, then the
@@ -10,49 +11,44 @@ import { Tag } from '../atoms/Tag'
  *
  * Every entry appears exactly once — a tool repeated across categories reads as
  * padding and costs the list its credibility.
+ *
+ * Only titles and captions are translated; product names read the same in every
+ * language, which is how engineers actually scan them.
  */
 const stackLayers = [
   {
-    title: 'Infrastructure',
-    caption: 'Where it runs',
+    key: 'infrastructure',
     skills: ['AWS', 'Terraform', 'GCP', 'Azure', 'Docker', 'CentOS / Httpd', 'Vercel'],
   },
   {
-    title: 'Data & Persistence',
-    caption: 'Where it lives',
+    key: 'data',
     skills: ['PostgreSQL', 'Neo4j', 'Redis', 'pgvector', 'SQLAlchemy'],
   },
   {
-    title: 'Backend',
-    caption: 'What serves it',
+    key: 'backend',
     skills: ['Python', 'FastAPI', 'Django', 'Node.js / Express', 'GraphQL', 'WebSockets', 'SSE'],
   },
   {
-    title: 'Queues & Pipelines',
-    caption: 'What orchestrates it',
+    key: 'queues',
     skills: ['BullMQ', 'RabbitMQ', 'Celery', 'pg-boss', 'ETL', 'Selenium', 'Playwright'],
   },
   {
-    title: 'AI & Agents',
-    caption: 'What reasons over it',
+    key: 'ai',
     skills: ['RAG', 'Agentic Workflows', 'Semantic Search', 'Claude', 'OpenAI', 'Azure Document Intelligence', 'OCR'],
   },
   {
-    title: 'Interface',
-    caption: 'What people touch',
+    key: 'interface',
     skills: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'Atomic Design'],
   },
   {
-    title: 'Web3 & Compliance',
-    caption: 'What users own',
+    key: 'web3',
     skills: ['Solidity', 'ethers.js', 'SIWE', 'EVM / Ethereum', 'MetaMask', 'BitQuery', 'KYC / KYB', 'ACH'],
   },
   {
-    title: 'Observability & Testing',
-    caption: 'What is measured',
+    key: 'observability',
     skills: ['Sentry', 'CloudWatch', 'Pytest', 'Jest', 'Google Analytics', 'AdSense', 'Adsterra'],
   },
-]
+] as const
 
 type LayerProps = {
   layer: (typeof stackLayers)[number]
@@ -66,6 +62,8 @@ type LayerProps = {
  * stack being assembled while you scroll.
  */
 function StackLayer({ layer, index }: LayerProps) {
+  const { t } = useI18n()
+  const copy = t.skills.layers[layer.key]
   const ref = useRef<HTMLDivElement>(null)
   const [settled, setSettled] = useState(false)
 
@@ -100,9 +98,9 @@ function StackLayer({ layer, index }: LayerProps) {
     >
       <div className="grid grid-cols-1 md:grid-cols-[13rem_1fr] gap-x-8 gap-y-3 py-6">
         <div className="stack-layer__label">
-          <h3 className="type-h3 text-[var(--text)]">{layer.title}</h3>
+          <h3 className="type-h3 text-[var(--text)]">{copy.title}</h3>
           <p className="stack-layer__caption type-meta text-[var(--secondary)]/50 mt-0.5">
-            {layer.caption}
+            {copy.caption}
           </p>
         </div>
         <div className="flex flex-wrap gap-2 content-start">
@@ -122,15 +120,17 @@ function StackLayer({ layer, index }: LayerProps) {
 }
 
 export default function Skills() {
+  const { t } = useI18n()
+
   return (
     <section id="skills" className="px-5 md:px-8">
-      <SectionTitle>Tech Stack</SectionTitle>
+      <SectionTitle>{t.skills.title}</SectionTitle>
 
       {/* Dimming the siblings on hover isolates the row being read, so the
           section stays scannable even once every layer has settled. */}
       <div className="max-w-4xl stack-layers">
         {stackLayers.map((layer, idx) => (
-          <StackLayer key={layer.title} layer={layer} index={idx} />
+          <StackLayer key={layer.key} layer={layer} index={idx} />
         ))}
       </div>
     </section>

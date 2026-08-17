@@ -6,6 +6,8 @@ import { IconBadge } from '../atoms/IconBadge'
 import { Reveal } from '../atoms/Reveal'
 import { useMagnetic } from '../hooks/useMagnetic'
 import { EXTERNAL_LINKS, SOCIAL_HANDLES, CONTACT_EMAIL } from '../../config/constants'
+import { useI18n } from '../../i18n/useI18n'
+import { interpolate } from '../../i18n/interpolate'
 
 type ContactCardProps = {
   icon: LucideIcon
@@ -54,51 +56,53 @@ function ContactLink({ href, external, ariaLabel, index, total, ...card }: Conta
 }
 
 export default function Contact() {
+  const { t } = useI18n()
+
   return (
     <section id="contact" className="px-5 md:px-8">
-      <SectionTitle>Contact</SectionTitle>
+      <SectionTitle>{t.contact.title}</SectionTitle>
       <div className="max-w-3xl space-y-6">
         <Reveal index={0} total={6}>
           <p className="type-body-lg measure text-[var(--secondary)]">
-            Available for freelance projects, collaborations, and full-time opportunities.
+            {t.contact.lead}
           </p>
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ContactLink
             href={`mailto:${CONTACT_EMAIL}`}
-            ariaLabel={`Send email to ${CONTACT_EMAIL}`}
+            ariaLabel={interpolate(t.contact.emailAria, { email: CONTACT_EMAIL })}
             index={1} total={6}
             icon={Mail}
-            label="Email"
-            value="Send message"
+            label={t.contact.email}
+            value={t.contact.emailValue}
           />
           <ContactLink
             href={EXTERNAL_LINKS.github}
             external
-            ariaLabel="Visit GitHub profile"
+            ariaLabel={t.contact.githubAria}
             index={2} total={6}
             icon={Github}
-            label="GitHub"
+            label={t.contact.github}
             value={`@${SOCIAL_HANDLES.github}`}
           />
           <ContactLink
             href={EXTERNAL_LINKS.linkedin}
             external
-            ariaLabel="Visit LinkedIn profile"
+            ariaLabel={t.contact.linkedinAria}
             index={3} total={6}
             icon={Linkedin}
-            label="LinkedIn"
+            label={t.contact.linkedin}
             value="Daniel Ortega"
           />
           <Reveal index={4} total={6}>
-            <ContactCard icon={MapPin} label="Location" value="CDMX, México" />
+            <ContactCard icon={MapPin} label={t.contact.location} value={t.contact.locationValue} />
           </Reveal>
         </div>
 
         <Reveal index={5} total={6}>
           <p className="type-meta text-[var(--secondary)]/60">
-            Spanish (native) · English (C1) · Italian (A2)
+            {t.contact.languages}
           </p>
         </Reveal>
       </div>

@@ -1,56 +1,21 @@
 import { SectionTitle } from '../atoms/SectionTitle'
 import { useReversibleReveal } from '../hooks/useReversibleReveal'
+import { useI18n } from '../../i18n/useI18n'
 
+/**
+ * Titles and descriptions live in the dictionaries; periods and tech names stay
+ * here since they read identically in all three languages.
+ */
 const projects = [
-  {
-    title: 'Foundry AI for Drug Development',
-    period: '2026',
-    description: 'Agentic workflows with log auditing over clinical data. Insights for preclinical research powered by pg-boss queues orchestrate distributed scraping jobs, and a Neo4j knowledge graph backs relationship queries across sources.',
-    tech: ['Node.js', 'pg-boss', 'Neo4j', 'PostgreSQL', 'Agentic Workflows', 'GCP'],
-  },
-  {
-    title: 'Agentic Companion Platform',
-    period: '2025',
-    description: 'FastAPI microservices system with API gateway, SQLAlchemy + PostgreSQL, Vercel deployment, and integrated chat & voice AI with streaming.',
-    tech: ['FastAPI', 'PostgreSQL', 'SQLAlchemy', 'Sentry', 'Vercel', 'Docker'],
-  },
-  {
-    title: 'PoleanaMX',
-    period: '2026',
-    description: 'Took over an existing frontend and refactored it onto Atomic Design principles, cut WebSocket consumption overhead, and integrated Google Analytics, AdSense and Adsterra.',
-    tech: ['React', 'TypeScript', 'Atomic Design', 'WebSockets', 'Google Analytics', 'AdSense', 'Adsterra'],
-  },
-  {
-    title: 'Agentic Voice Assistant',
-    period: '2026',
-    description: 'Agentic voice assistant for a US restaurant chain capable of taking orders and advertising new menus, built with OpenAI and Vapi.',
-    tech: ['OpenAI', 'Vapi', 'Python', 'FastAPI'],
-  },
-  {
-    title: 'DeFi Trading Platform',
-    period: '2024 — 2025',
-    description: 'Decentralized trading platform with real-time market data, SIWE + JWT authentication, BitQuery integration, and high-performance Go WebSocket proxy.',
-    tech: ['TypeScript', 'Next.js', 'ethers.js', 'WebSockets', 'BitQuery', 'GraphQL', 'SIWE'],
-  },
-  {
-    title: 'AI Agents & ETL for Legal Audit',
-    period: '2024 — 2025',
-    description: 'AI-driven ETL pipelines and RAG systems for legal audit workflows achieving 82% reduction in processing times and 96% OCR accuracy.',
-    tech: ['Django', 'PostgreSQL', 'pgvector', 'React', 'Azure', 'CentOS'],
-  },
-  {
-    title: 'ASCM Data Pipelines',
-    period: '2025',
-    description: 'Automated contract validation, preprocessing pipelines for public procurement, PDF annotation UI, schema optimization, and improved RAG scoring.',
-    tech: ['Python', 'PostgreSQL', 'RAG', 'React'],
-  },
-  {
-    title: 'Crypto Trading Bots & Algorithms',
-    period: '2020 — 2023',
-    description: 'Algorithmic trading systems with on-chain analysis, risk monitoring, Solidity contract analysis, and quantitative non-directional strategies.',
-    tech: ['Python', 'Web3.py', 'Pandas', 'NumPy', 'Solidity'],
-  },
-]
+  { key: 'foundry', period: '2026 — {present}', tech: ['Node.js', 'pg-boss', 'Neo4j', 'PostgreSQL', 'Agentic Workflows', 'GCP'] },
+  { key: 'companion', period: '2025', tech: ['FastAPI', 'PostgreSQL', 'SQLAlchemy', 'Sentry', 'Vercel', 'Docker'] },
+  { key: 'poleana', period: '2026', tech: ['React', 'TypeScript', 'Atomic Design', 'WebSockets', 'Google Analytics', 'AdSense'] },
+  { key: 'voice', period: '2026', tech: ['OpenAI', 'Vapi', 'Python', 'FastAPI'] },
+  { key: 'defi', period: '2024 — 2025', tech: ['TypeScript', 'Next.js', 'ethers.js', 'WebSockets', 'BitQuery', 'GraphQL', 'SIWE'] },
+  { key: 'legalAudit', period: '2024 — 2025', tech: ['Django', 'PostgreSQL', 'pgvector', 'React', 'Azure', 'CentOS'] },
+  { key: 'ascmPipelines', period: '2025', tech: ['Python', 'PostgreSQL', 'RAG', 'React'] },
+  { key: 'tradingBots', period: '2020 — 2023', tech: ['Python', 'Web3.py', 'Pandas', 'NumPy', 'Solidity'] },
+] as const
 
 /**
  * Title, then description, then the stack as a real list. Sequenced the same way
@@ -65,6 +30,10 @@ function ProjectEntry({ project, index, total }: {
   index: number
   total: number
 }) {
+  const { t } = useI18n()
+  const copy = t.projects.items[project.key]
+  const period = project.period.replace('{present}', t.experience.present)
+
   const { ref, state, delay } = useReversibleReveal<HTMLElement>({
     index,
     total,
@@ -83,17 +52,17 @@ function ProjectEntry({ project, index, total }: {
     >
       <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-x-8 items-baseline">
         <h3 className="project-entry__title type-h3 text-[var(--text)]">
-          {project.title}
+          {copy.title}
         </h3>
-        {project.period && (
+        {period && (
           <span className="project-entry__period type-meta text-[var(--secondary)]/50 whitespace-nowrap">
-            {project.period}
+            {period}
           </span>
         )}
       </div>
 
       <p className="project-entry__description type-body measure text-[var(--secondary)] mt-2">
-        {project.description}
+        {copy.description}
       </p>
 
       <ul className="project-entry__stack mt-4">
@@ -112,13 +81,15 @@ function ProjectEntry({ project, index, total }: {
 }
 
 export default function Projects() {
+  const { t } = useI18n()
+
   return (
     <section id="projects" className="px-5 md:px-8">
-      <SectionTitle>Featured Projects</SectionTitle>
+      <SectionTitle>{t.projects.title}</SectionTitle>
       <div className="max-w-3xl project-list">
         {projects.map((project, idx) => (
           <ProjectEntry
-            key={project.title}
+            key={project.key}
             project={project}
             index={idx}
             total={projects.length}

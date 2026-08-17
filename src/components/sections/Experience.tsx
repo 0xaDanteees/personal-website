@@ -1,69 +1,21 @@
 import { ExternalLink } from 'lucide-react'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { useReversibleReveal } from '../hooks/useReversibleReveal'
+import { useI18n } from '../../i18n/useI18n'
+import { interpolate } from '../../i18n/interpolate'
 import { CERTIFICATIONS } from '../../config/constants'
 
+/**
+ * Roles are keyed rather than inlined: the copy lives in the dictionaries so all
+ * three languages stay in sync, while periods and structure stay here.
+ */
 const experiences = [
-  {
-    company: 'Rubidex',
-    role: 'Fullstack Software Developer',
-    period: '2025 — Present',
-    bullets: [
-      'Architected secure, compliant backend and cloud infrastructure for a Real Estate & Crypto investment ecosystem.',
-      'Designed banking integration for RWA system meeting US compliance requirements.',
-      'Architected KYC/KYB solutions for US and CA users.',
-      'Designed database and AWS infrastructure with Terraform for high reliability and scalability.',
-      'Implemented RBAC-based frontend architecture and mitigated all documented security vulnerabilities.',
-      'Managed WebSocket system for high-reliability IoT device communication.',
-    ],
-  },
-  {
-    company: 'Wallet Insight — Remote contractor',
-    role: 'Lead Frontend Developer',
-    period: '2024 — 2025',
-    bullets: [
-      'Architected and executed full frontend refactor from pages/app mix to Next.js App Router.',
-      'Designed and implemented core trading features with real-time GraphQL data visualization.',
-      'Integrated WebSocket connections for live market data with a high-performance Go proxy.',
-      'Built SIWE + JWT authentication for a DeFi trading volume-aggregator platform.',
-      'Part of the founding team before pre-seed at $2.5M valuation.',
-    ],
-  },
-  {
-    company: 'ASCM',
-    role: 'Fullstack Developer',
-    period: '2024 — 2025',
-    bullets: [
-      'Migrated legacy enterprise payroll system for a legal Mexican entity.',
-      'Architected AI agents with semantic search and conversational capabilities using PostgreSQL pgvector.',
-      'Fine-tuned OCR and Azure AI models for data extraction achieving 96% accuracy.',
-      'Designed AI-driven ETL pipelines achieving 82% reduction in processing times.',
-      'Managed and configured CentOS 9 Stream servers for seamless legacy integration.',
-    ],
-  },
-  {
-    company: 'Independent',
-    role: 'Freelance Developer',
-    period: '2023 — 2024',
-    bullets: [
-      'Developed backend infrastructure with Django and responsive frontends with React.',
-      'Integrated AWS S3 and SES for lead collection.',
-      'Crafted data mining scripts in Python for heavy machinery, insurance, and crypto industries.',
-      'Built custom datasets for private clients.',
-    ],
-  },
-  {
-    company: 'Independent',
-    role: 'Crypto & Blockchain',
-    period: '2020 — 2023',
-    bullets: [
-      'Core team member of an ERC20 token-making agency; developed Solidity contracts.',
-      'Built automated wallet tracking scripts and ETL pipelines for crypto market analysis.',
-      'Developed algorithmic trading systems with real-time order execution and risk management frameworks.',
-      'Integrated third-party APIs (FTX, Bybit) and conducted statistical analysis for non-directional strategies.',
-    ],
-  },
-]
+  { key: 'rubidex', period: '2025 — {present}' },
+  { key: 'walletInsight', period: '2024 — 2025' },
+  { key: 'ascm', period: '2024 — 2025' },
+  { key: 'freelance', period: '2023 — 2024' },
+  { key: 'crypto', period: '2020 — 2023' },
+] as const
 
 /**
  * On the way in: the heading arrives, then its bullets unfold beneath it.
@@ -76,6 +28,11 @@ function ExperienceEntry({ exp, index, total }: {
   index: number
   total: number
 }) {
+  const { t } = useI18n()
+  const copy = t.experience.roles[exp.key]
+  // "Present" is the only translated fragment inside an otherwise numeric range.
+  const period = exp.period.replace('{present}', t.experience.present)
+
   const { ref, state, delay } = useReversibleReveal<HTMLDivElement>({
     index,
     total,
@@ -89,20 +46,20 @@ function ExperienceEntry({ exp, index, total }: {
       className={`experience-entry group ${state === 'visible' ? 'is-visible' : ''}`}
       style={{
         transitionDelay: `${delay}ms`,
-        '--bullet-count': exp.bullets.length,
+        '--bullet-count': copy.bullets.length,
       } as React.CSSProperties}
     >
       <div className="experience-entry__head">
         <div className="flex justify-between items-baseline flex-wrap gap-1">
           <h3 className="type-h3 text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
-            {exp.role}
+            {copy.role}
           </h3>
-          <span className="type-meta text-[var(--secondary)]/60">{exp.period}</span>
+          <span className="type-meta text-[var(--secondary)]/60">{period}</span>
         </div>
-        <p className="type-meta text-[var(--primary)]/80 mt-0.5 mb-3">{exp.company}</p>
+        <p className="type-meta text-[var(--primary)]/80 mt-0.5 mb-3">{copy.company}</p>
       </div>
       <ul className="space-y-1.5">
-        {exp.bullets.map((b, i) => (
+        {copy.bullets.map((b: string, i: number) => (
           <li
             key={i}
             className="experience-entry__bullet type-body text-[var(--secondary)]/70 pl-3 border-l border-[var(--primary)]/20"
@@ -117,6 +74,7 @@ function ExperienceEntry({ exp, index, total }: {
 }
 
 function Certifications() {
+  const { t } = useI18n()
   const { ref, state, delay } = useReversibleReveal<HTMLDivElement>({
     threshold: 0.2,
   })
@@ -128,7 +86,7 @@ function Certifications() {
       style={{ transitionDelay: `${delay}ms` }}
     >
       <h3 className="certifications__label type-meta text-[var(--secondary)]/50">
-        Certifications
+        {t.experience.certifications}
       </h3>
       <ul className="certifications__list">
         {CERTIFICATIONS.map((cert) => (
@@ -138,7 +96,11 @@ function Certifications() {
               target="_blank"
               rel="noopener noreferrer"
               className="certifications__link"
-              aria-label={`View ${cert.name} credential from ${cert.issuer}, issued ${cert.year}`}
+              aria-label={interpolate(t.experience.credentialAria, {
+                name: cert.name,
+                issuer: cert.issuer,
+                year: cert.year,
+              })}
             >
               <span className="type-body text-[var(--text)]">{cert.name}</span>
               <ExternalLink size={13} aria-hidden="true" className="certifications__icon" />
@@ -154,13 +116,15 @@ function Certifications() {
 }
 
 export default function Experience() {
+  const { t } = useI18n()
+
   return (
     <section id="experience" className="px-5 md:px-8 py-20">
-      <SectionTitle>Experience</SectionTitle>
+      <SectionTitle>{t.experience.title}</SectionTitle>
       <div className="max-w-2xl space-y-10">
         {experiences.map((exp, idx) => (
           <ExperienceEntry
-            key={exp.company + exp.period}
+            key={exp.key}
             exp={exp}
             index={idx}
             total={experiences.length}
