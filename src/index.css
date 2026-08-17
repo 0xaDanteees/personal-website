@@ -359,6 +359,199 @@ body {
 }
 
 /* ========================================
+   CONTACT
+
+   Same hairline grammar as the project rows, so the page closes in the language
+   it has been speaking. The email is the one thing with weight here.
+   ======================================== */
+
+.contact-email {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  transition: border-color var(--dur-base) var(--ease-out-quint);
+}
+
+.contact-email__link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--text);
+  transition: color var(--dur-base) var(--ease-out-quint);
+}
+
+/* Quieter than the address: a convenience, not the invitation. Square and
+   icon-only, so its width never changes with state or locale. */
+.contact-email__copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* Comfortably past the 44px touch target minimum. */
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  color: color-mix(in srgb, var(--secondary) 65%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  transition: color var(--dur-fast) var(--ease-out-quint),
+              border-color var(--dur-fast) var(--ease-out-quint),
+              background-color var(--dur-fast) var(--ease-out-quint);
+}
+
+/* The glyph swap is the whole confirmation, so it gets a small gesture of its
+   own rather than cutting between the two icons. */
+.contact-email__copy-icon {
+  animation: copy-icon-in var(--dur-base) var(--ease-out-quint) both;
+}
+
+@keyframes copy-icon-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.contact-email__copy:hover {
+  color: var(--primary);
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+/* Confirmation reuses the primary colour, so the state change is unmistakable
+   without a toast and without moving anything. */
+.contact-email__copy.is-copied {
+  color: var(--primary);
+  border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+/* Visually hidden but still announced — used for the copy confirmation, which
+   has no on-screen text of its own. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-email__copy-icon {
+    animation: none;
+  }
+}
+
+.contact-email__address {
+  font-size: clamp(1.25rem, 3.5vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-heading);
+  font-weight: 500;
+  /* An address is data, not prose. */
+  font-family: var(--font-mono);
+  /* Long addresses must not push the section wider on small screens. */
+  overflow-wrap: anywhere;
+}
+
+.contact-email__icon {
+  flex-shrink: 0;
+  opacity: 0.35;
+  transition: opacity var(--dur-base) var(--ease-out-quint),
+              transform var(--dur-base) var(--ease-out-quint);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Scoped to the link, not the row: hovering the copy button should not light
+     up the address as if it were the thing being activated. */
+  .contact-email:has(.contact-email__link:hover) {
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  }
+
+  .contact-email__link:hover {
+    color: var(--primary);
+  }
+
+  .contact-email__link:hover .contact-email__icon {
+    opacity: 1;
+    transform: translate(3px, -3px);
+  }
+}
+
+/* Secondary channels: a metadata row, deliberately quieter than the address. */
+.contact-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0 0;
+}
+
+/* Flex column rather than grid: the static variant has no icon, and a shared
+   grid-template placed its label and value in the same cell — they overlapped. */
+.contact-meta__link,
+.contact-meta__static {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: flex-start;
+}
+
+.contact-meta__link {
+  transition: color var(--dur-fast) var(--ease-out-quint);
+}
+
+.contact-meta__label {
+  color: color-mix(in srgb, var(--secondary) 50%, transparent);
+}
+
+.contact-meta__value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text);
+  font-size: var(--text-body);
+  font-weight: 500;
+  transition: color var(--dur-fast) var(--ease-out-quint);
+}
+
+.contact-meta__icon {
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out-quint),
+              transform var(--dur-fast) var(--ease-out-quint);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-meta__link:hover .contact-meta__value {
+    color: var(--primary);
+  }
+
+  .contact-meta__link:hover .contact-meta__icon {
+    opacity: 0.8;
+    transform: translate(2px, -2px);
+  }
+}
+
+.contact-languages {
+  margin-top: 2rem;
+}
+
+/* ========================================
    CERTIFICATIONS
 
    A quiet coda to the experience list: separated by a rule, labelled in mono so
@@ -764,75 +957,6 @@ body::before {
 }
 
 /* ========================================
-   CARD PANEL
-
-   A tinted plane rather than an outlined box: the surface itself separates the
-   region, and the border only materialises on approach. A grid of these reads as
-   a composition instead of a table of containers.
-   ======================================== */
-
-.card-panel {
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  border: 1px solid transparent;
-  transition: background-color var(--dur-base) var(--ease-out-quint),
-              border-color var(--dur-base) var(--ease-out-quint),
-              transform var(--dur-base) var(--ease-out-quint);
-}
-
-/* Light mode needs the opposite treatment: the surface is already near the page
-   background, so a faint edge is what makes the panel legible at all. */
-:root[data-theme="light"] .card-panel {
-  background: var(--surface);
-  border-color: color-mix(in srgb, var(--text) 8%, transparent);
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--text) 4%, transparent);
-}
-
-.card-panel--interactive:hover {
-  background: color-mix(in srgb, var(--surface) 100%, transparent);
-  border-color: color-mix(in srgb, var(--primary) 30%, transparent);
-  /* A single pixel. Enough to register as "this responded", not as a card
-     jumping off the page. */
-  transform: translateY(-1px);
-}
-
-:root[data-theme="light"] .card-panel--interactive:hover {
-  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--text) 8%, transparent);
-}
-
-/* A corner mark that grows on approach — a small piece of signature that reads
-   as craft rather than as a template's accent stripe. */
-.card-panel--interactive::after {
-  content: '';
-  position: absolute;
-  top: 0.875rem;
-  right: 0.875rem;
-  width: 5px;
-  height: 5px;
-  border-top: 1px solid var(--primary);
-  border-right: 1px solid var(--primary);
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out-quint),
-              width var(--dur-base) var(--ease-out-quint),
-              height var(--dur-base) var(--ease-out-quint);
-  pointer-events: none;
-}
-
-.card-panel--interactive:hover::after {
-  opacity: 0.7;
-  width: 11px;
-  height: 11px;
-}
-
-/* Drives the per-letter drop in the Animated component. */
-@keyframes fall {
-  0% { transform: translateY(-40px); opacity: 0 }
-  60% { transform: translateY(6px); opacity: 1 }
-  80% { transform: translateY(-2px) }
-  100% { transform: translateY(0) }
-}
-
-/* ========================================
    THEME TRANSITION
 
    Two layers, so the change is soft everywhere:
@@ -849,7 +973,6 @@ body::before {
 
 body,
 .site-header,
-.card-panel,
 .icon-link,
 .theme-toggle {
   transition: background-color var(--dur-theme) var(--ease-out-quint),
@@ -904,7 +1027,6 @@ body,
 @media (prefers-reduced-motion: reduce) {
   body,
   .site-header,
-  .card-panel,
   .icon-link,
   .theme-toggle {
     transition: none;

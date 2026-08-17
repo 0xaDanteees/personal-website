@@ -1,107 +1,149 @@
-import { Mail, Github, Linkedin, MapPin } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { ArrowUpRight, Check, Copy } from 'lucide-react'
 import { SectionTitle } from '../atoms/SectionTitle'
-import { Card } from '../atoms/Card'
-import { IconBadge } from '../atoms/IconBadge'
 import { Reveal } from '../atoms/Reveal'
 import { useMagnetic } from '../hooks/useMagnetic'
 import { EXTERNAL_LINKS, SOCIAL_HANDLES, CONTACT_EMAIL } from '../../config/constants'
 import { useI18n } from '../../i18n/useI18n'
 import { interpolate } from '../../i18n/interpolate'
 
-type ContactCardProps = {
-  icon: LucideIcon
-  label: string
-  value: string
-}
-
-function ContactCard({ icon, label, value }: ContactCardProps) {
-  return (
-    <Card hover className="flex items-center gap-3 h-full">
-      <IconBadge icon={icon} size={20} />
-      <div>
-        <p className="type-meta text-[var(--secondary)]">{label}</p>
-        <p className="type-body font-medium text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
-          {value}
-        </p>
-      </div>
-    </Card>
-  )
-}
-
-type ContactLinkProps = ContactCardProps & {
-  href: string
-  external?: boolean
-  ariaLabel: string
-  index: number
-  total: number
-}
-
-function ContactLink({ href, external, ariaLabel, index, total, ...card }: ContactLinkProps) {
-  const magneticRef = useMagnetic<HTMLAnchorElement>({ strength: 6, radius: 16 })
-
-  return (
-    <Reveal index={index} total={total}>
-      <a
-        ref={magneticRef}
-        href={href}
-        className="magnetic block h-full rounded-xl"
-        aria-label={ariaLabel}
-        {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
-      >
-        <ContactCard {...card} />
-      </a>
-    </Reveal>
-  )
-}
-
+/**
+ * The closing section, so it has one job: make the next step obvious. The email
+ * spans the measure and is the largest thing here; everything else recedes to a
+ * metadata row.
+ *
+ * This was a 2×2 grid of cards — the only cards left on the page once Skills and
+ * Projects moved to hairline rows, and four boxes of equal weight asked for
+ * nothing in particular.
+ */
 export default function Contact() {
   const { t } = useI18n()
+  const emailRef = useMagnetic<HTMLAnchorElement>({ strength: 5, radius: 14 })
+  const [copied, setCopied] = useState(false)
+  const resetTimer = useRef<number>(undefined)
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL)
+    } catch {
+      // Older browsers and non-secure contexts reject the async clipboard.
+      const field = document.createElement('textarea')
+      field.value = CONTACT_EMAIL
+      field.setAttribute('readonly', '')
+      field.style.position = 'fixed'
+      field.style.opacity = '0'
+      document.body.appendChild(field)
+      field.select()
+      document.execCommand('copy')
+      document.body.removeChild(field)
+    }
+
+    setCopied(true)
+    window.clearTimeout(resetTimer.current)
+    resetTimer.current = window.setTimeout(() => setCopied(false), 2000)
+  }
+
+  useEffect(() => () => window.clearTimeout(resetTimer.current), [])
+
+  const links = [
+    {
+      key: 'github',
+      href: EXTERNAL_LINKS.github,
+      label: t.contact.github,
+      value: `@${SOCIAL_HANDLES.github}`,
+      aria: t.contact.githubAria,
+    },
+    {
+      key: 'linkedin',
+      href: EXTERNAL_LINKS.linkedin,
+      label: t.contact.linkedin,
+      value: 'Daniel Ortega',
+      aria: t.contact.linkedinAria,
+    },
+  ]
 
   return (
     <section id="contact" className="px-5 md:px-8">
       <SectionTitle>{t.contact.title}</SectionTitle>
-      <div className="max-w-3xl space-y-6">
-        <Reveal index={0} total={6}>
-          <p className="type-body-lg measure text-[var(--secondary)]">
-            {t.contact.lead}
-          </p>
+
+      <div className="max-w-3xl">
+        <Reveal index={0} total={4}>
+          <p className="type-body-lg measure text-[var(--secondary)]">{t.contact.lead}</p>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ContactLink
-            href={`mailto:${CONTACT_EMAIL}`}
-            ariaLabel={interpolate(t.contact.emailAria, { email: CONTACT_EMAIL })}
-            index={1} total={6}
-            icon={Mail}
-            label={t.contact.email}
-            value={t.contact.emailValue}
-          />
-          <ContactLink
-            href={EXTERNAL_LINKS.github}
-            external
-            ariaLabel={t.contact.githubAria}
-            index={2} total={6}
-            icon={Github}
-            label={t.contact.github}
-            value={`@${SOCIAL_HANDLES.github}`}
-          />
-          <ContactLink
-            href={EXTERNAL_LINKS.linkedin}
-            external
-            ariaLabel={t.contact.linkedinAria}
-            index={3} total={6}
-            icon={Linkedin}
-            label={t.contact.linkedin}
-            value="Daniel Ortega"
-          />
-          <Reveal index={4} total={6}>
-            <ContactCard icon={MapPin} label={t.contact.location} value={t.contact.locationValue} />
-          </Reveal>
-        </div>
+        {/* The primary action. Sized as a heading rather than a control, so it
+            reads as an invitation instead of a button to be evaluated.
 
-        <Reveal index={5} total={6}>
-          <p className="type-meta text-[var(--secondary)]/60">
+            Copy sits beside the mailto rather than inside it — a button nested
+            in an anchor is invalid markup, and plenty of people paste the
+            address into a webmail client instead of opening a mail app. */}
+        <Reveal index={1} total={4}>
+          <div className="contact-email">
+            <a
+              ref={emailRef}
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="contact-email__link magnetic"
+              aria-label={interpolate(t.contact.emailAria, { email: CONTACT_EMAIL })}
+            >
+              <span className="contact-email__address">{CONTACT_EMAIL}</span>
+              <ArrowUpRight size={22} aria-hidden="true" className="contact-email__icon" />
+            </a>
+            <button
+              type="button"
+              onClick={copyEmail}
+              className={`contact-email__copy ${copied ? 'is-copied' : ''}`}
+              // The only label there is, now that the text is gone.
+              aria-label={copied ? t.contact.copied : t.contact.copyAria}
+              title={copied ? t.contact.copied : t.contact.copy}
+            >
+              {/* Icon only, in both directions. A text label had to change width
+                  between "Copy" and "Copied" — and again per locale — which is
+                  what pushed the button onto its own line. The state lives in
+                  the glyph and the accessible name instead. */}
+              {copied ? (
+                <Check size={16} aria-hidden="true" className="contact-email__copy-icon" />
+              ) : (
+                <Copy size={16} aria-hidden="true" className="contact-email__copy-icon" />
+              )}
+            </button>
+            {/* With no visible label, the confirmation would be silent for
+                screen reader users; this announces it without showing anything. */}
+            <span className="sr-only" role="status" aria-live="polite">
+              {copied ? t.contact.copied : ''}
+            </span>
+          </div>
+        </Reveal>
+
+        <Reveal index={2} total={4}>
+          <ul className="contact-meta">
+            {links.map((link, i) => (
+              <li key={link.key} style={{ '--meta-index': i } as React.CSSProperties}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-meta__link"
+                  aria-label={link.aria}
+                >
+                  <span className="contact-meta__label type-meta">{link.label}</span>
+                  <span className="contact-meta__value">
+                    {link.value}
+                    <ArrowUpRight size={13} aria-hidden="true" className="contact-meta__icon" />
+                  </span>
+                </a>
+              </li>
+            ))}
+            <li style={{ '--meta-index': links.length } as React.CSSProperties}>
+              <div className="contact-meta__static">
+                <span className="contact-meta__label type-meta">{t.contact.location}</span>
+                <span className="contact-meta__value">{t.contact.locationValue}</span>
+              </div>
+            </li>
+          </ul>
+        </Reveal>
+
+        <Reveal index={3} total={4}>
+          <p className="contact-languages type-meta text-[var(--secondary)]/50">
             {t.contact.languages}
           </p>
         </Reveal>
