@@ -1,5 +1,5 @@
 import { SectionTitle } from '../atoms/SectionTitle'
-import { Reveal } from '../atoms/Reveal'
+import { useReversibleReveal } from '../hooks/useReversibleReveal'
 
 const experiences = [
   {
@@ -63,28 +63,69 @@ const experiences = [
   },
 ]
 
+/**
+ * On the way in: the heading arrives, then its bullets unfold beneath it.
+ * On the way back up the order inverts — bullets collapse first, and only once
+ * the role is empty does the whole entry slide off to the left. The record
+ * closes itself before it is filed away.
+ */
+function ExperienceEntry({ exp, index, total }: {
+  exp: (typeof experiences)[number]
+  index: number
+  total: number
+}) {
+  const { ref, state, delay } = useReversibleReveal<HTMLDivElement>({
+    index,
+    total,
+    step: 60,
+    threshold: 0.1,
+  })
+
+  return (
+    <div
+      ref={ref}
+      className={`experience-entry group ${state === 'visible' ? 'is-visible' : ''}`}
+      style={{
+        transitionDelay: `${delay}ms`,
+        '--bullet-count': exp.bullets.length,
+      } as React.CSSProperties}
+    >
+      <div className="experience-entry__head">
+        <div className="flex justify-between items-baseline flex-wrap gap-1">
+          <h3 className="type-h3 text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
+            {exp.role}
+          </h3>
+          <span className="type-meta text-[var(--secondary)]/60">{exp.period}</span>
+        </div>
+        <p className="type-meta text-[var(--primary)]/80 mt-0.5 mb-3">{exp.company}</p>
+      </div>
+      <ul className="space-y-1.5">
+        {exp.bullets.map((b, i) => (
+          <li
+            key={i}
+            className="experience-entry__bullet type-body text-[var(--secondary)]/70 pl-3 border-l border-[var(--primary)]/20"
+            style={{ '--bullet-index': i } as React.CSSProperties}
+          >
+            {b}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function Experience() {
   return (
     <section id="experience" className="px-5 md:px-8 py-20">
       <SectionTitle>Experience</SectionTitle>
       <div className="max-w-2xl space-y-10">
         {experiences.map((exp, idx) => (
-          <Reveal key={idx} delay={idx * 60} className="group block">
-            <div className="flex justify-between items-baseline flex-wrap gap-1">
-              <h3 className="type-h3 text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
-                {exp.role}
-              </h3>
-              <span className="type-meta text-[var(--secondary)]/60">{exp.period}</span>
-            </div>
-            <p className="type-meta text-[var(--primary)]/80 mt-0.5 mb-3">{exp.company}</p>
-            <ul className="space-y-1.5">
-              {exp.bullets.map((b, i) => (
-                <li key={i} className="type-body text-[var(--secondary)]/70 pl-3 border-l border-[var(--primary)]/20">
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <ExperienceEntry
+            key={exp.company + exp.period}
+            exp={exp}
+            index={idx}
+            total={experiences.length}
+          />
         ))}
       </div>
     </section>

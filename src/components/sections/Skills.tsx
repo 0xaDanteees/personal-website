@@ -78,13 +78,10 @@ function StackLayer({ layer, index }: LayerProps) {
       return
     }
 
+    // Kept connected so the layer packs itself away on the way back up, in the
+    // reverse order it was assembled.
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setSettled(true)
-          observer.disconnect()
-        }
-      },
+      ([entry]) => setSettled(entry.isIntersecting),
       { threshold: 0.25, rootMargin: '0px 0px -80px 0px' }
     )
 
@@ -96,12 +93,17 @@ function StackLayer({ layer, index }: LayerProps) {
     <div
       ref={ref}
       className={`stack-layer ${settled ? 'is-settled' : ''}`}
-      style={{ '--layer-index': index } as React.CSSProperties}
+      style={{
+        '--layer-index': index,
+        '--tag-count': layer.skills.length,
+      } as React.CSSProperties}
     >
       <div className="grid grid-cols-1 md:grid-cols-[13rem_1fr] gap-x-8 gap-y-3 py-6">
         <div className="stack-layer__label">
           <h3 className="type-h3 text-[var(--text)]">{layer.title}</h3>
-          <p className="type-meta text-[var(--secondary)]/50 mt-0.5">{layer.caption}</p>
+          <p className="stack-layer__caption type-meta text-[var(--secondary)]/50 mt-0.5">
+            {layer.caption}
+          </p>
         </div>
         <div className="flex flex-wrap gap-2 content-start">
           {layer.skills.map((skill, i) => (

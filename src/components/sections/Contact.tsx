@@ -31,14 +31,15 @@ type ContactLinkProps = ContactCardProps & {
   href: string
   external?: boolean
   ariaLabel: string
-  delay: number
+  index: number
+  total: number
 }
 
-function ContactLink({ href, external, ariaLabel, delay, ...card }: ContactLinkProps) {
+function ContactLink({ href, external, ariaLabel, index, total, ...card }: ContactLinkProps) {
   const magneticRef = useMagnetic<HTMLAnchorElement>({ strength: 6, radius: 16 })
 
   return (
-    <Reveal delay={delay}>
+    <Reveal index={index} total={total}>
       <a
         ref={magneticRef}
         href={href}
@@ -57,7 +58,7 @@ export default function Contact() {
     <section id="contact" className="px-5 md:px-8">
       <SectionTitle>Contact</SectionTitle>
       <div className="max-w-3xl space-y-6">
-        <Reveal delay={60}>
+        <Reveal index={0} total={6}>
           <p className="type-body-lg measure text-[var(--secondary)]">
             Available for freelance projects, collaborations, and full-time opportunities.
           </p>
@@ -67,7 +68,7 @@ export default function Contact() {
           <ContactLink
             href={`mailto:${CONTACT_EMAIL}`}
             ariaLabel={`Send email to ${CONTACT_EMAIL}`}
-            delay={120}
+            index={1} total={6}
             icon={Mail}
             label="Email"
             value="Send message"
@@ -76,7 +77,7 @@ export default function Contact() {
             href={EXTERNAL_LINKS.github}
             external
             ariaLabel="Visit GitHub profile"
-            delay={190}
+            index={2} total={6}
             icon={Github}
             label="GitHub"
             value={`@${SOCIAL_HANDLES.github}`}
@@ -85,17 +86,17 @@ export default function Contact() {
             href={EXTERNAL_LINKS.linkedin}
             external
             ariaLabel="Visit LinkedIn profile"
-            delay={260}
+            index={3} total={6}
             icon={Linkedin}
             label="LinkedIn"
             value="Daniel Ortega"
           />
-          <Reveal delay={330}>
+          <Reveal index={4} total={6}>
             <ContactCard icon={MapPin} label="Location" value="CDMX, México" />
           </Reveal>
         </div>
 
-        <Reveal delay={400}>
+        <Reveal index={5} total={6}>
           <p className="type-meta text-[var(--secondary)]/60">
             Spanish (native) · English (C1) · Italian (A2)
           </p>

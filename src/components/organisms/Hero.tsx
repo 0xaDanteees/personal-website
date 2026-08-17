@@ -72,6 +72,23 @@ export function Hero() {
         setChevronFacing(isHeroVisible ? 'down' : 'up');
     }, []);
 
+    // The chevron cannot depend on LiquidGlass for this: on mobile that component
+    // unmounts once the splash finishes, taking its observer with it, and the
+    // indicator was left stranded in whatever state the snap put it in. Watching
+    // the section here keeps the two in sync on every breakpoint.
+    useEffect(() => {
+        const hero = document.getElementById('hero');
+        if (!hero) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => setChevronFacing(entry.isIntersecting ? 'down' : 'up'),
+            { rootMargin: '-100px 0px -100px 0px', threshold: 0 }
+        );
+
+        observer.observe(hero);
+        return () => observer.disconnect();
+    }, []);
+
     // Only intercept while the hero is actually the section in view and the
     // intro has finished playing.
     useHeroScrollSnap({

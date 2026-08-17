@@ -1,7 +1,5 @@
 import { SectionTitle } from '../atoms/SectionTitle'
-import { Card } from '../atoms/Card'
-import { Tag } from '../atoms/Tag'
-import { Reveal } from '../atoms/Reveal'
+import { useReversibleReveal } from '../hooks/useReversibleReveal'
 
 const projects = [
   {
@@ -54,35 +52,77 @@ const projects = [
   },
 ]
 
+/**
+ * Title, then description, then the stack as a real list. Sequenced the same way
+ * a project gets explained out loud: what it is, what it does, what it runs on.
+ *
+ * Deliberately not a carousel — slides hide most of the content behind an
+ * interaction, which costs both crawlability and scannability. Everything here
+ * stays in the document at full width.
+ */
+function ProjectEntry({ project, index, total }: {
+  project: (typeof projects)[number]
+  index: number
+  total: number
+}) {
+  const { ref, state, delay } = useReversibleReveal<HTMLElement>({
+    index,
+    total,
+    step: 60,
+    threshold: 0.12,
+  })
+
+  return (
+    <article
+      ref={ref as React.Ref<HTMLElement>}
+      className={`project-entry ${state === 'visible' ? 'is-visible' : ''}`}
+      style={{
+        transitionDelay: `${delay}ms`,
+        '--tech-count': project.tech.length,
+      } as React.CSSProperties}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-x-8 items-baseline">
+        <h3 className="project-entry__title type-h3 text-[var(--text)]">
+          {project.title}
+        </h3>
+        {project.period && (
+          <span className="project-entry__period type-meta text-[var(--secondary)]/50 whitespace-nowrap">
+            {project.period}
+          </span>
+        )}
+      </div>
+
+      <p className="project-entry__description type-body measure text-[var(--secondary)] mt-2">
+        {project.description}
+      </p>
+
+      <ul className="project-entry__stack mt-4">
+        {project.tech.map((tech, i) => (
+          <li
+            key={tech}
+            className="project-entry__tech type-meta"
+            style={{ '--tech-index': i } as React.CSSProperties}
+          >
+            {tech}
+          </li>
+        ))}
+      </ul>
+    </article>
+  )
+}
+
 export default function Projects() {
   return (
     <section id="projects" className="px-5 md:px-8">
       <SectionTitle>Featured Projects</SectionTitle>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
+      <div className="max-w-3xl project-list">
         {projects.map((project, idx) => (
-          <Reveal key={idx} delay={(idx % 2) * 70}>
-            <Card hover className="h-full">
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between items-start gap-2 mb-2">
-                  <h3 className="type-h3 text-[var(--text)]">{project.title}</h3>
-                  {project.period && (
-                    <span className="type-meta text-[var(--secondary)]/50 whitespace-nowrap mt-1">{project.period}</span>
-                  )}
-                </div>
-                <p className="type-body text-[var(--secondary)]">
-                  {project.description}
-                </p>
-              </div>
-              
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((tech, i) => (
-                  <Tag key={i} variant="primary">{tech}</Tag>
-                ))}
-              </div>
-            </div>
-            </Card>
-          </Reveal>
+          <ProjectEntry
+            key={project.title}
+            project={project}
+            index={idx}
+            total={projects.length}
+          />
         ))}
       </div>
     </section>
