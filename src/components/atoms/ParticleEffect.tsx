@@ -48,10 +48,12 @@ export function ParticleEffect() {
   return (
     // xMidYMid keeps circles circular; `preserveAspectRatio="none"` stretched
     // them into ovals and squashed the hairlines below a visible width.
+    // `meet` (not `slice`) so a portrait viewport fits the whole lattice rather
+    // than cropping its outer columns away.
     <svg
       className="filament-web"
       viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
       <g className="filament-web__edges">

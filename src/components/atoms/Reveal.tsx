@@ -1,51 +1,38 @@
-import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
+import { useReversibleReveal } from '../hooks/useReversibleReveal'
 
 type Props = {
   children: React.ReactNode
   className?: string
-  /** Stagger offset in ms, for siblings revealed as a group. */
-  delay?: number
+  /** Position within the group; drives entry order and reverses it on exit. */
+  index?: number
+  /** Total siblings in the group, so the exit can unwind back to front. */
+  total?: number
+  /** Per-step stagger in ms. */
+  step?: number
   as?: 'div' | 'section' | 'li' | 'article'
 }
 
 /**
- * Reveals its children the first time they enter the viewport. Replaces the
- * mount-time `section-transition` animation, which fired before the user had
- * scrolled anywhere near the section — so the reveal was never actually seen.
+ * Reveals on entry and un-reveals on exit. Scrolling back up plays the motion in
+ * reverse rather than snapping content away, so a section reads as being packed
+ * up in the order it was laid out.
  */
-export function Reveal({ children, className, delay = 0, as: Tag = 'div' }: Props) {
-  const ref = useRef<HTMLElement>(null)
-  const [shown, setShown] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShown(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
+export function Reveal({
+  children,
+  className,
+  index = 0,
+  total = 1,
+  step = 70,
+  as: Tag = 'div',
+}: Props) {
+  const { ref, state, delay } = useReversibleReveal<HTMLElement>({ index, total, step })
 
   return (
     <Tag
       ref={ref as React.Ref<never>}
-      className={clsx('reveal-item', shown && 'is-visible', className)}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={clsx('reveal-item', state === 'visible' && 'is-visible', className)}
+      style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
     </Tag>
