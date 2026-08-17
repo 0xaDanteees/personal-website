@@ -825,9 +825,63 @@ body::before {
   100% { transform: translateY(0) }
 }
 
+/* ========================================
+   SITE HEADER
+
+   Fixed rather than sticky. The app shell clips overflow on the x axis, and a
+   sticky element inside a clipped ancestor degrades to static — the bar used to
+   scroll off with the page.
+   ======================================== */
+
+:root {
+  --header-h: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 4rem;
+  }
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  /* Safe-area aware so the bar clears the notch in landscape on iOS. */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Fixed positioning removes the header from flow, so the page has to make room
+   for it explicitly. */
+.site-shell {
+  padding-top: var(--header-h);
+}
+
+/* Discounts the header so the hero fills exactly one viewport rather than
+   overflowing by the bar's height. `svh` keeps that true on mobile, where `vh`
+   measures the tallest layout and leaves the hero taller than the visible area
+   while the browser chrome is showing. */
+.hero-section {
+  min-height: calc(100svh - var(--header-h));
+}
+
+@supports not (height: 100svh) {
+  .hero-section {
+    min-height: calc(100vh - var(--header-h));
+  }
+}
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  /* Anchored scrolls must clear the fixed bar, plus a little breathing room. */
+  scroll-padding-top: calc(var(--header-h) + 1rem);
 }
 
 *:focus-visible {
