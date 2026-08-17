@@ -1,5 +1,7 @@
+import { ExternalLink } from 'lucide-react'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { useReversibleReveal } from '../hooks/useReversibleReveal'
+import { CERTIFICATIONS } from '../../config/constants'
 
 const experiences = [
   {
@@ -114,6 +116,43 @@ function ExperienceEntry({ exp, index, total }: {
   )
 }
 
+function Certifications() {
+  const { ref, state, delay } = useReversibleReveal<HTMLDivElement>({
+    threshold: 0.2,
+  })
+
+  return (
+    <div
+      ref={ref}
+      className={`certifications ${state === 'visible' ? 'is-visible' : ''}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <h3 className="certifications__label type-meta text-[var(--secondary)]/50">
+        Certifications
+      </h3>
+      <ul className="certifications__list">
+        {CERTIFICATIONS.map((cert) => (
+          <li key={cert.credentialId} className="certifications__item">
+            <a
+              href={cert.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="certifications__link"
+              aria-label={`View ${cert.name} credential from ${cert.issuer}, issued ${cert.year}`}
+            >
+              <span className="type-body text-[var(--text)]">{cert.name}</span>
+              <ExternalLink size={13} aria-hidden="true" className="certifications__icon" />
+            </a>
+            <p className="type-meta text-[var(--secondary)]/60">
+              {cert.issuer} · {cert.year}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function Experience() {
   return (
     <section id="experience" className="px-5 md:px-8 py-20">
@@ -127,6 +166,7 @@ export default function Experience() {
             total={experiences.length}
           />
         ))}
+        <Certifications />
       </div>
     </section>
   )
