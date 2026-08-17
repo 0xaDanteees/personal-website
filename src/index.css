@@ -631,7 +631,9 @@ body::before {
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   opacity: 0.035;
-  /* Lighter touch in light mode, where the same amount reads as dirt. */
+  /* Lighter touch in light mode, where the same amount reads as dirt. Eased so
+     the grain settles with the rest of the theme rather than stepping. */
+  transition: opacity var(--dur-theme) var(--ease-out-quint);
 }
 
 :root[data-theme="light"] body::before {
@@ -666,6 +668,11 @@ body::before {
      single element takes, rather than unwinding item by item. */
   --stagger-in: 80ms;
   --stagger-out: 28ms;
+
+  /* Theme change. Sits between --dur-base and --dur-slow on purpose: it is a
+     page-wide event, so it needs more presence than a hover and less than a
+     section reveal, which would leave the page feeling stalled. */
+  --dur-theme: 460ms;
 }
 
 /* ========================================
@@ -823,6 +830,89 @@ body::before {
   60% { transform: translateY(6px); opacity: 1 }
   80% { transform: translateY(-2px) }
   100% { transform: translateY(0) }
+}
+
+/* ========================================
+   THEME TRANSITION
+
+   Two layers, so the change is soft everywhere:
+
+   1. A circular wipe from the toggle (View Transitions API, driven in JS).
+      The new theme is revealed from the control the user actually pressed.
+   2. A colour transition on the surfaces themselves, which is what browsers
+      without View Transitions fall back to — and what keeps the change from
+      being a hard cut in either case.
+
+   Only background and border animate. Transitioning `color` on text as well
+   makes copy look like it is dissolving mid-read.
+   ======================================== */
+
+body,
+.site-header,
+.card-panel,
+.icon-link,
+.theme-toggle {
+  transition: background-color var(--dur-theme) var(--ease-out-quint),
+              border-color var(--dur-theme) var(--ease-out-quint);
+}
+
+/* The toggle's own hover must stay quick — inheriting the slow theme timing
+   above would make it feel unresponsive. */
+.theme-toggle:hover {
+  transition-duration: var(--dur-fast);
+}
+
+/* Keyed on theme in the component, so switching remounts this and replays the
+   animation: the icon turns in as the wipe passes over it. */
+.theme-toggle__icon {
+  display: inline-flex;
+  /* Slightly behind the wipe so the icon turns in as it passes, rather than
+     racing it. Same relationship the chevron has with the page scroll. */
+  animation: theme-icon-in var(--dur-base) var(--ease-out-quint) 120ms both;
+}
+
+/* The rotation matches the chevron's departure gesture in spirit: a small turn
+   that says the control acted, not a spin that demands attention. */
+@keyframes theme-icon-in {
+  from {
+    opacity: 0;
+    transform: rotate(-35deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+/* The wipe replaces the crossfade the browser would run by default; leaving
+   both on double-exposes the page mid-transition. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Outgoing theme sits still underneath while the new one is revealed over it. */
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .site-header,
+  .card-panel,
+  .icon-link,
+  .theme-toggle {
+    transition: none;
+  }
+
+  .theme-toggle__icon {
+    animation: none;
+  }
 }
 
 /* ========================================
