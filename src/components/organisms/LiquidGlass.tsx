@@ -5,15 +5,15 @@ import { SplashScreen } from '../molecules/SplashScreen'
 import { HeroLiquidGlass } from '../molecules/HeroLiquidGlass'
 
 type Props = {
-  onScrollRequest?: () => void
+  onHeroVisibilityChange?: (isHeroVisible: boolean) => void
 }
 
-export function LiquidGlass({ onScrollRequest }: Props) {
+export function LiquidGlass({ onHeroVisibilityChange }: Props) {
   const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
-  
+
   const { isVisible, isHiding, isSplashActive, splashDone } = useLiquidGlassState({
     isMobile,
-    onScrollRequest,
+    onHeroVisibilityChange,
   })
 
   if (!isVisible && isMobile) return null
