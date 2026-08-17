@@ -113,6 +113,118 @@ body {
 }
 
 /* ========================================
+   STACK LAYERS
+
+   Hairline-separated rows rather than cards, assembled as you scroll: the rule
+   draws itself, the label rises, then the tags land in sequence. The staging is
+   the storytelling — no extra copy needed to say "this builds on that".
+   ======================================== */
+
+.stack-layer {
+  position: relative;
+  display: block;
+}
+
+/* The rule is a pseudo-element rather than a border so it can be drawn. */
+.stack-layer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out-quint),
+              background-color var(--dur-base) var(--ease-out-quint);
+}
+
+.stack-layer.is-settled::before {
+  transform: scaleX(1);
+}
+
+.stack-layer:last-child::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out-quint) 200ms;
+}
+
+.stack-layer:last-child.is-settled::after {
+  transform: scaleX(1);
+}
+
+/* Label rises as the rule finishes drawing. */
+.stack-layer__label {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-base) var(--ease-out-quint) 120ms,
+              transform var(--dur-base) var(--ease-out-quint) 120ms;
+}
+
+.stack-layer.is-settled .stack-layer__label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tags land one after another, so the layer fills in rather than appearing.
+   The per-tag delay is compounded on top of the label's, keeping the order
+   rule -> label -> contents. */
+.stack-layer__tag {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition: opacity var(--dur-base) var(--ease-out-quint),
+              transform var(--dur-base) var(--ease-out-quint);
+  transition-delay: calc(220ms + var(--tag-index, 0) * 45ms);
+}
+
+.stack-layer.is-settled .stack-layer__tag {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Once everything has settled, hovering a row dims its siblings. The row you
+   are reading stays lit and its rule warms up — attention without motion. */
+@media (hover: hover) and (pointer: fine) {
+  .stack-layers:hover .stack-layer {
+    opacity: 0.45;
+    transition: opacity var(--dur-base) var(--ease-out-quint);
+  }
+
+  .stack-layers:hover .stack-layer:hover {
+    opacity: 1;
+  }
+
+  .stack-layer:hover::before,
+  .stack-layer:hover + .stack-layer::before,
+  .stack-layer:last-child:hover::after {
+    background: color-mix(in srgb, var(--primary) 45%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-layer::before,
+  .stack-layer:last-child::after {
+    transform: scaleX(1);
+  }
+
+  .stack-layer__label,
+  .stack-layer__tag {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ========================================
    MOTION TOKENS
 
    One easing curve across the whole site. Shared vocabulary is what makes
