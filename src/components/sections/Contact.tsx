@@ -1,67 +1,98 @@
 import { Mail, Github, Linkedin, MapPin } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { Card } from '../atoms/Card'
 import { IconBadge } from '../atoms/IconBadge'
-import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
-import { EXTERNAL_LINKS, SOCIAL_HANDLES } from '../../config/constants'
+import { Reveal } from '../atoms/Reveal'
+import { useMagnetic } from '../hooks/useMagnetic'
+import { EXTERNAL_LINKS, SOCIAL_HANDLES, CONTACT_EMAIL } from '../../config/constants'
 
-export default function Contact() {
-  const sectionRef = useRevealOnScroll<HTMLElement>()
+type ContactCardProps = {
+  icon: LucideIcon
+  label: string
+  value: string
+}
+
+function ContactCard({ icon, label, value }: ContactCardProps) {
+  return (
+    <Card hover className="flex items-center gap-3 h-full">
+      <IconBadge icon={icon} size={20} />
+      <div>
+        <p className="text-sm text-[var(--secondary)]">{label}</p>
+        <p className="text-[var(--text)] font-medium group-hover:text-[var(--primary)] transition-colors">
+          {value}
+        </p>
+      </div>
+    </Card>
+  )
+}
+
+type ContactLinkProps = ContactCardProps & {
+  href: string
+  external?: boolean
+  ariaLabel: string
+  delay: number
+}
+
+function ContactLink({ href, external, ariaLabel, delay, ...card }: ContactLinkProps) {
+  const magneticRef = useMagnetic<HTMLAnchorElement>({ strength: 6, radius: 16 })
 
   return (
-    <section id="contact" ref={sectionRef} className="px-5 md:px-8">
+    <Reveal delay={delay}>
+      <a
+        ref={magneticRef}
+        href={href}
+        className="magnetic block h-full rounded-xl"
+        aria-label={ariaLabel}
+        {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
+      >
+        <ContactCard {...card} />
+      </a>
+    </Reveal>
+  )
+}
+
+export default function Contact() {
+  return (
+    <section id="contact" className="px-5 md:px-8">
       <SectionTitle>Contact</SectionTitle>
       <div className="max-w-3xl space-y-6">
-        <p className="text-[var(--secondary)] text-lg reveal">
-          Available for freelance projects, collaborations, and full-time opportunities.
-        </p>
-        
+        <Reveal delay={60}>
+          <p className="text-[var(--secondary)] text-lg">
+            Available for freelance projects, collaborations, and full-time opportunities.
+          </p>
+        </Reveal>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a href="mailto:adros.dev17@gmail.com" className="reveal" aria-label="Send email to adros.dev17@gmail.com">
-            <Card hover className="flex items-center gap-3">
-              <IconBadge icon={Mail} size={20} />
-              <div>
-                <p className="text-sm text-[var(--secondary)]">Email</p>
-                <p className="text-[var(--text)] font-medium group-hover:text-[var(--primary)] transition-colors">
-                  Send message
-                </p>
-              </div>
-            </Card>
-          </a>
-
-          <a href={EXTERNAL_LINKS.github} target="_blank" rel="noreferrer" className="reveal" aria-label="Visit GitHub profile">
-            <Card hover className="flex items-center gap-3">
-              <IconBadge icon={Github} size={20} />
-              <div>
-                <p className="text-sm text-[var(--secondary)]">GitHub</p>
-                <p className="text-[var(--text)] font-medium group-hover:text-[var(--primary)] transition-colors">
-                  @{SOCIAL_HANDLES.github}
-                </p>
-              </div>
-            </Card>
-          </a>
-
-          <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noreferrer" className="reveal" aria-label="Visit LinkedIn profile">
-            <Card hover className="flex items-center gap-3">
-              <IconBadge icon={Linkedin} size={20} />
-              <div>
-                <p className="text-sm text-[var(--secondary)]">LinkedIn</p>
-                <p className="text-[var(--text)] font-medium group-hover:text-[var(--primary)] transition-colors">
-                  Daniel Ortega
-                </p>
-              </div>
-            </Card>
-          </a>
-
-          <div className="reveal">
-            <Card className="flex items-center gap-3">
-              <IconBadge icon={MapPin} size={20} />
-              <div>
-                <p className="text-sm text-[var(--secondary)]">Location</p>
-                <p className="text-[var(--text)] font-medium">CDMX, México</p>
-              </div>
-            </Card>
-          </div>
+          <ContactLink
+            href={`mailto:${CONTACT_EMAIL}`}
+            ariaLabel={`Send email to ${CONTACT_EMAIL}`}
+            delay={120}
+            icon={Mail}
+            label="Email"
+            value="Send message"
+          />
+          <ContactLink
+            href={EXTERNAL_LINKS.github}
+            external
+            ariaLabel="Visit GitHub profile"
+            delay={190}
+            icon={Github}
+            label="GitHub"
+            value={`@${SOCIAL_HANDLES.github}`}
+          />
+          <ContactLink
+            href={EXTERNAL_LINKS.linkedin}
+            external
+            ariaLabel="Visit LinkedIn profile"
+            delay={260}
+            icon={Linkedin}
+            label="LinkedIn"
+            value="Daniel Ortega"
+          />
+          <Reveal delay={330}>
+            <ContactCard icon={MapPin} label="Location" value="CDMX, México" />
+          </Reveal>
         </div>
       </div>
     </section>

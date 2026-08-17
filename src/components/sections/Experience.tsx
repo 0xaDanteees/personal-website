@@ -1,4 +1,5 @@
 import { SectionTitle } from '../atoms/SectionTitle'
+import { Reveal } from '../atoms/Reveal'
 
 const experiences = [
   {
@@ -68,7 +69,7 @@ export default function Experience() {
       <SectionTitle>Experience</SectionTitle>
       <div className="max-w-2xl space-y-10">
         {experiences.map((exp, idx) => (
-          <div key={idx} className="group">
+          <Reveal key={idx} delay={idx * 60} className="group block">
             <div className="flex justify-between items-baseline flex-wrap gap-1">
               <h3 className="text-lg font-medium text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
                 {exp.role}
@@ -83,7 +84,7 @@ export default function Experience() {
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

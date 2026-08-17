@@ -3,6 +3,7 @@ import { SectionTitle } from '../atoms/SectionTitle'
 import { Card } from '../atoms/Card'
 import { IconBadge } from '../atoms/IconBadge'
 import { Tag } from '../atoms/Tag'
+import { Reveal } from '../atoms/Reveal'
 
 const skillCategories = [
   {
@@ -33,17 +34,19 @@ export default function Skills() {
       <SectionTitle>Tech Stack</SectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
         {skillCategories.map((category, idx) => (
-          <Card key={idx} hover>
-            <div className="flex items-center gap-3 mb-4">
-              <IconBadge icon={category.icon} />
-              <h3 className="text-xl font-semibold text-[var(--text)]">{category.title}</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {category.skills.map((skill, i) => (
-                <Tag key={i}>{skill}</Tag>
-              ))}
-            </div>
-          </Card>
+          <Reveal key={idx} delay={idx * 70}>
+            <Card hover className="h-full">
+              <div className="flex items-center gap-3 mb-4">
+                <IconBadge icon={category.icon} />
+                <h3 className="text-xl font-semibold text-[var(--text)]">{category.title}</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill, i) => (
+                  <Tag key={i}>{skill}</Tag>
+                ))}
+              </div>
+            </Card>
+          </Reveal>
         ))}
       </div>
     </section>

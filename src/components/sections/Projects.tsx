@@ -1,7 +1,7 @@
 import { SectionTitle } from '../atoms/SectionTitle'
 import { Card } from '../atoms/Card'
 import { Tag } from '../atoms/Tag'
-import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
+import { Reveal } from '../atoms/Reveal'
 
 const projects = [
   {
@@ -43,14 +43,13 @@ const projects = [
 ]
 
 export default function Projects() {
-  const sectionRef = useRevealOnScroll<HTMLElement>()
-
   return (
-    <section id="projects" ref={sectionRef} className="px-5 md:px-8">
+    <section id="projects" className="px-5 md:px-8">
       <SectionTitle>Featured Projects</SectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
         {projects.map((project, idx) => (
-          <Card key={idx} hover className="reveal">
+          <Reveal key={idx} delay={(idx % 2) * 70}>
+            <Card hover className="h-full">
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between items-start gap-2 mb-2">
@@ -70,7 +69,8 @@ export default function Projects() {
                 ))}
               </div>
             </div>
-          </Card>
+            </Card>
+          </Reveal>
         ))}
       </div>
     </section>
