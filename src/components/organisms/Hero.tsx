@@ -1,10 +1,33 @@
 import { Animated } from "../atoms/Animated";
 import { LiquidGlass } from "./LiquidGlass";
 import { Github, Linkedin, FileDown, ChevronDown } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSplashTiming } from "../hooks/useSplashTiming";
 import { useHeroScrollSnap } from "../hooks/useHeroScrollSnap";
+import { useMagnetic } from "../hooks/useMagnetic";
 import { EXTERNAL_LINKS } from "../../config/constants";
+
+function MagneticLink({ href, label, icon: Icon }: {
+    href: string
+    label: string
+    icon: LucideIcon
+}) {
+    const ref = useMagnetic<HTMLAnchorElement>({ strength: 7, radius: 20 });
+
+    return (
+        <a
+            ref={ref}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-link magnetic"
+            aria-label={label}
+        >
+            <Icon size={18} aria-hidden="true" />
+        </a>
+    );
+}
 
 /** Matches the chevron's rotation transition in index.css. */
 const CHEVRON_ROTATE_MS = 300;
@@ -82,34 +105,22 @@ export function Hero() {
                     Fintech · RWA · AI Agents · DeFi · IoT
                 </p>
             </div>
-            <div className={`flex gap-3 float-animation relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                <a
+            <div className={`flex gap-3 relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
+                <MagneticLink
                     href={EXTERNAL_LINKS.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="icon-link"
-                    aria-label="Visit my GitHub profile"
-                >
-                    <Github size={18} aria-hidden="true" />
-                </a>
-                <a
+                    label="Visit my GitHub profile"
+                    icon={Github}
+                />
+                <MagneticLink
                     href={EXTERNAL_LINKS.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="icon-link"
-                    aria-label="Visit my LinkedIn profile"
-                >
-                    <Linkedin size={18} aria-hidden="true" />
-                </a>
-                <a
+                    label="Visit my LinkedIn profile"
+                    icon={Linkedin}
+                />
+                <MagneticLink
                     href={EXTERNAL_LINKS.cv}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="icon-link fizzy-button"
-                    aria-label="Download my CV"
-                >
-                    <FileDown size={18} aria-hidden="true" />
-                </a>
+                    label="Download my CV"
+                    icon={FileDown}
+                />
             </div>
 
             <button
