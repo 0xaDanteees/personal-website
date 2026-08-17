@@ -4,9 +4,11 @@ type Props = {
 }
 
 export function Tag({ children, variant = 'default' }: Props) {
+  // Mono here is doing work, not decoration: tech names are identifiers, and the
+  // even rhythm makes a wrapped cluster of them scan as a list.
   const variants = {
-    default: 'px-3 py-1 text-sm rounded-md bg-[var(--surface)] text-[var(--secondary)] border border-[var(--text)]/10 dark:bg-[var(--bg)] dark:border-white/5',
-    primary: 'px-2 py-1 text-xs rounded bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/30 dark:border-[var(--primary)]/20'
+    default: 'px-3 py-1 type-meta rounded-md bg-[var(--surface)] text-[var(--secondary)] border border-[var(--text)]/10',
+    primary: 'px-2 py-1 type-meta text-[0.8125rem] rounded bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/30'
   }
 
   return (
