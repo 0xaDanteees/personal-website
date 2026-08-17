@@ -6,7 +6,24 @@
   --secondary: #93E5AB;
   --accent: #4E878C;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-sans: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Type scale. Fluid where it matters (display, section headings) so the jump
+     between breakpoints is continuous rather than stepped. */
+  --text-display: clamp(3rem, 8vw, 4.5rem);
+  --text-h2: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-h3: 1.25rem;
+  --text-body-lg: 1.125rem;
+  --text-body: 1rem;
+  --text-meta: 0.875rem;
+
+  --leading-display: 1.05;
+  --leading-heading: 1.2;
+  --leading-body: 1.65;
+
+  --tracking-display: -0.03em;
+  --tracking-heading: -0.02em;
 }
 
 [data-theme="light"] {

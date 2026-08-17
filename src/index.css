@@ -1,7 +1,45 @@
 @import "tailwindcss";
 
+/* ========================================
+   TYPEFACES
+
+   Geist, self-hosted and subset to latin + latin-ext. Variable, so one file
+   covers 100–900 instead of shipping a file per weight. Self-hosting also drops
+   the third-party connection to Google Fonts, which was costing a round trip
+   before any text could paint.
+   ======================================== */
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/geist-sans-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  /* swap: text paints immediately in the fallback and restyles on load, rather
+     than blocking. The metric overrides below keep that swap from shifting. */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/geist-mono-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback tuned to Geist's metrics so the swap doesn't reflow the page — this
+   is what keeps CLS at zero while the webfont loads. */
+@font-face {
+  font-family: 'Geist Fallback';
+  src: local('Helvetica Neue'), local('Arial'), local('sans-serif');
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Geist Fallback', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -25,6 +63,53 @@ body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+/* ========================================
+   TYPE SCALE
+
+   Applied as classes rather than element selectors, so the hero keeps its own
+   sizing untouched.
+   ======================================== */
+
+.type-h2 {
+  font-size: var(--text-h2);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  font-weight: 600;
+}
+
+.type-h3 {
+  font-size: var(--text-h3);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.type-body-lg {
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+}
+
+.type-body {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+/* Dates, periods, tech tags: mono earns its place on data, not prose. */
+.type-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Prose measure. Long lines are the most common readability failure on
+   portfolio sites; this caps them near the 65-character ideal. */
+.measure {
+  max-width: 68ch;
 }
 
 /* ========================================
