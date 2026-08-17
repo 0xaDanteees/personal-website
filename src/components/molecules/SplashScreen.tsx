@@ -30,8 +30,10 @@ export function SplashScreen({ variant, isHiding = false }: Props) {
       
       <Monogram variant={variant} />
       <ShimmerOverlay variant={variant} />
-      {!isMobile && <ParticleEffect />}
-      
+      {/* Runs on both: it is inline SVG with no per-frame work, so there is no
+          reason to deny it to phones. Density is tuned per breakpoint in CSS. */}
+      <ParticleEffect />
+
     </div>
   )
 }
