@@ -102,7 +102,7 @@ export function Hero() {
     }, []);
 
     return (
-        <section id="hero" className="min-h-screen flex flex-col justify-center gap-8 px-5 md:px-8 md:pr-[35%] relative overflow-hidden">
+        <section id="hero" className="hero-section flex flex-col justify-center gap-8 px-5 md:px-8 md:pr-[35%] relative overflow-hidden">
             <LiquidGlass onHeroVisibilityChange={handleHeroVisibilityChange} />
             <div className={`space-y-4 relative z-10 transition-all duration-700 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <h1 
