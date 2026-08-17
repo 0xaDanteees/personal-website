@@ -92,14 +92,38 @@
   "skills": {
     "title": "Stack Tecnológico",
     "layers": {
-      "infrastructure": { "title": "Infraestructura", "caption": "Dónde se ejecuta" },
-      "data": { "title": "Datos y Persistencia", "caption": "Dónde vive" },
-      "backend": { "title": "Backend", "caption": "Qué lo sirve" },
-      "queues": { "title": "Colas y Pipelines", "caption": "Qué lo orquesta" },
-      "ai": { "title": "IA y Agentes", "caption": "Qué razona sobre ello" },
-      "interface": { "title": "Interfaz", "caption": "Lo que la gente toca" },
-      "web3": { "title": "Web3 y Compliance", "caption": "Lo que el usuario posee" },
-      "observability": { "title": "Observabilidad y Testing", "caption": "Lo que se mide" }
+      "infrastructure": {
+        "title": "Infraestructura",
+        "caption": "Dónde se ejecuta"
+      },
+      "data": {
+        "title": "Datos y Persistencia",
+        "caption": "Dónde vive"
+      },
+      "backend": {
+        "title": "Backend",
+        "caption": "Qué lo sirve"
+      },
+      "queues": {
+        "title": "Colas y Pipelines",
+        "caption": "Qué lo orquesta"
+      },
+      "ai": {
+        "title": "IA y Agentes",
+        "caption": "Qué razona sobre ello"
+      },
+      "interface": {
+        "title": "Interfaz",
+        "caption": "Lo que la gente toca"
+      },
+      "web3": {
+        "title": "Web3 y Compliance",
+        "caption": "Lo que el usuario posee"
+      },
+      "observability": {
+        "title": "Observabilidad y Testing",
+        "caption": "Lo que se mide"
+      }
     }
   },
   "projects": {
@@ -151,7 +175,10 @@
     "linkedinAria": "Visitar perfil de LinkedIn",
     "location": "Ubicación",
     "locationValue": "Ciudad de México, México",
-    "languages": "Español (nativo) · Inglés (C1) · Italiano (A2)"
+    "languages": "Español (nativo) · Inglés (C1) · Italiano (A2)",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "copyAria": "Copiar dirección de correo al portapapeles"
   },
   "footer": {
     "rights": "Daniel Ortega"

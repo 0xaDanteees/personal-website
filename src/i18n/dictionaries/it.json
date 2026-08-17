@@ -92,14 +92,38 @@
   "skills": {
     "title": "Stack Tecnologico",
     "layers": {
-      "infrastructure": { "title": "Infrastruttura", "caption": "Dove gira" },
-      "data": { "title": "Dati e Persistenza", "caption": "Dove risiede" },
-      "backend": { "title": "Backend", "caption": "Cosa lo serve" },
-      "queues": { "title": "Code e Pipeline", "caption": "Cosa lo orchestra" },
-      "ai": { "title": "AI e Agenti", "caption": "Cosa ci ragiona sopra" },
-      "interface": { "title": "Interfaccia", "caption": "Ciò che le persone toccano" },
-      "web3": { "title": "Web3 e Compliance", "caption": "Ciò che gli utenti possiedono" },
-      "observability": { "title": "Osservabilità e Testing", "caption": "Ciò che viene misurato" }
+      "infrastructure": {
+        "title": "Infrastruttura",
+        "caption": "Dove gira"
+      },
+      "data": {
+        "title": "Dati e Persistenza",
+        "caption": "Dove risiede"
+      },
+      "backend": {
+        "title": "Backend",
+        "caption": "Cosa lo serve"
+      },
+      "queues": {
+        "title": "Code e Pipeline",
+        "caption": "Cosa lo orchestra"
+      },
+      "ai": {
+        "title": "AI e Agenti",
+        "caption": "Cosa ci ragiona sopra"
+      },
+      "interface": {
+        "title": "Interfaccia",
+        "caption": "Ciò che le persone toccano"
+      },
+      "web3": {
+        "title": "Web3 e Compliance",
+        "caption": "Ciò che gli utenti possiedono"
+      },
+      "observability": {
+        "title": "Osservabilità e Testing",
+        "caption": "Ciò che viene misurato"
+      }
     }
   },
   "projects": {
@@ -151,7 +175,10 @@
     "linkedinAria": "Visita il profilo LinkedIn",
     "location": "Sede",
     "locationValue": "Città del Messico, Messico",
-    "languages": "Spagnolo (madrelingua) · Inglese (C1) · Italiano (A2)"
+    "languages": "Spagnolo (madrelingua) · Inglese (C1) · Italiano (A2)",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "copyAria": "Copia l'indirizzo email negli appunti"
   },
   "footer": {
     "rights": "Daniel Ortega"

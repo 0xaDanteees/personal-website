@@ -92,14 +92,38 @@
   "skills": {
     "title": "Tech Stack",
     "layers": {
-      "infrastructure": { "title": "Infrastructure", "caption": "Where it runs" },
-      "data": { "title": "Data & Persistence", "caption": "Where it lives" },
-      "backend": { "title": "Backend", "caption": "What serves it" },
-      "queues": { "title": "Queues & Pipelines", "caption": "What orchestrates it" },
-      "ai": { "title": "AI & Agents", "caption": "What reasons over it" },
-      "interface": { "title": "Interface", "caption": "What people touch" },
-      "web3": { "title": "Web3 & Compliance", "caption": "What users own" },
-      "observability": { "title": "Observability & Testing", "caption": "What is measured" }
+      "infrastructure": {
+        "title": "Infrastructure",
+        "caption": "Where it runs"
+      },
+      "data": {
+        "title": "Data & Persistence",
+        "caption": "Where it lives"
+      },
+      "backend": {
+        "title": "Backend",
+        "caption": "What serves it"
+      },
+      "queues": {
+        "title": "Queues & Pipelines",
+        "caption": "What orchestrates it"
+      },
+      "ai": {
+        "title": "AI & Agents",
+        "caption": "What reasons over it"
+      },
+      "interface": {
+        "title": "Interface",
+        "caption": "What people touch"
+      },
+      "web3": {
+        "title": "Web3 & Compliance",
+        "caption": "What users own"
+      },
+      "observability": {
+        "title": "Observability & Testing",
+        "caption": "What is measured"
+      }
     }
   },
   "projects": {
@@ -151,7 +175,10 @@
     "linkedinAria": "Visit LinkedIn profile",
     "location": "Location",
     "locationValue": "Mexico City, Mexico",
-    "languages": "Spanish (native) · English (C1) · Italian (A2)"
+    "languages": "Spanish (native) · English (C1) · Italian (A2)",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyAria": "Copy email address to clipboard"
   },
   "footer": {
     "rights": "Daniel Ortega"
