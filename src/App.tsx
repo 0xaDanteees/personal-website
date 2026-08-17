@@ -4,7 +4,7 @@ import Home from './pages/Home'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] relative overflow-x-hidden">
+    <div className="site-shell min-h-screen bg-[var(--bg)] text-[var(--text)] relative overflow-x-hidden">
       <Header />
       <div className="mx-auto max-w-6xl relative z-10">
         <Home />
