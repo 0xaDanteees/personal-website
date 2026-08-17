@@ -53,12 +53,12 @@ export default function Projects() {
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between items-start gap-2 mb-2">
-                  <h3 className="text-xl font-semibold text-[var(--text)]">{project.title}</h3>
+                  <h3 className="type-h3 text-[var(--text)]">{project.title}</h3>
                   {project.period && (
-                    <span className="text-xs text-[var(--secondary)]/50 whitespace-nowrap mt-1">{project.period}</span>
+                    <span className="type-meta text-[var(--secondary)]/50 whitespace-nowrap mt-1">{project.period}</span>
                   )}
                 </div>
-                <p className="text-sm text-[var(--secondary)] leading-relaxed">
+                <p className="type-body text-[var(--secondary)]">
                   {project.description}
                 </p>
               </div>

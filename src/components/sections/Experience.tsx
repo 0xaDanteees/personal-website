@@ -71,15 +71,15 @@ export default function Experience() {
         {experiences.map((exp, idx) => (
           <Reveal key={idx} delay={idx * 60} className="group block">
             <div className="flex justify-between items-baseline flex-wrap gap-1">
-              <h3 className="text-lg font-medium text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
+              <h3 className="type-h3 text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
                 {exp.role}
               </h3>
-              <span className="text-sm text-[var(--secondary)]/60">{exp.period}</span>
+              <span className="type-meta text-[var(--secondary)]/60">{exp.period}</span>
             </div>
-            <p className="text-sm text-[var(--primary)]/80 mt-0.5 mb-2">{exp.company}</p>
-            <ul className="space-y-1">
+            <p className="type-meta text-[var(--primary)]/80 mt-0.5 mb-3">{exp.company}</p>
+            <ul className="space-y-1.5">
               {exp.bullets.map((b, i) => (
-                <li key={i} className="text-sm text-[var(--secondary)]/70 leading-relaxed pl-3 border-l border-[var(--primary)]/20">
+                <li key={i} className="type-body text-[var(--secondary)]/70 pl-3 border-l border-[var(--primary)]/20">
                   {b}
                 </li>
               ))}

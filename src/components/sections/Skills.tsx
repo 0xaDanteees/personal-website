@@ -38,7 +38,7 @@ export default function Skills() {
             <Card hover className="h-full">
               <div className="flex items-center gap-3 mb-4">
                 <IconBadge icon={category.icon} />
-                <h3 className="text-xl font-semibold text-[var(--text)]">{category.title}</h3>
+                <h3 className="type-h3 text-[var(--text)]">{category.title}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, i) => (

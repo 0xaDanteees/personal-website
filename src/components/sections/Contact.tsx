@@ -18,8 +18,8 @@ function ContactCard({ icon, label, value }: ContactCardProps) {
     <Card hover className="flex items-center gap-3 h-full">
       <IconBadge icon={icon} size={20} />
       <div>
-        <p className="text-sm text-[var(--secondary)]">{label}</p>
-        <p className="text-[var(--text)] font-medium group-hover:text-[var(--primary)] transition-colors">
+        <p className="type-meta text-[var(--secondary)]">{label}</p>
+        <p className="type-body font-medium text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
           {value}
         </p>
       </div>
@@ -58,7 +58,7 @@ export default function Contact() {
       <SectionTitle>Contact</SectionTitle>
       <div className="max-w-3xl space-y-6">
         <Reveal delay={60}>
-          <p className="text-[var(--secondary)] text-lg">
+          <p className="type-body-lg measure text-[var(--secondary)]">
             Available for freelance projects, collaborations, and full-time opportunities.
           </p>
         </Reveal>
