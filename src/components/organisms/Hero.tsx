@@ -7,6 +7,7 @@ import { useSplashTiming } from "../hooks/useSplashTiming";
 import { useHeroScrollSnap } from "../hooks/useHeroScrollSnap";
 import { useMagnetic } from "../hooks/useMagnetic";
 import { EXTERNAL_LINKS } from "../../config/constants";
+import { useI18n } from "../../i18n/useI18n";
 
 function MagneticLink({ href, label, icon: Icon }: {
     href: string
@@ -35,6 +36,7 @@ const CHEVRON_ROTATE_MS = 300;
 const CHEVRON_SETTLE_MS = 400;
 
 export function Hero() {
+    const { t } = useI18n();
     const [animKey, setAnimKey] = useState(0);
     // 'down' bobs in place inviting the scroll; 'up' is the rotated state that
     // points back to the hero and stays visible in the other sections.
@@ -116,26 +118,26 @@ export function Hero() {
                     )}
                 </h1>
                 <p className="text-xl sm:text-2xl text-[var(--primary)] font-light">
-                    Full stack Developer, building secure &amp; user-centric experiences.
+                    {t.hero.tagline}
                 </p>
                 <p className="max-w-md type-meta text-[var(--secondary)]/60">
-                    Fintech · RWA · AI Agents · DeFi · IoT
+                    {t.hero.industries}
                 </p>
             </div>
             <div className={`flex gap-3 relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
                 <MagneticLink
                     href={EXTERNAL_LINKS.github}
-                    label="Visit my GitHub profile"
+                    label={t.hero.github}
                     icon={Github}
                 />
                 <MagneticLink
                     href={EXTERNAL_LINKS.linkedin}
-                    label="Visit my LinkedIn profile"
+                    label={t.hero.linkedin}
                     icon={Linkedin}
                 />
                 <MagneticLink
                     href={EXTERNAL_LINKS.cv}
-                    label="Download my CV"
+                    label={t.hero.cv}
                     icon={FileDown}
                 />
             </div>
@@ -144,7 +146,7 @@ export function Hero() {
                 onClick={handleChevronClick}
                 data-chevron={chevronFacing}
                 className="group absolute top-3/4 left-1/2 chevron-indicator text-[var(--primary)] hover:text-[var(--accent)]"
-                aria-label="Scroll to content"
+                aria-label={t.hero.scroll}
                 tabIndex={showContent && chevronFacing === 'down' ? 0 : -1}
             >
                 <ChevronDown
