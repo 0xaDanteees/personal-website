@@ -1,5 +1,4 @@
 import { Animated } from "../atoms/Animated";
-import { Button } from "../atoms/Button";
 import { LiquidGlass } from "./LiquidGlass";
 import { Github, Linkedin, FileDown, ChevronDown } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -84,20 +83,32 @@ export function Hero() {
                 </p>
             </div>
             <div className={`flex gap-3 float-animation relative z-10 transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                <a href={EXTERNAL_LINKS.github} target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
-                    <Button variant="ghost" aria-label="GitHub">
-                        <Github size={18} aria-hidden="true" />
-                    </Button>
+                <a
+                    href={EXTERNAL_LINKS.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="icon-link"
+                    aria-label="Visit my GitHub profile"
+                >
+                    <Github size={18} aria-hidden="true" />
                 </a>
-                <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">
-                    <Button variant="accent" aria-label="LinkedIn">
-                        <Linkedin size={18} aria-hidden="true" />
-                    </Button>
+                <a
+                    href={EXTERNAL_LINKS.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="icon-link"
+                    aria-label="Visit my LinkedIn profile"
+                >
+                    <Linkedin size={18} aria-hidden="true" />
                 </a>
-                <a href={EXTERNAL_LINKS.cv} target="_blank" rel="noopener noreferrer" aria-label="Download my CV">
-                    <Button variant="ghost" className="fizzy-button" aria-label="Download CV">
-                        <FileDown size={18} aria-hidden="true" />
-                    </Button>
+                <a
+                    href={EXTERNAL_LINKS.cv}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="icon-link fizzy-button"
+                    aria-label="Download my CV"
+                >
+                    <FileDown size={18} aria-hidden="true" />
                 </a>
             </div>
 
