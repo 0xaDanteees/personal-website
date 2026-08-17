@@ -359,6 +359,105 @@ body {
 }
 
 /* ========================================
+   CERTIFICATIONS
+
+   A quiet coda to the experience list: separated by a rule, labelled in mono so
+   it reads as metadata rather than as another role.
+   ======================================== */
+
+.certifications {
+  position: relative;
+  padding-top: 1.75rem;
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity var(--dur-slow) var(--ease-out-quint),
+              transform var(--dur-slow) var(--ease-out-quint);
+}
+
+.certifications.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.certifications:not(.is-visible) {
+  transition: opacity var(--dur-exit-long) var(--ease-exit),
+              transform var(--dur-exit-long) var(--ease-exit);
+}
+
+.certifications::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--text) 10%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out-quint);
+}
+
+.certifications.is-visible::before {
+  transform: scaleX(1);
+}
+
+.certifications__label {
+  display: block;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+}
+
+.certifications__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.certifications__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color var(--dur-fast) var(--ease-out-quint);
+}
+
+.certifications__link:hover {
+  color: var(--primary);
+}
+
+.certifications__link:hover > span {
+  color: var(--primary);
+}
+
+/* The icon leans out on hover — the same "this leads somewhere" gesture used
+   for outbound links elsewhere. */
+.certifications__icon {
+  opacity: 0.4;
+  transition: opacity var(--dur-fast) var(--ease-out-quint),
+              transform var(--dur-fast) var(--ease-out-quint);
+}
+
+.certifications__link:hover .certifications__icon {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certifications {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .certifications::before {
+    transform: scaleX(1);
+  }
+}
+
+/* ========================================
    STACK LAYERS
 
    Hairline-separated rows rather than cards, assembled as you scroll: the rule
