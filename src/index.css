@@ -113,6 +113,252 @@ body {
 }
 
 /* ========================================
+   PROJECT ENTRIES
+
+   Full-width rows sharing the stack-layer grammar: a hairline separator, then
+   title -> description -> stack arriving in that order. The stack is a real
+   <ul>, styled to read as a list of parts rather than a row of chips.
+   ======================================== */
+
+.project-entry {
+  position: relative;
+  display: block;
+  padding: 2rem 0;
+}
+
+.project-entry::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out-quint),
+              background-color var(--dur-base) var(--ease-out-quint);
+}
+
+.project-entry.is-visible::before {
+  transform: scaleX(1);
+}
+
+.project-entry__title,
+.project-entry__period,
+.project-entry__description {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--dur-base) var(--ease-out-quint),
+              transform var(--dur-base) var(--ease-out-quint);
+}
+
+.project-entry__title,
+.project-entry__period {
+  transition-delay: 100ms;
+}
+
+.project-entry__description {
+  transition-delay: 190ms;
+}
+
+.project-entry.is-visible .project-entry__title,
+.project-entry.is-visible .project-entry__period,
+.project-entry.is-visible .project-entry__description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The stack list. Separators are generated, so the markup stays a plain <ul>
+   and screen readers announce it as the list it is. */
+/* Inline-flow rather than flex: an absolutely positioned separator ends up
+   orphaned in the margin whenever the list wraps. Letting the dot be part of the
+   item's own text means it always travels with the word it follows. */
+.project-entry__stack {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  line-height: 1.9;
+}
+
+.project-entry__tech {
+  /* inline-block, not inline: hyphenated names like "pg-boss" and "Node.js"
+     otherwise break mid-word at the hyphen on narrow screens. */
+  display: inline-block;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--primary) 85%, transparent);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out-quint),
+              color var(--dur-fast) var(--ease-out-quint);
+  transition-delay: calc(280ms + var(--tech-index, 0) * 40ms);
+}
+
+.project-entry__tech:not(:last-child)::after {
+  content: ' · ';
+  color: color-mix(in srgb, var(--primary) 40%, transparent);
+  /* Keeps the dot glued to the preceding item when the line breaks. */
+  white-space: nowrap;
+}
+
+/* Inline elements ignore transform, so the stack fades rather than rises. The
+   sequencing still carries the order. */
+.project-entry.is-visible .project-entry__tech {
+  opacity: 1;
+}
+
+/* Hovering an entry warms its rule and lifts the stack, so the row you are on
+   is delimited without a card outline. */
+@media (hover: hover) and (pointer: fine) {
+  .project-entry:hover::before {
+    background: color-mix(in srgb, var(--primary) 45%, transparent);
+  }
+
+  .project-entry:hover .project-entry__tech {
+    color: var(--primary);
+  }
+}
+
+/* ---- Exit: stack first (last item leading), then description, then title ---- */
+
+.project-entry:not(.is-visible) .project-entry__tech {
+  transition: opacity var(--dur-exit) var(--ease-exit),
+              color var(--dur-fast) var(--ease-exit);
+  transition-delay: calc(min((var(--tech-count, 1) - 1 - var(--tech-index, 0)) * var(--stagger-out), 140ms));
+}
+
+.project-entry:not(.is-visible) .project-entry__description {
+  transition: opacity var(--dur-exit) var(--ease-exit),
+              transform var(--dur-exit) var(--ease-exit);
+  transition-delay: 170ms;
+}
+
+.project-entry:not(.is-visible) .project-entry__title,
+.project-entry:not(.is-visible) .project-entry__period {
+  transition: opacity var(--dur-exit) var(--ease-exit),
+              transform var(--dur-exit) var(--ease-exit);
+  transition-delay: 240ms;
+}
+
+.project-entry:not(.is-visible)::before {
+  transition: transform var(--dur-exit) var(--ease-exit) 310ms;
+  transform-origin: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-entry::before {
+    transform: scaleX(1);
+  }
+
+  .project-entry__title,
+  .project-entry__period,
+  .project-entry__description,
+  .project-entry__tech {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ========================================
+   EXPERIENCE ENTRIES
+
+   In: the entry slides in from the left, heading first, bullets unfolding after.
+   Out: bullets collapse back into the heading, then the whole entry leaves the
+   way it came. Reversing the order is what makes scrolling up read as the
+   record closing rather than the content vanishing.
+   ======================================== */
+
+.experience-entry {
+  display: block;
+  opacity: 0;
+  /* A shorter travel than the other sections use. This is a wide, text-heavy
+     block: the further it slides, the more the eye has to re-find the start of
+     each line, which is what made a larger offset feel restless. */
+  transform: translateX(-14px);
+  transition: opacity var(--dur-slow) var(--ease-out-quint),
+              transform var(--dur-slow) var(--ease-out-quint);
+  will-change: opacity, transform;
+}
+
+.experience-entry.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.experience-entry__head {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--dur-base) var(--ease-out-quint) 60ms,
+              transform var(--dur-base) var(--ease-out-quint) 60ms;
+}
+
+.experience-entry.is-visible .experience-entry__head {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bullets fold in place. Height is deliberately NOT animated: collapsing it
+   shrank the document by ~400px mid-exit, so everything below slid up and the
+   browser re-anchored the scroll position under the user. That was the "odd
+   scroll" — a layout shift, not a timing problem.
+
+   Instead the row keeps its box and folds visually: a small lift, a slight
+   horizontal drift and opacity. Nothing here affects layout, so the page stays
+   perfectly still while the section packs itself away. */
+.experience-entry__bullet {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity var(--dur-base) var(--ease-out-quint),
+              transform var(--dur-base) var(--ease-out-quint);
+  transition-delay: calc(160ms + var(--bullet-index, 0) * 55ms);
+  /* Composited hint: these are the only two properties that change. */
+  will-change: opacity, transform;
+}
+
+.experience-entry.is-visible .experience-entry__bullet {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ---- Exit: bullets first (last one leading), then head, then the entry ----
+   Slower and softer than the entrance, with a tight stagger so the whole entry
+   clears in about half a second instead of unwinding bullet by bullet. */
+
+/* Experience gets the longest, gentlest exit of any section: it is the densest
+   block on the page, so it needs the most room to settle. The stagger is capped
+   rather than proportional — a five-bullet entry and a nine-bullet one should
+   take about the same time to clear. */
+
+.experience-entry:not(.is-visible) .experience-entry__bullet {
+  transition: opacity var(--dur-exit-long) var(--ease-exit),
+              transform var(--dur-exit-long) var(--ease-exit);
+  transition-delay: calc(min((var(--bullet-count, 1) - 1 - var(--bullet-index, 0)) * 22ms, 120ms));
+}
+
+.experience-entry:not(.is-visible) .experience-entry__head {
+  transition: opacity var(--dur-exit-long) var(--ease-exit),
+              transform var(--dur-exit-long) var(--ease-exit);
+  transition-delay: 170ms;
+}
+
+.experience-entry:not(.is-visible) {
+  transition: opacity var(--dur-exit-long) var(--ease-exit),
+              transform var(--dur-exit-long) var(--ease-exit);
+  transition-delay: 240ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-entry,
+  .experience-entry__head,
+  .experience-entry__bullet {
+    opacity: 1;
+    max-height: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ========================================
    STACK LAYERS
 
    Hairline-separated rows rather than cards, assembled as you scroll: the rule
@@ -136,7 +382,7 @@ body {
   background: color-mix(in srgb, var(--text) 12%, transparent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform var(--dur-slow) var(--ease-out-quint),
+  transition: transform var(--dur-slow) var(--ease-out-quint) var(--layer-offset, 0ms),
               background-color var(--dur-base) var(--ease-out-quint);
 }
 
@@ -161,17 +407,38 @@ body {
   transform: scaleX(1);
 }
 
-/* Label rises as the rule finishes drawing. */
+/* When several layers cross the threshold in the same frame — which is exactly
+   what happens arriving at the section boundary — their sequences would all
+   start together and the section would snap into place at once. Offsetting each
+   layer by its own index restores the cascade regardless of scroll speed. */
+.stack-layer {
+  --layer-offset: calc(var(--layer-index, 0) * 60ms);
+}
+
+/* Label rises as the rule finishes drawing. On exit it is the last to go, so
+   the title outlives its own contents — the layer empties before it closes. */
 .stack-layer__label {
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity var(--dur-base) var(--ease-out-quint) 120ms,
-              transform var(--dur-base) var(--ease-out-quint) 120ms;
+  transition: opacity var(--dur-base) var(--ease-out-quint),
+              transform var(--dur-base) var(--ease-out-quint);
+  transition-delay: calc(var(--layer-offset) + 120ms);
 }
 
 .stack-layer.is-settled .stack-layer__label {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* The caption goes first on the way out: it is the least load-bearing line, so
+   dropping it first reads as tidying rather than as loss. */
+.stack-layer__caption {
+  transition: opacity var(--dur-fast) var(--ease-out-quint);
+}
+
+.stack-layer:not(.is-settled) .stack-layer__caption {
+  opacity: 0;
+  transition-delay: 0ms;
 }
 
 /* Tags land one after another, so the layer fills in rather than appearing.
@@ -183,12 +450,37 @@ body {
   transform: translateY(8px) scale(0.96);
   transition: opacity var(--dur-base) var(--ease-out-quint),
               transform var(--dur-base) var(--ease-out-quint);
-  transition-delay: calc(220ms + var(--tag-index, 0) * 45ms);
+  transition-delay: calc(var(--layer-offset) + 220ms + var(--tag-index, 0) * 45ms);
 }
 
 .stack-layer.is-settled .stack-layer__tag {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* ---- Exit: the layer unwinds in reverse ----
+   caption (0ms) -> tags, last one first -> label -> rule.
+   Counting the tag index down from the end is what mirrors the entry order. */
+
+.stack-layer:not(.is-settled) .stack-layer__tag {
+  transition: opacity var(--dur-exit) var(--ease-exit),
+              transform var(--dur-exit) var(--ease-exit);
+  /* Capped: with seven-plus tags a per-item stagger would run longer than the
+     scroll that triggered it. The cap keeps the tail from dragging. */
+  transition-delay: calc(60ms + min((var(--tag-count, 1) - 1 - var(--tag-index, 0)) * var(--stagger-out), 180ms));
+}
+
+.stack-layer:not(.is-settled) .stack-layer__label {
+  transition: opacity var(--dur-exit) var(--ease-exit),
+              transform var(--dur-exit) var(--ease-exit);
+  transition-delay: 240ms;
+}
+
+.stack-layer:not(.is-settled)::before,
+.stack-layer:not(.is-settled):last-child::after {
+  transition: transform var(--dur-exit) var(--ease-exit) 320ms;
+  /* Retracts the way it was drawn, rather than collapsing from both ends. */
+  transform-origin: right;
 }
 
 /* Once everything has settled, hovering a row dims its siblings. The row you
@@ -259,6 +551,22 @@ body::before {
   --dur-fast: 200ms;
   --dur-base: 320ms;
   --dur-slow: 600ms;
+
+  /* Exits are slower than entrances and use a gentler curve. Arriving can be
+     crisp because the user is moving toward the content; leaving should feel
+     like it is being set down, not snatched away. Reusing the entrance timing
+     on the way out is what made scrolling up feel abrupt. */
+  --dur-exit: 520ms;
+  /* For the densest sections, where a longer settle reads as composure rather
+     than lag. */
+  --dur-exit-long: 680ms;
+  --ease-exit: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* One stagger vocabulary for every section, so nothing competes. Exit steps
+     are tighter than entry steps: the group should clear in roughly the time a
+     single element takes, rather than unwinding item by item. */
+  --stagger-in: 80ms;
+  --stagger-out: 28ms;
 }
 
 /* ========================================
@@ -275,13 +583,18 @@ body::before {
 .reveal-item {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity var(--dur-slow) var(--ease-out-quint),
-              transform var(--dur-slow) var(--ease-out-quint);
+  /* Exit timing by default; the visible state below swaps in the crisper
+     entrance curve. Declaring it this way means an element that leaves the
+     viewport always eases out rather than snapping back to hidden. */
+  transition: opacity var(--dur-exit) var(--ease-exit),
+              transform var(--dur-exit) var(--ease-exit);
 }
 
 .reveal-item.is-visible {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity var(--dur-slow) var(--ease-out-quint),
+              transform var(--dur-slow) var(--ease-out-quint);
 }
 
 /* Icon-only links in the hero. An <a> rather than a <button> in an <a>, which
@@ -501,6 +814,11 @@ html {
 
 .chevron-indicator[data-chevron="up"] {
   pointer-events: none;
+  /* Fades as it rotates. On short mobile viewports the hero does not always
+     clear the screen before the next section arrives, and a rotated chevron
+     lingering over the content read as a stray control. */
+  opacity: 0;
+  transition: color 0.3s ease, opacity var(--dur-base) var(--ease-out-quint);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1079,6 +1397,19 @@ html {
   height: 100%;
   pointer-events: none;
   color: var(--primary);
+}
+
+/* On a portrait viewport `slice` would crop the left and right columns of the
+   lattice, taking most of the nodes with them. `meet` fits the whole 100x100
+   box instead, so phones get the complete constellation. */
+@media (max-width: 767px) {
+  .filament-web {
+    /* Centred band rather than full bleed: at phone width the full-height web
+       crowds the monogram. */
+    top: 12%;
+    bottom: 12%;
+    height: auto;
+  }
 }
 
 /* Edges draw themselves in, nodes fade up after. Both run once — the splash is
