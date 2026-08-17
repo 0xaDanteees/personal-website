@@ -99,9 +99,9 @@ export function Hero() {
                     )}
                 </h1>
                 <p className="text-xl sm:text-2xl text-[var(--primary)] font-light">
-                    Full stack Developer, building User-centric experiences.
+                    Full stack Developer, building secure &amp; user-centric experiences.
                 </p>
-                <p className="max-w-md text-sm text-[var(--secondary)]/60">
+                <p className="max-w-md type-meta text-[var(--secondary)]/60">
                     Fintech · RWA · AI Agents · DeFi · IoT
                 </p>
             </div>
