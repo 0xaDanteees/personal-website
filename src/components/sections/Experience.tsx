@@ -5,32 +5,20 @@ const experiences = [
   {
     company: 'Rubidex',
     role: 'Fullstack Software Developer',
-    period: 'Feb 2025 — Present',
+    period: '2025 — Present',
     bullets: [
       'Architected secure, compliant backend and cloud infrastructure for a Real Estate & Crypto investment ecosystem.',
       'Designed banking integration for RWA system meeting US compliance requirements.',
       'Architected KYC/KYB solutions for US and CA users.',
-      'Designed database and AWS infrastructure for high reliability and scalability.',
+      'Designed database and AWS infrastructure with Terraform for high reliability and scalability.',
       'Implemented RBAC-based frontend architecture and mitigated all documented security vulnerabilities.',
       'Managed WebSocket system for high-reliability IoT device communication.',
     ],
   },
   {
-    company: 'ASCM',
-    role: 'Fullstack Developer',
-    period: 'May 2024 — Feb 2025',
-    bullets: [
-      'Migrated legacy enterprise payroll system for a legal Mexican entity.',
-      'Architected AI agents with semantic search and conversational capabilities using PostgreSQL pgvector.',
-      'Fine-tuned OCR and Azure AI models for data extraction achieving 96% accuracy.',
-      'Designed AI-driven ETL pipelines achieving 82% reduction in processing times.',
-      'Managed and configured CentOS 9 Stream servers for seamless legacy integration.',
-    ],
-  },
-  {
     company: 'Wallet Insight — Remote contractor',
     role: 'Lead Frontend Developer',
-    period: 'Jun 2024 — Mar 2025',
+    period: '2024 — 2025',
     bullets: [
       'Architected and executed full frontend refactor from pages/app mix to Next.js App Router.',
       'Designed and implemented core trading features with real-time GraphQL data visualization.',
@@ -40,9 +28,21 @@ const experiences = [
     ],
   },
   {
+    company: 'ASCM',
+    role: 'Fullstack Developer',
+    period: '2024 — 2025',
+    bullets: [
+      'Migrated legacy enterprise payroll system for a legal Mexican entity.',
+      'Architected AI agents with semantic search and conversational capabilities using PostgreSQL pgvector.',
+      'Fine-tuned OCR and Azure AI models for data extraction achieving 96% accuracy.',
+      'Designed AI-driven ETL pipelines achieving 82% reduction in processing times.',
+      'Managed and configured CentOS 9 Stream servers for seamless legacy integration.',
+    ],
+  },
+  {
     company: 'Independent',
     role: 'Freelance Developer',
-    period: 'Mar 2023 — Jun 2024',
+    period: '2023 — 2024',
     bullets: [
       'Developed backend infrastructure with Django and responsive frontends with React.',
       'Integrated AWS S3 and SES for lead collection.',
@@ -53,7 +53,7 @@ const experiences = [
   {
     company: 'Independent',
     role: 'Crypto & Blockchain',
-    period: 'May 2020 — Mar 2023',
+    period: '2020 — 2023',
     bullets: [
       'Core team member of an ERC20 token-making agency; developed Solidity contracts.',
       'Built automated wallet tracking scripts and ETL pipelines for crypto market analysis.',
