@@ -6,6 +6,11 @@
   --secondary: #93E5AB;
   --accent: #4E878C;
 
+  /* The one warm note in an otherwise cold palette — the gold edge on Venus
+     against its dark terminator. Used in exactly one place (the hero glow) and
+     only in dark mode; light mode stays as it is. */
+  --warm: #E8A552;
+
   --font-sans: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
