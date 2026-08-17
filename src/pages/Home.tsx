@@ -24,19 +24,19 @@ export default function Home() {
         <main className="flex flex-col">
             <Hero />
             <Suspense fallback={<Skeleton />}>
-                <div className="section-transition section-spacing">
+                <div className="section-spacing">
                     <About />
                 </div>
-                <div className="section-transition section-spacing">
+                <div className="section-spacing">
                     <Experience />
                 </div>
-                <div className="section-transition section-spacing">
+                <div className="section-spacing">
                     <Skills />
                 </div>
-                <div className="section-transition section-spacing">
+                <div className="section-spacing">
                     <Projects />
                 </div>
-                <div className="section-transition section-spacing">
+                <div className="section-spacing">
                     <Contact />
                 </div>
             </Suspense>
