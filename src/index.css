@@ -27,6 +27,43 @@ body {
   font-family: var(--font-sans, system-ui, sans-serif);
 }
 
+/* ========================================
+   MOTION TOKENS
+
+   One easing curve across the whole site. Shared vocabulary is what makes
+   unrelated interactions feel like the same product.
+   ======================================== */
+
+:root {
+  --ease-out-quint: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast: 200ms;
+  --dur-base: 320ms;
+  --dur-slow: 600ms;
+}
+
+/* ========================================
+   MAGNETIC HOVER
+   Driven by --magnetic-x/y, set from useMagnetic.
+   ======================================== */
+
+/* Rules live further down the file, after .icon-link — see MAGNETIC HOVER below. */
+
+/* ========================================
+   SCROLL REVEAL
+   ======================================== */
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out-quint),
+              transform var(--dur-slow) var(--ease-out-quint);
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Icon-only links in the hero. An <a> rather than a <button> in an <a>, which
    was invalid markup and announced its label twice. */
 .icon-link {
@@ -37,8 +74,9 @@ body {
   border-radius: 0.5rem;
   color: var(--text);
   border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
-  transition: background-color 0.2s ease-out, border-color 0.2s ease-out,
-              color 0.2s ease-out, transform 0.2s ease-out;
+  transition: background-color var(--dur-fast) var(--ease-out-quint),
+              border-color var(--dur-fast) var(--ease-out-quint),
+              color var(--dur-fast) var(--ease-out-quint);
 }
 
 .icon-link:hover {
@@ -47,71 +85,82 @@ body {
   background-color: color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
-.icon-link:active {
-  transform: scale(0.97);
+/* Nested so the magnetic transform on the wrapper stays untouched. */
+.icon-link > svg {
+  transition: transform var(--dur-fast) var(--ease-out-quint);
 }
 
-.fizzy-button {
-  position: relative;
-  overflow: hidden;
+.icon-link:active > svg {
+  transform: scale(0.9);
 }
 
-.fizzy-button::before {
+/* ========================================
+   MAGNETIC HOVER
+   Driven by --magnetic-x/y, set from useMagnetic.
+
+   Declared after .icon-link on purpose: both target the same element with equal
+   specificity, so whichever comes last wins the transition-property list. When
+   this sat above, .icon-link's list (colors only) replaced it and transform was
+   left untransitioned — applied raw each frame, which is what made the hover
+   look glitchy.
+   ======================================== */
+
+.magnetic {
+  transform: translate3d(var(--magnetic-x, 0), var(--magnetic-y, 0), 0);
+  /* One duration in both directions. Swapping it on :hover restarted the
+     transition mid-flight every time the pointer crossed the edge, which read as
+     a stutter. Short and linear, because the smoothing already comes from the
+     pointer sampling itself — an eased curve here fights the cursor instead. */
+  transition-property: transform, background-color, border-color, color;
+  transition-duration: 120ms, var(--dur-fast), var(--dur-fast), var(--dur-fast);
+  transition-timing-function: linear, var(--ease-out-quint), var(--ease-out-quint), var(--ease-out-quint);
+  will-change: transform;
+}
+
+/* Set by the hook the moment the pointer leaves range, so the return to rest
+   eases back instead of snapping at tracking speed. */
+.magnetic[data-magnetic="resting"] {
+  transition-duration: var(--dur-base), var(--dur-fast), var(--dur-fast), var(--dur-fast);
+  transition-timing-function: var(--ease-out-quint);
+}
+
+/* ========================================
+   CARD BORDER DRAW
+   A hairline traces the top edge on hover instead of a static accent bar.
+   ======================================== */
+
+.card-draw::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  top: -1px;
+  left: -1px;
+  height: 1px;
+  width: calc(100% + 2px);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary),
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: transform var(--dur-slow) var(--ease-out-quint),
+              opacity var(--dur-fast) var(--ease-out-quint);
+  pointer-events: none;
 }
 
-.fizzy-button:active::before {
-  width: 300px;
-  height: 300px;
+.card-draw:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
 }
 
-.fizzy-button:active {
-  transform: scale(0.95);
-}
-
+/* Drives the per-letter drop in the Animated component. */
 @keyframes fall {
   0% { transform: translateY(-40px); opacity: 0 }
   60% { transform: translateY(6px); opacity: 1 }
   80% { transform: translateY(-2px) }
   100% { transform: translateY(0) }
-}
-
-@keyframes bubble-pop {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1);
-    opacity: 0;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.6s ease-out;
 }
 
 html {
@@ -124,10 +173,9 @@ html {
   outline-offset: 2px;
 }
 
-.section-transition {
-  animation: section-slide-in 0.8s ease-out;
-  animation-fill-mode: both;
-}
+/* `section-transition` used to run `section-slide-in` on mount, which meant every
+   section had already finished animating before the user scrolled to it. The
+   reveal now lives in the Reveal component, keyed to viewport entry. */
 
 .section-spacing {
   margin-bottom: 6rem;
@@ -139,29 +187,11 @@ html {
   }
 }
 
-@keyframes section-slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.float-animation {
-  animation: float 3s ease-in-out infinite;
-}
+/* `float`/`pulse-glow`/`parallax-slow`/`scale-in-scroll` removed: ambient motion
+   that ran on a timer regardless of the user. Motion here now answers an action
+   (hover, scroll), which is what separates a considered interface from a
+   decorated one. The chevron bob is the one exception — it signals affordance. */
 
 @keyframes scroll-bounce {
   0%, 100% {
@@ -250,63 +280,8 @@ html {
   animation: gradient-shift 8s ease infinite;
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(101, 184, 145, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 20px 10px rgba(101, 184, 145, 0);
-  }
-}
-
-.pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.parallax-slow {
-  transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
-}
-.reveal:nth-child(1) {
-  transition-delay: 0.1s;
-}
-
-.reveal:nth-child(2) {
-  transition-delay: 0.2s;
-}
-
-.reveal:nth-child(3) {
-  transition-delay: 0.3s;
-}
-
-.reveal:nth-child(4) {
-  transition-delay: 0.4s;
-}
-
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.scale-in-scroll {
-  animation: scale-in 0.6s ease-out;
-}
+/* The old `.reveal` / `.active` pair (driven by useRevealOnScroll) is superseded
+   by the Reveal component, which owns its own observer and stagger. */
 
 /* ========================================
    LIQUID GLASS EFFECT
@@ -884,5 +859,31 @@ html {
   100% {
     transform: translate(80px, -150px) scale(0.5);
     opacity: 0;
+  }
+}
+/* ========================================
+   REDUCED MOTION
+
+   Site-wide fallback. Transforms are neutralised rather than just shortened, so
+   nothing is left mid-translate, and reveals resolve to their visible state.
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+
+  .magnetic {
+    transform: none;
   }
 }
