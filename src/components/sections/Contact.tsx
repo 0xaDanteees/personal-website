@@ -94,6 +94,12 @@ export default function Contact() {
             <ContactCard icon={MapPin} label="Location" value="CDMX, México" />
           </Reveal>
         </div>
+
+        <Reveal delay={400}>
+          <p className="type-meta text-[var(--secondary)]/60">
+            Spanish (native) · English (C1) · Italian (A2)
+          </p>
+        </Reveal>
       </div>
     </section>
   )
