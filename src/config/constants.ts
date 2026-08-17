@@ -10,3 +10,13 @@ export const CONTACT_EMAIL = 'adros.dev17@gmail.com'
 export const SOCIAL_HANDLES = {
   github: '0xaDanteees',
 } as const
+
+export const CERTIFICATIONS = [
+  {
+    name: 'Google Data Analytics',
+    issuer: 'Coursera',
+    year: '2023',
+    credentialId: 'N7K4JQR8BHZA',
+    url: 'https://www.coursera.org/account/accomplishments/specialization/certificate/N7K4JQR8BHZA',
+  },
+] as const
