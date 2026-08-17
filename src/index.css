@@ -150,8 +150,63 @@ html {
   }
 }
 
-.scroll-indicator {
+/* ========================================
+   CHEVRON SCROLL INDICATOR
+
+   The rotation is the gesture that leads the page: it fires first, finishes,
+   and only then does the section change. Two facings:
+   down -> bobs in place, inviting the scroll
+   up   -> rotated, points back to the hero, stays visible elsewhere
+   ======================================== */
+
+.chevron-indicator {
+  /* Horizontal centering lives here rather than on a Tailwind translate util,
+     because the states below rewrite `transform` wholesale and would drop it. */
+  transform: translateX(-50%);
+  transition: color 0.3s ease;
+}
+
+.chevron-glyph {
+  display: block;
+  /* Duration is mirrored by CHEVRON_ROTATE_MS in Hero.tsx — the scroll waits
+     exactly this long before moving the page. */
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Down: the bob is the resting invitation. */
+.chevron-indicator[data-chevron="down"] .chevron-glyph {
   animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+/* Hover/focus previews the departure: the bob stops and the glyph leans into
+   the direction it is about to travel. */
+.chevron-indicator[data-chevron="down"]:hover .chevron-glyph,
+.chevron-indicator[data-chevron="down"]:focus-visible .chevron-glyph {
+  /* Cancelled, not paused: a paused animation still wins over this transform
+     and would freeze the bob at an arbitrary point in its cycle. */
+  animation: none;
+  transform: translateY(6px) scale(1.08);
+}
+
+/* Up: the departure gesture. It scrolls out of view with the hero, so this is
+   only ever seen mid-rotation, on the way out. */
+.chevron-indicator[data-chevron="up"] .chevron-glyph {
+  animation: none;
+  transform: rotate(180deg);
+}
+
+.chevron-indicator[data-chevron="up"] {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron-glyph {
+    transition-duration: 0.01ms;
+  }
+
+  .chevron-indicator[data-chevron="down"] .chevron-glyph {
+    animation: none;
+  }
 }
 
 @keyframes gradient-shift {
