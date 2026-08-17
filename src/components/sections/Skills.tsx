@@ -1,52 +1,134 @@
-import { Code2, Database, Cloud, Blocks } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { SectionTitle } from '../atoms/SectionTitle'
-import { Card } from '../atoms/Card'
-import { IconBadge } from '../atoms/IconBadge'
 import { Tag } from '../atoms/Tag'
-import { Reveal } from '../atoms/Reveal'
 
-const skillCategories = [
+/**
+ * Ordered as a system gets built, from the ground up: infrastructure, then the
+ * data it holds, the services on top, the intelligence layered onto those, and
+ * finally the interface. Reading top to bottom tells that story, which is what
+ * a flat grid of eight cards could not do.
+ *
+ * Every entry appears exactly once — a tool repeated across categories reads as
+ * padding and costs the list its credibility.
+ */
+const stackLayers = [
   {
-    title: 'Frontend',
-    icon: Code2,
-    skills: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'WebSockets', 'GraphQL']
+    title: 'Infrastructure',
+    caption: 'Where it runs',
+    skills: ['AWS', 'Terraform', 'GCP', 'Azure', 'Docker', 'CentOS / Httpd', 'Vercel'],
+  },
+  {
+    title: 'Data & Persistence',
+    caption: 'Where it lives',
+    skills: ['PostgreSQL', 'Neo4j', 'Redis', 'pgvector', 'SQLAlchemy'],
   },
   {
     title: 'Backend',
-    icon: Database,
-    skills: ['Python', 'Django', 'FastAPI', 'Node.js / Express', 'PostgreSQL', 'pgvector', 'SQLAlchemy']
+    caption: 'What serves it',
+    skills: ['Python', 'FastAPI', 'Django', 'Node.js / Express', 'GraphQL', 'WebSockets', 'SSE'],
   },
   {
-    title: 'Cloud & Infra',
-    icon: Cloud,
-    skills: ['AWS', 'Azure', 'Docker', 'CentOS / Httpd', 'Vercel', 'Sentry']
+    title: 'Queues & Pipelines',
+    caption: 'What orchestrates it',
+    skills: ['BullMQ', 'RabbitMQ', 'Celery', 'pg-boss', 'ETL', 'Selenium', 'Playwright'],
   },
   {
-    title: 'Web3 & DeFi',
-    icon: Blocks,
-    skills: ['Solidity', 'ethers.js', 'SIWE', 'BitQuery', 'EVM / Ethereum', 'MetaMask']
+    title: 'AI & Agents',
+    caption: 'What reasons over it',
+    skills: ['RAG', 'Agentic Workflows', 'Semantic Search', 'Claude', 'OpenAI', 'Azure Document Intelligence', 'OCR'],
+  },
+  {
+    title: 'Interface',
+    caption: 'What people touch',
+    skills: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'Atomic Design'],
+  },
+  {
+    title: 'Web3 & Compliance',
+    caption: 'What users own',
+    skills: ['Solidity', 'ethers.js', 'SIWE', 'EVM / Ethereum', 'MetaMask', 'BitQuery', 'KYC / KYB', 'ACH'],
+  },
+  {
+    title: 'Observability & Testing',
+    caption: 'What is measured',
+    skills: ['Sentry', 'CloudWatch', 'Pytest', 'Jest', 'Google Analytics', 'AdSense', 'Adsterra'],
   },
 ]
+
+type LayerProps = {
+  layer: (typeof stackLayers)[number]
+  index: number
+}
+
+/**
+ * Each layer settles into place on its own: the rule draws itself left to right,
+ * the label rises, and the tags land one after another. Sequencing them — rather
+ * than fading the whole row in at once — is what makes the section read as a
+ * stack being assembled while you scroll.
+ */
+function StackLayer({ layer, index }: LayerProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [settled, setSettled] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setSettled(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSettled(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.25, rootMargin: '0px 0px -80px 0px' }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className={`stack-layer ${settled ? 'is-settled' : ''}`}
+      style={{ '--layer-index': index } as React.CSSProperties}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[13rem_1fr] gap-x-8 gap-y-3 py-6">
+        <div className="stack-layer__label">
+          <h3 className="type-h3 text-[var(--text)]">{layer.title}</h3>
+          <p className="type-meta text-[var(--secondary)]/50 mt-0.5">{layer.caption}</p>
+        </div>
+        <div className="flex flex-wrap gap-2 content-start">
+          {layer.skills.map((skill, i) => (
+            <span
+              key={skill}
+              className="stack-layer__tag"
+              style={{ '--tag-index': i } as React.CSSProperties}
+            >
+              <Tag>{skill}</Tag>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function Skills() {
   return (
     <section id="skills" className="px-5 md:px-8">
       <SectionTitle>Tech Stack</SectionTitle>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
-        {skillCategories.map((category, idx) => (
-          <Reveal key={idx} delay={idx * 70}>
-            <Card hover className="h-full">
-              <div className="flex items-center gap-3 mb-4">
-                <IconBadge icon={category.icon} />
-                <h3 className="type-h3 text-[var(--text)]">{category.title}</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, i) => (
-                  <Tag key={i}>{skill}</Tag>
-                ))}
-              </div>
-            </Card>
-          </Reveal>
+
+      {/* Dimming the siblings on hover isolates the row being read, so the
+          section stays scannable even once every layer has settled. */}
+      <div className="max-w-4xl stack-layers">
+        {stackLayers.map((layer, idx) => (
+          <StackLayer key={layer.title} layer={layer} index={idx} />
         ))}
       </div>
     </section>
