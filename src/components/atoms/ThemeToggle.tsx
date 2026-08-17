@@ -1,9 +1,12 @@
 import { Moon, Sun } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { useI18n } from "../../i18n/useI18n";
+import { interpolate } from "../../i18n/interpolate";
 
 type Theme = 'dark' | 'light'
 
 export function ThemeToggle() {
+    const { t } = useI18n();
     const [theme, setTheme] = useState<Theme>(() =>
         (document.documentElement.dataset.theme as Theme) || 'dark'
     );
@@ -78,9 +81,11 @@ export function ThemeToggle() {
         <button
             ref={buttonRef}
             onClick={toggle}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            aria-label={interpolate(t.nav.toggleTheme, {
+                theme: theme === 'dark' ? t.nav.themeLight : t.nav.themeDark,
+            })}
             className="theme-toggle rounded-md px-3 py-2 text-sm bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--primary)] hover:text-[var(--bg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-[var(--bg)]"
-            title="Toggle theme"
+            title={interpolate(t.nav.toggleTheme, { theme: theme === 'dark' ? t.nav.themeLight : t.nav.themeDark })}
         >
             <span className="theme-toggle__icon" key={theme}>
                 {theme === 'dark' ? <Moon size={20} aria-hidden="true" /> : <Sun size={20} aria-hidden="true" />}

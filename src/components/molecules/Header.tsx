@@ -1,6 +1,10 @@
 import { ThemeToggle } from "../atoms/ThemeToggle"
+import { LanguageToggle } from "../atoms/LanguageToggle"
+import { useI18n } from "../../i18n/useI18n"
 
 export function Header() {
+    const { t } = useI18n()
+
     const scrollToSection = (id: string) => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
@@ -16,18 +20,19 @@ export function Header() {
                 <button
                     onClick={() => scrollToSection('hero')}
                     className="text-base md:text-lg font-bold text-[var(--text)] hover:text-[var(--primary)] transition-colors"
-                    aria-label="Go to home section"
+                    aria-label={t.nav.home}
                 >
                     DO
                 </button>
-                <div className="flex items-center gap-4 md:gap-6">
+                <div className="flex items-center gap-3 md:gap-5">
                     <button
                         onClick={() => scrollToSection('contact')}
-                        className="type-body text-sm text-[var(--text)]/70 hover:text-[var(--primary)] transition-colors font-medium"
-                        aria-label="Go to contact section"
+                        className="type-body text-sm text-[var(--text)]/70 hover:text-[var(--primary)] hover:underline transition-colors font-medium"
+                        aria-label={t.nav.contactAria}
                     >
-                        Contact
+                        {t.nav.contact}
                     </button>
+                    <LanguageToggle />
                     <ThemeToggle />
                 </div>
             </nav>
