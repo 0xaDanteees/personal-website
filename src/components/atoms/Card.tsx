@@ -10,10 +10,10 @@ export function Card({ children, className, hover = false }: Props) {
   return (
     <div
       className={clsx(
-        'relative p-6 rounded-xl',
+        'relative p-6 rounded-xl overflow-hidden',
         'border border-[var(--text)]/10 bg-[var(--surface)]',
         'transition-[background-color,border-color] duration-300 ease-out',
-        hover && 'group hover:border-[var(--primary)]/40 hover:bg-[var(--primary)]/5',
+        hover && 'group card-draw hover:border-[var(--primary)]/40 hover:bg-[var(--primary)]/5',
         className
       )}
     >
