@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "title": "Daniel Ortega - Full-stack Developer | React, Django, Node.js & Web3",
+    "description": "Full-stack developer specializing in React, Django, Node.js, and Web3, with backend architecture, cloud infrastructure and AI agents. Building innovative digital experiences with modern technologies. Available for freelance projects and collaborations.",
+    "locale": "en_US"
+  },
+  "nav": {
+    "home": "Go to home section",
+    "contact": "Contact",
+    "contactAria": "Go to contact section",
+    "toggleTheme": "Switch to {theme} theme",
+    "themeDark": "dark",
+    "themeLight": "light",
+    "language": "Language",
+    "languageAria": "Change language"
+  },
+  "hero": {
+    "tagline": "Full stack Developer, building secure & user-centric experiences.",
+    "industries": "Fintech · RWA · AI Agents · DeFi · IoT",
+    "github": "Visit my GitHub profile",
+    "linkedin": "Visit my LinkedIn profile",
+    "cv": "Download my CV",
+    "scroll": "Scroll to content"
+  },
+  "about": {
+    "title": "About Me",
+    "lead": "I build scalable web applications with a focus on performance and user experience.",
+    "body": "Career spans <k>crypto infrastructure</k>, <k>IoT</k>, <k>ETL pipelines</k>, web scraping, and <k>AI agents</k> for compliance and legal workflows. Contributed as frontend lead on a DeFi trading platform and currently driving backend architecture and infrastructure decisions on a Real Estate tokenization (RWA) platform."
+  },
+  "experience": {
+    "title": "Experience",
+    "certifications": "Certifications",
+    "credentialAria": "View {name} credential from {issuer}, issued {year}",
+    "present": "Present",
+    "roles": {
+      "rubidex": {
+        "role": "Fullstack Software Developer",
+        "company": "Rubidex",
+        "bullets": [
+          "Architected secure, compliant backend and cloud infrastructure for a Real Estate & Crypto investment ecosystem.",
+          "Designed banking integration for RWA system meeting US compliance requirements.",
+          "Architected KYC/KYB solutions for US and CA users.",
+          "Designed database and AWS infrastructure with Terraform for high reliability and scalability.",
+          "Implemented RBAC-based frontend architecture and mitigated all documented security vulnerabilities.",
+          "Managed WebSocket system for high-reliability IoT device communication."
+        ]
+      },
+      "walletInsight": {
+        "role": "Lead Frontend Developer",
+        "company": "Wallet Insight — Remote contractor",
+        "bullets": [
+          "Architected and executed full frontend refactor from pages/app mix to Next.js App Router.",
+          "Designed and implemented core trading features with real-time GraphQL data visualization.",
+          "Integrated WebSocket connections for live market data with a high-performance Go proxy.",
+          "Built SIWE + JWT authentication for a DeFi trading volume-aggregator platform.",
+          "Part of the founding team before pre-seed at $2.5M valuation."
+        ]
+      },
+      "ascm": {
+        "role": "Fullstack Developer",
+        "company": "ASCM",
+        "bullets": [
+          "Migrated legacy enterprise payroll system for a legal Mexican entity.",
+          "Architected AI agents with semantic search and conversational capabilities using PostgreSQL pgvector.",
+          "Fine-tuned OCR and Azure AI models for data extraction achieving 96% accuracy.",
+          "Designed AI-driven ETL pipelines achieving 82% reduction in processing times.",
+          "Managed and configured CentOS 9 Stream servers for seamless legacy integration."
+        ]
+      },
+      "freelance": {
+        "role": "Freelance Developer",
+        "company": "Independent",
+        "bullets": [
+          "Developed backend infrastructure with Django and responsive frontends with React.",
+          "Integrated AWS S3 and SES for lead collection.",
+          "Crafted data mining scripts in Python for heavy machinery, insurance, and crypto industries.",
+          "Built custom datasets for private clients."
+        ]
+      },
+      "crypto": {
+        "role": "Crypto & Blockchain",
+        "company": "Independent",
+        "bullets": [
+          "Core team member of an ERC20 token-making agency; developed Solidity contracts.",
+          "Built automated wallet tracking scripts and ETL pipelines for crypto market analysis.",
+          "Developed algorithmic trading systems with real-time order execution and risk management frameworks.",
+          "Integrated third-party APIs (FTX, Bybit) and conducted statistical analysis for non-directional strategies."
+        ]
+      }
+    }
+  },
+  "skills": {
+    "title": "Tech Stack",
+    "layers": {
+      "infrastructure": { "title": "Infrastructure", "caption": "Where it runs" },
+      "data": { "title": "Data & Persistence", "caption": "Where it lives" },
+      "backend": { "title": "Backend", "caption": "What serves it" },
+      "queues": { "title": "Queues & Pipelines", "caption": "What orchestrates it" },
+      "ai": { "title": "AI & Agents", "caption": "What reasons over it" },
+      "interface": { "title": "Interface", "caption": "What people touch" },
+      "web3": { "title": "Web3 & Compliance", "caption": "What users own" },
+      "observability": { "title": "Observability & Testing", "caption": "What is measured" }
+    }
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "items": {
+      "foundry": {
+        "title": "Foundry AI for Drug Development",
+        "description": "Agentic workflows with log auditing over clinical data. Insights for preclinical research powered by pg-boss queues orchestrate distributed scraping jobs, and a Neo4j knowledge graph backs relationship queries across sources."
+      },
+      "companion": {
+        "title": "Agentic Companion Platform",
+        "description": "FastAPI microservices system with API gateway, SQLAlchemy + PostgreSQL, Vercel deployment, and integrated chat & voice AI with streaming."
+      },
+      "poleana": {
+        "title": "PoleanaMX",
+        "description": "Took over an existing frontend and refactored it onto Atomic Design principles, cut WebSocket consumption overhead, and integrated Google Analytics, AdSense and Adsterra."
+      },
+      "voice": {
+        "title": "Agentic Voice Assistant",
+        "description": "Agentic voice assistant for a US restaurant chain capable of taking orders and advertising new menus, built with OpenAI and Vapi."
+      },
+      "defi": {
+        "title": "DeFi Trading Platform",
+        "description": "Decentralized trading platform with real-time market data, SIWE + JWT authentication, BitQuery integration, and high-performance Go WebSocket proxy."
+      },
+      "legalAudit": {
+        "title": "AI Agents & ETL for Legal Audit",
+        "description": "AI-driven ETL pipelines and RAG systems for legal audit workflows achieving 82% reduction in processing times and 96% OCR accuracy."
+      },
+      "ascmPipelines": {
+        "title": "ASCM Data Pipelines",
+        "description": "Automated contract validation, preprocessing pipelines for public procurement, PDF annotation UI, schema optimization, and improved RAG scoring."
+      },
+      "tradingBots": {
+        "title": "Crypto Trading Bots & Algorithms",
+        "description": "Algorithmic trading systems with on-chain analysis, risk monitoring, Solidity contract analysis, and quantitative non-directional strategies."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "lead": "Available for freelance projects, collaborations, and full-time opportunities.",
+    "email": "Email",
+    "emailValue": "Send message",
+    "emailAria": "Send email to {email}",
+    "github": "GitHub",
+    "githubAria": "Visit GitHub profile",
+    "linkedin": "LinkedIn",
+    "linkedinAria": "Visit LinkedIn profile",
+    "location": "Location",
+    "locationValue": "Mexico City, Mexico",
+    "languages": "Spanish (native) · English (C1) · Italian (A2)"
+  },
+  "footer": {
+    "rights": "Daniel Ortega"
+  }
+}

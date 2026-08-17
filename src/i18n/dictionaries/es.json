@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "title": "Daniel Ortega - Desarrollador Full-stack | React, Django, Node.js y Web3",
+    "description": "Desarrollador full-stack especializado en React, Django, Node.js y Web3, con arquitectura backend, infraestructura cloud y agentes de IA. Disponible para proyectos freelance y colaboraciones.",
+    "locale": "es_MX"
+  },
+  "nav": {
+    "home": "Ir a la sección de inicio",
+    "contact": "Contacto",
+    "contactAria": "Ir a la sección de contacto",
+    "toggleTheme": "Cambiar al tema {theme}",
+    "themeDark": "oscuro",
+    "themeLight": "claro",
+    "language": "Idioma",
+    "languageAria": "Cambiar de idioma"
+  },
+  "hero": {
+    "tagline": "Desarrollador full stack, construyendo experiencias seguras y centradas en el usuario.",
+    "industries": "Fintech · RWA · Agentes de IA · DeFi · IoT",
+    "github": "Visita mi perfil de GitHub",
+    "linkedin": "Visita mi perfil de LinkedIn",
+    "cv": "Descarga mi CV",
+    "scroll": "Bajar al contenido"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "lead": "Construyo aplicaciones web escalables con foco en el rendimiento y la experiencia de usuario.",
+    "body": "Mi trayectoria abarca <k>infraestructura cripto</k>, <k>IoT</k>, <k>pipelines ETL</k>, web scraping y <k>agentes de IA</k> para flujos de compliance y legales. Fui líder de frontend en una plataforma de trading DeFi y actualmente dirijo la arquitectura backend y las decisiones de infraestructura en una plataforma de tokenización inmobiliaria (RWA)."
+  },
+  "experience": {
+    "title": "Experiencia",
+    "certifications": "Certificaciones",
+    "credentialAria": "Ver credencial de {name} emitida por {issuer} en {year}",
+    "present": "Actualidad",
+    "roles": {
+      "rubidex": {
+        "role": "Desarrollador de Software Fullstack",
+        "company": "Rubidex",
+        "bullets": [
+          "Diseñé la arquitectura de backend e infraestructura cloud segura y conforme a normativa para un ecosistema de inversión inmobiliaria y cripto.",
+          "Diseñé la integración bancaria del sistema RWA cumpliendo los requisitos de compliance de EE. UU.",
+          "Diseñé soluciones de KYC/KYB para usuarios de EE. UU. y Canadá.",
+          "Diseñé la base de datos y la infraestructura AWS con Terraform para alta fiabilidad y escalabilidad.",
+          "Implementé una arquitectura frontend basada en RBAC y mitigué todas las vulnerabilidades de seguridad documentadas.",
+          "Gestioné el sistema de WebSockets para comunicación de alta fiabilidad con dispositivos IoT."
+        ]
+      },
+      "walletInsight": {
+        "role": "Líder de Desarrollo Frontend",
+        "company": "Wallet Insight — Contratista remoto",
+        "bullets": [
+          "Diseñé y ejecuté la refactorización completa del frontend, migrando de una mezcla de pages/app al App Router de Next.js.",
+          "Diseñé e implementé las funcionalidades principales de trading con visualización de datos en tiempo real mediante GraphQL.",
+          "Integré conexiones WebSocket para datos de mercado en vivo con un proxy de alto rendimiento en Go.",
+          "Desarrollé la autenticación SIWE + JWT para una plataforma agregadora de volumen de trading DeFi.",
+          "Parte del equipo fundador antes de la ronda pre-seed con una valoración de 2.5 M USD."
+        ]
+      },
+      "ascm": {
+        "role": "Desarrollador Fullstack",
+        "company": "ASCM",
+        "bullets": [
+          "Migré el sistema legacy de nóminas empresariales de una entidad jurídica mexicana.",
+          "Diseñé agentes de IA con búsqueda semántica y capacidades conversacionales usando pgvector de PostgreSQL.",
+          "Afiné modelos de OCR y Azure AI para extracción de datos alcanzando un 96 % de precisión.",
+          "Diseñé pipelines ETL impulsados por IA logrando una reducción del 82 % en los tiempos de procesamiento.",
+          "Gestioné y configuré servidores CentOS 9 Stream para una integración fluida con sistemas legacy."
+        ]
+      },
+      "freelance": {
+        "role": "Desarrollador Freelance",
+        "company": "Independiente",
+        "bullets": [
+          "Desarrollé infraestructura backend con Django y frontends responsive con React.",
+          "Integré AWS S3 y SES para captación de leads.",
+          "Creé scripts de minería de datos en Python para los sectores de maquinaria pesada, seguros y cripto.",
+          "Construí datasets a medida para clientes privados."
+        ]
+      },
+      "crypto": {
+        "role": "Cripto y Blockchain",
+        "company": "Independiente",
+        "bullets": [
+          "Miembro del equipo principal de una agencia de creación de tokens ERC20; desarrollé contratos en Solidity.",
+          "Construí scripts automatizados de seguimiento de wallets y pipelines ETL para análisis del mercado cripto.",
+          "Desarrollé sistemas de trading algorítmico con ejecución de órdenes en tiempo real y frameworks de gestión de riesgo.",
+          "Integré APIs de terceros (FTX, Bybit) y realicé análisis estadístico para estrategias no direccionales."
+        ]
+      }
+    }
+  },
+  "skills": {
+    "title": "Stack Tecnológico",
+    "layers": {
+      "infrastructure": { "title": "Infraestructura", "caption": "Dónde se ejecuta" },
+      "data": { "title": "Datos y Persistencia", "caption": "Dónde vive" },
+      "backend": { "title": "Backend", "caption": "Qué lo sirve" },
+      "queues": { "title": "Colas y Pipelines", "caption": "Qué lo orquesta" },
+      "ai": { "title": "IA y Agentes", "caption": "Qué razona sobre ello" },
+      "interface": { "title": "Interfaz", "caption": "Lo que la gente toca" },
+      "web3": { "title": "Web3 y Compliance", "caption": "Lo que el usuario posee" },
+      "observability": { "title": "Observabilidad y Testing", "caption": "Lo que se mide" }
+    }
+  },
+  "projects": {
+    "title": "Proyectos Destacados",
+    "items": {
+      "foundry": {
+        "title": "Foundry AI for Drug Development",
+        "description": "Flujos agénticos con auditoría de logs sobre datos clínicos. Insights para investigación preclínica impulsados por colas pg-boss que orquestan trabajos de scraping distribuido, con un grafo de conocimiento Neo4j que sustenta las consultas de relaciones entre fuentes."
+      },
+      "companion": {
+        "title": "Agentic Companion Platform",
+        "description": "Sistema de microservicios en FastAPI con API gateway, SQLAlchemy + PostgreSQL, despliegue en Vercel e integración de IA de chat y voz con streaming."
+      },
+      "poleana": {
+        "title": "PoleanaMX",
+        "description": "Tomé un frontend existente y lo refactoricé siguiendo principios de Atomic Design, reduje la sobrecarga de consumo de WebSockets e integré Google Analytics, AdSense y Adsterra."
+      },
+      "voice": {
+        "title": "Agentic Voice Assistant",
+        "description": "Asistente de voz agéntico para una cadena de restaurantes de EE. UU., capaz de tomar pedidos y promocionar nuevos menús, construido con OpenAI y Vapi."
+      },
+      "defi": {
+        "title": "DeFi Trading Platform",
+        "description": "Plataforma de trading descentralizada con datos de mercado en tiempo real, autenticación SIWE + JWT, integración con BitQuery y proxy WebSocket de alto rendimiento en Go."
+      },
+      "legalAudit": {
+        "title": "Agentes de IA y ETL para Auditoría Legal",
+        "description": "Pipelines ETL impulsados por IA y sistemas RAG para flujos de auditoría legal, logrando una reducción del 82 % en tiempos de procesamiento y un 96 % de precisión en OCR."
+      },
+      "ascmPipelines": {
+        "title": "Pipelines de Datos para ASCM",
+        "description": "Validación automatizada de contratos, pipelines de preprocesamiento para contratación pública, interfaz de anotación de PDF, optimización de esquemas y mejora del scoring en RAG."
+      },
+      "tradingBots": {
+        "title": "Bots y Algoritmos de Trading Cripto",
+        "description": "Sistemas de trading algorítmico con análisis on-chain, monitorización de riesgo, análisis de contratos en Solidity y estrategias cuantitativas no direccionales."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "lead": "Disponible para proyectos freelance, colaboraciones y oportunidades de tiempo completo.",
+    "email": "Correo",
+    "emailValue": "Enviar mensaje",
+    "emailAria": "Enviar correo a {email}",
+    "github": "GitHub",
+    "githubAria": "Visitar perfil de GitHub",
+    "linkedin": "LinkedIn",
+    "linkedinAria": "Visitar perfil de LinkedIn",
+    "location": "Ubicación",
+    "locationValue": "Ciudad de México, México",
+    "languages": "Español (nativo) · Inglés (C1) · Italiano (A2)"
+  },
+  "footer": {
+    "rights": "Daniel Ortega"
+  }
+}

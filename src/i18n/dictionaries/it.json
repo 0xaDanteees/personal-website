@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "title": "Daniel Ortega - Sviluppatore Full-stack | React, Django, Node.js e Web3",
+    "description": "Sviluppatore full-stack specializzato in React, Django, Node.js e Web3, con architettura backend, infrastruttura cloud e agenti AI. Disponibile per progetti freelance e collaborazioni.",
+    "locale": "it_IT"
+  },
+  "nav": {
+    "home": "Vai alla sezione iniziale",
+    "contact": "Contatti",
+    "contactAria": "Vai alla sezione contatti",
+    "toggleTheme": "Passa al tema {theme}",
+    "themeDark": "scuro",
+    "themeLight": "chiaro",
+    "language": "Lingua",
+    "languageAria": "Cambia lingua"
+  },
+  "hero": {
+    "tagline": "Sviluppatore full stack, creo esperienze sicure e centrate sull'utente.",
+    "industries": "Fintech · RWA · Agenti AI · DeFi · IoT",
+    "github": "Visita il mio profilo GitHub",
+    "linkedin": "Visita il mio profilo LinkedIn",
+    "cv": "Scarica il mio CV",
+    "scroll": "Scorri al contenuto"
+  },
+  "about": {
+    "title": "Chi sono",
+    "lead": "Costruisco applicazioni web scalabili con attenzione alle prestazioni e all'esperienza utente.",
+    "body": "Il mio percorso spazia tra <k>infrastrutture crypto</k>, <k>IoT</k>, <k>pipeline ETL</k>, web scraping e <k>agenti AI</k> per flussi di compliance e legali. Sono stato frontend lead su una piattaforma di trading DeFi e attualmente guido l'architettura backend e le decisioni infrastrutturali di una piattaforma di tokenizzazione immobiliare (RWA)."
+  },
+  "experience": {
+    "title": "Esperienza",
+    "certifications": "Certificazioni",
+    "credentialAria": "Visualizza la credenziale {name} rilasciata da {issuer} nel {year}",
+    "present": "Presente",
+    "roles": {
+      "rubidex": {
+        "role": "Sviluppatore Software Fullstack",
+        "company": "Rubidex",
+        "bullets": [
+          "Ho progettato l'architettura backend e l'infrastruttura cloud sicura e conforme per un ecosistema di investimento immobiliare e crypto.",
+          "Ho progettato l'integrazione bancaria del sistema RWA nel rispetto dei requisiti di compliance statunitensi.",
+          "Ho progettato soluzioni KYC/KYB per utenti di Stati Uniti e Canada.",
+          "Ho progettato il database e l'infrastruttura AWS con Terraform per elevata affidabilità e scalabilità.",
+          "Ho implementato un'architettura frontend basata su RBAC e mitigato tutte le vulnerabilità di sicurezza documentate.",
+          "Ho gestito il sistema WebSocket per comunicazioni ad alta affidabilità con dispositivi IoT."
+        ]
+      },
+      "walletInsight": {
+        "role": "Lead Frontend Developer",
+        "company": "Wallet Insight — Collaboratore da remoto",
+        "bullets": [
+          "Ho progettato ed eseguito il refactoring completo del frontend, migrando da un misto pages/app all'App Router di Next.js.",
+          "Ho progettato e implementato le funzionalità principali di trading con visualizzazione dati in tempo reale tramite GraphQL.",
+          "Ho integrato connessioni WebSocket per dati di mercato in tempo reale con un proxy Go ad alte prestazioni.",
+          "Ho sviluppato l'autenticazione SIWE + JWT per una piattaforma aggregatrice di volumi di trading DeFi.",
+          "Parte del team fondatore prima del round pre-seed con una valutazione di 2,5 milioni di dollari."
+        ]
+      },
+      "ascm": {
+        "role": "Sviluppatore Fullstack",
+        "company": "ASCM",
+        "bullets": [
+          "Ho migrato il sistema legacy di gestione paghe di un'entità giuridica messicana.",
+          "Ho progettato agenti AI con ricerca semantica e capacità conversazionali usando pgvector di PostgreSQL.",
+          "Ho ottimizzato modelli OCR e Azure AI per l'estrazione dati raggiungendo il 96 % di accuratezza.",
+          "Ho progettato pipeline ETL basate su AI ottenendo una riduzione dell'82 % nei tempi di elaborazione.",
+          "Ho gestito e configurato server CentOS 9 Stream per un'integrazione fluida con i sistemi legacy."
+        ]
+      },
+      "freelance": {
+        "role": "Sviluppatore Freelance",
+        "company": "Indipendente",
+        "bullets": [
+          "Ho sviluppato infrastrutture backend con Django e frontend responsive con React.",
+          "Ho integrato AWS S3 e SES per la raccolta di lead.",
+          "Ho creato script di data mining in Python per i settori macchinari pesanti, assicurativo e crypto.",
+          "Ho costruito dataset su misura per clienti privati."
+        ]
+      },
+      "crypto": {
+        "role": "Crypto e Blockchain",
+        "company": "Indipendente",
+        "bullets": [
+          "Membro del team principale di un'agenzia di creazione token ERC20; ho sviluppato contratti in Solidity.",
+          "Ho costruito script automatizzati di tracciamento wallet e pipeline ETL per l'analisi del mercato crypto.",
+          "Ho sviluppato sistemi di trading algoritmico con esecuzione ordini in tempo reale e framework di gestione del rischio.",
+          "Ho integrato API di terze parti (FTX, Bybit) e condotto analisi statistiche per strategie non direzionali."
+        ]
+      }
+    }
+  },
+  "skills": {
+    "title": "Stack Tecnologico",
+    "layers": {
+      "infrastructure": { "title": "Infrastruttura", "caption": "Dove gira" },
+      "data": { "title": "Dati e Persistenza", "caption": "Dove risiede" },
+      "backend": { "title": "Backend", "caption": "Cosa lo serve" },
+      "queues": { "title": "Code e Pipeline", "caption": "Cosa lo orchestra" },
+      "ai": { "title": "AI e Agenti", "caption": "Cosa ci ragiona sopra" },
+      "interface": { "title": "Interfaccia", "caption": "Ciò che le persone toccano" },
+      "web3": { "title": "Web3 e Compliance", "caption": "Ciò che gli utenti possiedono" },
+      "observability": { "title": "Osservabilità e Testing", "caption": "Ciò che viene misurato" }
+    }
+  },
+  "projects": {
+    "title": "Progetti in Evidenza",
+    "items": {
+      "foundry": {
+        "title": "Foundry AI for Drug Development",
+        "description": "Flussi agentici con audit dei log su dati clinici. Insight per la ricerca preclinica alimentati da code pg-boss che orchestrano job di scraping distribuito, con un knowledge graph Neo4j a supporto delle query relazionali tra fonti."
+      },
+      "companion": {
+        "title": "Agentic Companion Platform",
+        "description": "Sistema di microservizi FastAPI con API gateway, SQLAlchemy + PostgreSQL, deploy su Vercel e AI di chat e voce integrata con streaming."
+      },
+      "poleana": {
+        "title": "PoleanaMX",
+        "description": "Ho preso in carico un frontend esistente rifattorizzandolo secondo i principi dell'Atomic Design, ridotto l'overhead di consumo dei WebSocket e integrato Google Analytics, AdSense e Adsterra."
+      },
+      "voice": {
+        "title": "Agentic Voice Assistant",
+        "description": "Assistente vocale agentico per una catena di ristoranti statunitense, in grado di raccogliere ordini e promuovere nuovi menù, realizzato con OpenAI e Vapi."
+      },
+      "defi": {
+        "title": "DeFi Trading Platform",
+        "description": "Piattaforma di trading decentralizzata con dati di mercato in tempo reale, autenticazione SIWE + JWT, integrazione BitQuery e proxy WebSocket Go ad alte prestazioni."
+      },
+      "legalAudit": {
+        "title": "Agenti AI ed ETL per Audit Legale",
+        "description": "Pipeline ETL basate su AI e sistemi RAG per flussi di audit legale, con una riduzione dell'82 % nei tempi di elaborazione e il 96 % di accuratezza OCR."
+      },
+      "ascmPipelines": {
+        "title": "Pipeline Dati per ASCM",
+        "description": "Validazione automatizzata dei contratti, pipeline di preprocessing per appalti pubblici, interfaccia di annotazione PDF, ottimizzazione degli schemi e miglioramento dello scoring RAG."
+      },
+      "tradingBots": {
+        "title": "Bot e Algoritmi di Trading Crypto",
+        "description": "Sistemi di trading algoritmico con analisi on-chain, monitoraggio del rischio, analisi di contratti Solidity e strategie quantitative non direzionali."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contatti",
+    "lead": "Disponibile per progetti freelance, collaborazioni e opportunità a tempo pieno.",
+    "email": "Email",
+    "emailValue": "Invia un messaggio",
+    "emailAria": "Invia un'email a {email}",
+    "github": "GitHub",
+    "githubAria": "Visita il profilo GitHub",
+    "linkedin": "LinkedIn",
+    "linkedinAria": "Visita il profilo LinkedIn",
+    "location": "Sede",
+    "locationValue": "Città del Messico, Messico",
+    "languages": "Spagnolo (madrelingua) · Inglese (C1) · Italiano (A2)"
+  },
+  "footer": {
+    "rights": "Daniel Ortega"
+  }
+}
