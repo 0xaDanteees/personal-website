@@ -436,6 +436,18 @@ body {
   border-color: color-mix(in srgb, var(--primary) 45%, transparent);
 }
 
+/* The hero name: plain text holds the layout, the animated copy sits over it. */
+.hero-name {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-name__animated {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+}
+
 /* Visually hidden but still announced — used for the copy confirmation, which
    has no on-screen text of its own. */
 .sr-only {
@@ -1198,6 +1210,16 @@ body,
   .hero-section {
     min-height: calc(100vh - var(--header-h));
   }
+}
+
+/* Drives the per-letter drop in the Animated component (the hero name). This
+   sits outside the ambient-motion cleanup on purpose: it answers a hover and the
+   end of the splash, not a timer. */
+@keyframes fall {
+  0% { transform: translateY(-40px); opacity: 0 }
+  60% { transform: translateY(6px); opacity: 1 }
+  80% { transform: translateY(-2px) }
+  100% { transform: translateY(0) }
 }
 
 html {
