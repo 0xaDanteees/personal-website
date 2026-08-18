@@ -359,6 +359,123 @@ body {
 }
 
 /* ========================================
+   FAQ
+
+   Hairline rows in the same grammar as the project list. Uses native <details>,
+   so the answers are in the markup whether open or closed.
+   ======================================== */
+
+.faq-item {
+  position: relative;
+  padding: 1.25rem 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-slow) var(--ease-out-quint),
+              transform var(--dur-slow) var(--ease-out-quint);
+}
+
+.faq-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq-item:not(.is-visible) {
+  transition: opacity var(--dur-exit) var(--ease-exit),
+              transform var(--dur-exit) var(--ease-exit);
+}
+
+.faq-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  transition: background-color var(--dur-base) var(--ease-out-quint);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.faq-item__q {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 500;
+  list-style: none;
+  transition: color var(--dur-fast) var(--ease-out-quint);
+}
+
+/* The default disclosure triangle is replaced by a chevron that rotates, so the
+   marker matches the one in the hero. */
+.faq-item__q::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__q::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: center;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.4;
+  transition: transform var(--dur-base) var(--ease-out-quint),
+              opacity var(--dur-fast) var(--ease-out-quint);
+}
+
+.faq-item[open] .faq-item__q::after {
+  transform: rotate(-135deg);
+  opacity: 0.8;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .faq-item__q:hover {
+    color: var(--primary);
+  }
+
+  .faq-item:hover::before {
+    background: color-mix(in srgb, var(--primary) 40%, transparent);
+  }
+}
+
+.faq-item__a {
+  margin-top: 0.75rem;
+  color: color-mix(in srgb, var(--secondary) 80%, transparent);
+  animation: faq-open var(--dur-base) var(--ease-out-quint) both;
+}
+
+@keyframes faq-open {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .faq-item__a {
+    animation: none;
+  }
+}
+
+/* ========================================
    CONTACT
 
    Same hairline grammar as the project rows, so the page closes in the language

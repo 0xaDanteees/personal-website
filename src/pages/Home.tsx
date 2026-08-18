@@ -3,6 +3,7 @@ import About from "../components/sections/About";
 import Experience from "../components/sections/Experience";
 import Skills from "../components/sections/Skills";
 import Projects from "../components/sections/Projects";
+import Faq from "../components/sections/Faq";
 import Contact from "../components/sections/Contact";
 
 /**
@@ -29,6 +30,9 @@ export default function Home() {
             </div>
             <div className="section-spacing">
                 <Projects />
+            </div>
+            <div className="section-spacing">
+                <Faq />
             </div>
             <div className="section-spacing">
                 <Contact />
