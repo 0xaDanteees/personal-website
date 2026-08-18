@@ -42,6 +42,8 @@ export function Hero() {
     // points back to the hero and stays visible in the other sections.
     const [chevronFacing, setChevronFacing] = useState<'down' | 'up'>('down');
     const [isSnapping, setIsSnapping] = useState(false);
+    // Flipped once, after hydration, to gate browser-only decoration.
+    const [hydrated, setHydrated] = useState(false);
     const snapTimers = useRef<number[]>([]);
 
     const { showContent, startAnimation } = useSplashTiming();
@@ -98,6 +100,8 @@ export function Hero() {
         onSnapStart: goToAbout,
     });
 
+    useEffect(() => setHydrated(true), []);
+
     useEffect(() => {
         const timers = snapTimers.current;
         return () => timers.forEach(clearTimeout);
@@ -105,16 +109,28 @@ export function Hero() {
 
     return (
         <section id="hero" className="hero-section flex flex-col justify-center gap-8 px-5 md:px-8 md:pr-[35%] relative overflow-hidden">
-            <LiquidGlass onHeroVisibilityChange={handleHeroVisibilityChange} />
+            {/* Decoration only, and every one of its classes flips as the splash
+                timer runs — rendering it during prerendering guaranteed a
+                mismatch. Gated on a post-hydration flag so the server and the
+                first client render agree on it being absent. */}
+            {hydrated && <LiquidGlass onHeroVisibilityChange={handleHeroVisibilityChange} />}
             <div className={`space-y-4 relative z-10 transition-all duration-700 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <h1 
                     className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight text-[var(--text)] cursor-pointer"
                     onMouseEnter={() => startAnimation && setAnimKey(prev => prev + 1)}
                 >
+                    {/* The animated version replaces the plain text once the
+                        splash is done, rather than layering over it: an absolute
+                        overlay was rendering with the fall animation already
+                        finished, so the letters never appeared to drop.
+
+                        Both branches render the same characters, so prerendered
+                        HTML and the hydrated tree agree — and the name is real
+                        text in the markup either way. */}
                     {startAnimation ? (
                         <Animated key={animKey} text="Daniel Ortega" />
                     ) : (
-                        <span className="opacity-0">Daniel Ortega</span>
+                        <span>Daniel Ortega</span>
                     )}
                 </h1>
                 <p className="text-xl sm:text-2xl text-[var(--primary)] font-light">

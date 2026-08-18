@@ -10,7 +10,6 @@ type Props = {
 
 export function LiquidGlass({ onHeroVisibilityChange }: Props) {
   const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
-
   const { isVisible, isHiding, isSplashActive, splashDone } = useLiquidGlassState({
     isMobile,
     onHeroVisibilityChange,
