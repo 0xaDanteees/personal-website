@@ -29,17 +29,26 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://danielortega.dev/" />
+    <meta property="og:url" content="https://danor.dev/" />
     <meta property="og:title" content="Daniel Ortega - Fullstack Developer" />
     <meta property="og:description" content="Fullstack developer specializing in React, Django, Node.js, and Web3, with backend architecture, cloud infrastructure and AI agents. Building innovative digital experiences with modern technologies." />
-    <meta property="og:image" content="https://danielortega.dev/og-image.jpg" />
+    <meta property="og:image" content="https://danor.dev/og-image.jpg" />
+    <meta property="og:image:alt" content="Daniel Ortega — Fullstack Developer. Backend, cloud infrastructure, AI agents and Web3." />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Daniel Ortega Portfolio" />
     <meta property="og:locale" content="en_US" />
 
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Daniel Ortega - Fullstack Developer" />
+    <meta name="twitter:description" content="Fullstack developer specializing in React, Django, Node.js, and Web3, with backend architecture, cloud infrastructure and AI agents." />
+    <meta name="twitter:image" content="https://danor.dev/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Daniel Ortega — Fullstack Developer. Backend, cloud infrastructure, AI agents and Web3." />
+
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://danielortega.dev/" />
+    <link rel="canonical" href="https://danor.dev/" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/src/assets/icon.svg" />
@@ -54,62 +63,134 @@
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
-    {
+{
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Daniel Ortega",
-      "url": "https://danielortega.dev",
-      "image": "https://danielortega.dev/profile.jpg",
-      "jobTitle": "Fullstack Developer",
-      "description": "Fullstack developer specializing in React, Django, Node.js and Web3, with backend architecture, cloud infrastructure and AI agents",
-      "sameAs": [
-        "https://github.com/0xaDanteees",
-        "https://www.linkedin.com/in/daniel-r-ortega/"
-      ],
-      "knowsLanguage": ["es", "en", "it"],
-      "hasCredential": {
-        "@type": "EducationalOccupationalCredential",
-        "name": "Google Data Analytics",
-        "credentialCategory": "certificate",
-        "identifier": "N7K4JQR8BHZA",
-        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/N7K4JQR8BHZA",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Google"
-        }
-      },
-      "knowsAbout": [
-        "React",
-        "Django",
-        "Node.js",
-        "TypeScript",
-        "JavaScript",
-        "Python",
-        "Web3",
-        "Blockchain",
-        "DeFi",
-        "Frontend Development",
-        "Backend Development",
-        "Full-stack Development",
-        "Software Architecture",
-        "Cloud Infrastructure",
-        "AWS",
-        "Terraform",
-        "FastAPI",
-        "PostgreSQL",
-        "Neo4j",
-        "ETL Pipelines",
-        "AI Agents",
-        "Retrieval-Augmented Generation",
-        "Real World Asset Tokenization",
-        "KYC and Fintech Compliance"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Mexico City",
-        "addressCountry": "MX"
-      }
-    }
+      "@graph": [
+            {
+                  "@type": "WebSite",
+                  "@id": "https://danor.dev/#website",
+                  "url": "https://danor.dev/",
+                  "name": "Daniel Ortega — Fullstack Developer",
+                  "inLanguage": [
+                        "en",
+                        "es",
+                        "it"
+                  ],
+                  "publisher": {
+                        "@id": "https://danor.dev/#person"
+                  }
+            },
+            {
+                  "@type": "ProfilePage",
+                  "@id": "https://danor.dev/#profilepage",
+                  "url": "https://danor.dev/",
+                  "isPartOf": {
+                        "@id": "https://danor.dev/#website"
+                  },
+                  "about": {
+                        "@id": "https://danor.dev/#person"
+                  },
+                  "inLanguage": "en"
+            },
+            {
+                  "@type": "Person",
+                  "@id": "https://danor.dev/#person",
+                  "name": "Daniel Ortega",
+                  "alternateName": "Andrick Daniel Ramos Ortega",
+                  "url": "https://danor.dev",
+                  "image": "https://danor.dev/og-image.jpg",
+                  "jobTitle": "Fullstack Developer",
+                  "description": "Fullstack developer specializing in React, Django, Node.js and Web3, with backend architecture, cloud infrastructure and AI agents",
+                  "email": "mailto:adros.dev17@gmail.com",
+                  "sameAs": [
+                        "https://github.com/0xaDanteees",
+                        "https://www.linkedin.com/in/daniel-r-ortega/"
+                  ],
+                  "knowsLanguage": [
+                        {
+                              "@type": "Language",
+                              "name": "Spanish",
+                              "alternateName": "es"
+                        },
+                        {
+                              "@type": "Language",
+                              "name": "English",
+                              "alternateName": "en"
+                        },
+                        {
+                              "@type": "Language",
+                              "name": "Italian",
+                              "alternateName": "it"
+                        }
+                  ],
+                  "worksFor": {
+                        "@type": "Organization",
+                        "name": "Rubidex",
+                        "description": "Real Estate and Crypto investment ecosystem"
+                  },
+                  "hasOccupation": {
+                        "@type": "Occupation",
+                        "name": "Fullstack Software Developer",
+                        "occupationalCategory": "15-1252.00",
+                        "skills": "Backend architecture, cloud infrastructure, AWS, Terraform, Python, FastAPI, Django, PostgreSQL, Neo4j, ETL pipelines, AI agents, RAG, Web3, Solidity, KYC and fintech compliance"
+                  },
+                  "alumniOf": [
+                        {
+                              "@type": "Organization",
+                              "name": "Wallet Insight",
+                              "description": "DeFi trading volume-aggregator platform"
+                        },
+                        {
+                              "@type": "Organization",
+                              "name": "ASCM",
+                              "description": "Enterprise systems and AI-driven legal audit"
+                        }
+                  ],
+                  "hasCredential": {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "Google Data Analytics",
+                        "credentialCategory": "certificate",
+                        "identifier": "N7K4JQR8BHZA",
+                        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/N7K4JQR8BHZA",
+                        "recognizedBy": {
+                              "@type": "Organization",
+                              "name": "Google"
+                        }
+                  },
+                  "knowsAbout": [
+                        "React",
+                        "Django",
+                        "Node.js",
+                        "TypeScript",
+                        "JavaScript",
+                        "Python",
+                        "Web3",
+                        "Blockchain",
+                        "DeFi",
+                        "Frontend Development",
+                        "Backend Development",
+                        "Full-stack Development",
+                        "Software Architecture",
+                        "Cloud Infrastructure",
+                        "AWS",
+                        "Terraform",
+                        "FastAPI",
+                        "PostgreSQL",
+                        "Neo4j",
+                        "ETL Pipelines",
+                        "AI Agents",
+                        "Retrieval-Augmented Generation",
+                        "Real World Asset Tokenization",
+                        "KYC and Fintech Compliance"
+                  ],
+                  "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Mexico City",
+                        "addressCountry": "MX"
+                  }
+            }
+      ]
+}
     </script>
 
     <!-- Fonts are self-hosted, so there is no third-party origin to preconnect to.
