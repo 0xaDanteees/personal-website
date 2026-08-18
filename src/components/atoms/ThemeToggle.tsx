@@ -7,12 +7,25 @@ type Theme = 'dark' | 'light'
 
 export function ThemeToggle() {
     const { t } = useI18n();
-    const [theme, setTheme] = useState<Theme>(() =>
-        (document.documentElement.dataset.theme as Theme) || 'dark'
-    );
+    // The first render must match the prerendered HTML exactly, so it cannot
+    // read the theme the inline script already applied — a visitor on light mode
+    // would render a sun where the HTML has a moon. The real value is adopted in
+    // an effect, after hydration.
+    const [theme, setTheme] = useState<Theme>('dark');
+    const [hydrated, setHydrated] = useState(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
+    // Adopt whatever the inline head script resolved, once, after hydration.
     useEffect(() => {
+        const applied = (document.documentElement.dataset.theme as Theme) || 'dark';
+        setTheme(applied);
+        setHydrated(true);
+    }, []);
+
+    // Writes only once the real theme has been adopted, so the neutral first
+    // render never overwrites the visitor's stored preference.
+    useEffect(() => {
+        if (!hydrated) return;
         document.documentElement.dataset.theme = theme;
         try {
             localStorage.setItem('theme', theme);
@@ -20,7 +33,7 @@ export function ThemeToggle() {
             // Private browsing and blocked storage both throw here; the theme
             // still applies for this session, it just will not be remembered.
         }
-    }, [theme]);
+    }, [theme, hydrated]);
 
     const toggle = () => {
         const next: Theme = theme === 'dark' ? 'light' : 'dark';
@@ -60,21 +73,29 @@ export function ThemeToggle() {
 
         const transition = doc.startViewTransition(() => setTheme(next));
 
-        transition.ready.then(() => {
-            document.documentElement.animate(
-                {
-                    clipPath: [
-                        `circle(0px at ${originX}px ${originY}px)`,
-                        `circle(${radius}px at ${originX}px ${originY}px)`,
-                    ],
-                },
-                {
-                    duration,
-                    easing,
-                    pseudoElement: '::view-transition-new(root)',
-                }
-            );
-        });
+        // `ready` rejects if the browser skips the transition — a second toggle
+        // mid-flight, a hidden tab, an unsupported pseudo-element. Unhandled,
+        // that surfaced as a theme change with no animation at all, because the
+        // CSS below disables the default cross-fade in favour of this wipe.
+        transition.ready
+            .then(() => {
+                document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(0px at ${originX}px ${originY}px)`,
+                            `circle(${radius}px at ${originX}px ${originY}px)`,
+                        ],
+                    },
+                    {
+                        duration,
+                        easing,
+                        pseudoElement: '::view-transition-new(root)',
+                    }
+                );
+            })
+            .catch(() => {
+                // The colour transition on the surfaces still carries the change.
+            });
     };
 
     return (
