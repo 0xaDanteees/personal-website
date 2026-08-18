@@ -157,6 +157,31 @@ particular.
   stack lists.
 - `Card` and `IconBadge` were deleted afterwards: nothing used them any more.
 
+### Prerendering & agentic search
+
+The site shipped an empty `<div id="root">`. Google runs JavaScript so it saw the content, but
+GPTBot, ClaudeBot, PerplexityBot, Bingbot and every social preview scraper do not — to them the
+page was blank. The build now renders static HTML per locale before anything is served.
+
+- `scripts/prerender.ts` builds an SSR bundle and writes the markup into each locale's
+  `index.html`. Client-side hydration takes over from there, so the app behaves identically.
+- Sections came off `lazy()`: a Suspense boundary hydrating over existing markup produces a
+  tree mismatch, and React throws away the prerendered DOM — exactly what crawlers came for.
+  The split was saving ~12kB gzipped, which was not worth it.
+- Three components had to stop guessing during SSR: the theme toggle now adopts the applied
+  theme in an effect rather than reading it at render, the splash starts visible, and the
+  liquid glass is gated behind a post-hydration flag. Each mismatch cost the whole prerender.
+- Structured data became an `@graph` with `WebSite`, `ProfilePage` and `Person`, plus
+  `worksFor`, `alumniOf`, `hasOccupation` and `email`. Agents answer questions from entity
+  relationships, not prose.
+- `llms.txt` gives models a plain-text brief they can read without parsing the page.
+- `robots.txt` names the AI crawlers explicitly — several check for that before indexing.
+- Twitter Card tags and a generated `og-image.jpg`, which was referenced in the meta tags but
+  had never existed.
+
+Measured: 0 → ~5.8k characters of crawlable text per page, and LCP from 2.29s to 116ms, since
+the browser no longer waits for the splash before painting anything.
+
 ### Internationalization
 
 Three locales — English (default), Spanish, Italian — as JSON dictionaries under

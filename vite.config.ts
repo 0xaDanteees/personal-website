@@ -70,6 +70,37 @@ function i18nHtmlPlugin(): Plugin {
           `$1${SITE_URL}${localePath(locale)}$2`
         )
         out = out.replace(
+          /(<meta name="twitter:title" content=")[^"]*(")/,
+          `$1${dict.meta.title}$2`
+        )
+        out = out.replace(
+          /(<meta name="twitter:description" content=")[^"]*(")/,
+          `$1${dict.meta.description}$2`
+        )
+        // The structured data has to name the locale it describes, or all three
+        // pages claim to be the same English profile. Parsed rather than
+        // regexed so it cannot silently stop matching if the block is reformatted.
+        out = out.replace(
+          /(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/,
+          (_full, open, json, close) => {
+            try {
+              const data = JSON.parse(json)
+              for (const node of data['@graph'] ?? []) {
+                if (node['@type'] === 'ProfilePage') {
+                  node.url = `${SITE_URL}${localePath(locale)}`
+                  node.inLanguage = locale
+                }
+                if (node['@type'] === 'Person') {
+                  node.description = dict.meta.description
+                }
+              }
+              return `${open}\n${JSON.stringify(data, null, 6)}\n    ${close}`
+            } catch {
+              return _full
+            }
+          }
+        )
+        out = out.replace(
           /<link rel="canonical" href="[^"]*" \/>/,
           `<link rel="canonical" href="${SITE_URL}${localePath(locale)}" />\n    ${alternates}`
         )
@@ -102,9 +133,87 @@ ${urls}
       const dist = resolve(process.cwd(), 'dist')
       mkdirSync(dist, { recursive: true })
       writeFileSync(resolve(dist, 'sitemap.xml'), sitemap)
+
+      // AI crawlers are named explicitly rather than relying on the wildcard:
+      // being listed is what several of them check before indexing.
       writeFileSync(
         resolve(dist, 'robots.txt'),
-        `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
+        [
+          'User-agent: *',
+          'Allow: /',
+          '',
+          '# AI assistants and answer engines',
+          'User-agent: GPTBot',
+          'Allow: /',
+          '',
+          'User-agent: OAI-SearchBot',
+          'Allow: /',
+          '',
+          'User-agent: ClaudeBot',
+          'Allow: /',
+          '',
+          'User-agent: PerplexityBot',
+          'Allow: /',
+          '',
+          'User-agent: Google-Extended',
+          'Allow: /',
+          '',
+          `Sitemap: ${SITE_URL}/sitemap.xml`,
+          '',
+        ].join('\n')
+      )
+
+      // llms.txt: a plain-text summary for language models, so an agent can
+      // answer questions about this person without parsing the page.
+      const p = en.projects.items
+      writeFileSync(
+        resolve(dist, 'llms.txt'),
+        `# Daniel Ortega — Fullstack Developer
+
+> ${en.meta.description}
+
+Based in Mexico City, Mexico. Available for freelance projects, collaborations
+and full-time roles. Contact: adros.dev17@gmail.com
+
+## Focus
+
+${en.about.body.replace(/<\/?k>/g, '')}
+
+## Current role
+
+Fullstack Software Developer at Rubidex (2025—present): backend and cloud
+infrastructure for a Real Estate and Crypto (RWA) investment ecosystem, banking
+integration under US compliance, KYC/KYB for US and CA users, AWS with Terraform.
+
+## Selected projects
+
+${Object.values(p).map((x) => `- ${x.title}: ${x.description}`).join('\n')}
+
+## Stack
+
+Infrastructure: AWS, Terraform, GCP, Azure, Docker, CentOS/Httpd, Vercel
+Data: PostgreSQL, Neo4j, Redis, pgvector, SQLAlchemy
+Backend: Python, FastAPI, Django, Node.js/Express, GraphQL, WebSockets, SSE
+Queues & pipelines: BullMQ, RabbitMQ, Celery, pg-boss, ETL, Selenium, Playwright
+AI: RAG, agentic workflows, semantic search, Claude, OpenAI, Azure Document Intelligence, OCR
+Interface: React, Next.js, TypeScript, TailwindCSS, Atomic Design
+Web3 & compliance: Solidity, ethers.js, SIWE, EVM/Ethereum, MetaMask, BitQuery, KYC/KYB, ACH
+Observability: Sentry, CloudWatch, Pytest, Jest, Google Analytics
+
+## Languages
+
+Spanish (native), English (C1), Italian (A2)
+
+## Credentials
+
+Google Data Analytics, Coursera, 2023 — credential N7K4JQR8BHZA
+
+## Site
+
+- English: ${SITE_URL}/
+- Español: ${SITE_URL}/es/
+- Italiano: ${SITE_URL}/it/
+`
       )
     },
   }
