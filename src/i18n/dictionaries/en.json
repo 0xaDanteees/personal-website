@@ -182,5 +182,32 @@
   },
   "footer": {
     "rights": "Daniel Ortega"
-  }
+  },
+  "faq": [
+    {
+      "q": "Who is Daniel Ortega?",
+      "a": "Daniel Ortega is a fullstack software developer based in Mexico City, Mexico, focused on backend architecture and cloud infrastructure. He currently builds compliant backend and AWS infrastructure for a Real Estate and Crypto (RWA) investment ecosystem at Rubidex."
+    },
+    {
+      "q": "What does Daniel Ortega specialise in?",
+      "a": "Backend architecture and cloud infrastructure: Python, FastAPI, Django, Node.js, PostgreSQL, Neo4j and Redis, with AWS provisioned through Terraform. He also builds AI agents and RAG systems, ETL pipelines and queue-driven workloads, and has led frontend on a DeFi trading platform."
+    },
+    {
+      "q": "What is Daniel Ortega's experience with AI?",
+      "a": "He architects agentic workflows and RAG systems: semantic search over PostgreSQL pgvector, OCR and Azure AI models fine-tuned to 96% extraction accuracy, and AI-driven ETL pipelines that cut processing times by 82%. Current work includes agentic workflows with log auditing over clinical data backed by a Neo4j knowledge graph."
+    },
+    {
+      "q": "What is Daniel Ortega's experience with Web3 and fintech compliance?",
+      "a": "He designed banking integration and KYC/KYB solutions meeting US compliance requirements for a Real Estate tokenization (RWA) platform, and previously built SIWE and JWT authentication for a DeFi trading volume-aggregator. His Web3 background includes Solidity contracts, ethers.js and EVM tooling."
+    },
+    {
+      "q": "How can I contact Daniel Ortega?",
+      "a": "By email at adros.dev17@gmail.com. He is available for freelance projects, collaborations and full-time roles, and can also be reached on GitHub (@0xaDanteees) and LinkedIn."
+    },
+    {
+      "q": "What languages does Daniel Ortega speak?",
+      "a": "Spanish natively, English at C1 level and Italian at A2 level."
+    }
+  ],
+  "faq_title": "Frequently Asked"
 }

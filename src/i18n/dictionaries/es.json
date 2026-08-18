@@ -182,5 +182,32 @@
   },
   "footer": {
     "rights": "Daniel Ortega"
-  }
+  },
+  "faq": [
+    {
+      "q": "¿Quién es Daniel Ortega?",
+      "a": "Daniel Ortega es un desarrollador de software fullstack radicado en la Ciudad de México, enfocado en arquitectura backend e infraestructura cloud. Actualmente construye backend e infraestructura AWS conforme a normativa para un ecosistema de inversión inmobiliaria y cripto (RWA) en Rubidex."
+    },
+    {
+      "q": "¿En qué se especializa Daniel Ortega?",
+      "a": "Arquitectura backend e infraestructura cloud: Python, FastAPI, Django, Node.js, PostgreSQL, Neo4j y Redis, con AWS aprovisionado mediante Terraform. También desarrolla agentes de IA y sistemas RAG, pipelines ETL y cargas de trabajo basadas en colas, y fue líder de frontend en una plataforma de trading DeFi."
+    },
+    {
+      "q": "¿Qué experiencia tiene Daniel Ortega con IA?",
+      "a": "Diseña flujos agénticos y sistemas RAG: búsqueda semántica sobre pgvector de PostgreSQL, modelos de OCR y Azure AI afinados hasta un 96 % de precisión en extracción, y pipelines ETL impulsados por IA que redujeron los tiempos de procesamiento un 82 %. Su trabajo actual incluye flujos agénticos con auditoría de logs sobre datos clínicos respaldados por un grafo de conocimiento Neo4j."
+    },
+    {
+      "q": "¿Qué experiencia tiene Daniel Ortega en Web3 y compliance fintech?",
+      "a": "Diseñó la integración bancaria y las soluciones KYC/KYB cumpliendo los requisitos de compliance de EE. UU. para una plataforma de tokenización inmobiliaria (RWA), y anteriormente desarrolló autenticación SIWE y JWT para un agregador de volumen de trading DeFi. Su trayectoria Web3 incluye contratos en Solidity, ethers.js y herramientas EVM."
+    },
+    {
+      "q": "¿Cómo puedo contactar a Daniel Ortega?",
+      "a": "Por correo electrónico en adros.dev17@gmail.com. Está disponible para proyectos freelance, colaboraciones y posiciones de tiempo completo, y también se le puede encontrar en GitHub (@0xaDanteees) y LinkedIn."
+    },
+    {
+      "q": "¿Qué idiomas habla Daniel Ortega?",
+      "a": "Español nativo, inglés nivel C1 e italiano nivel A2."
+    }
+  ],
+  "faq_title": "Preguntas Frecuentes"
 }

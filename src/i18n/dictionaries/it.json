@@ -182,5 +182,32 @@
   },
   "footer": {
     "rights": "Daniel Ortega"
-  }
+  },
+  "faq": [
+    {
+      "q": "Chi è Daniel Ortega?",
+      "a": "Daniel Ortega è uno sviluppatore software fullstack con base a Città del Messico, specializzato in architettura backend e infrastruttura cloud. Attualmente realizza backend e infrastruttura AWS conformi alle normative per un ecosistema di investimento immobiliare e crypto (RWA) presso Rubidex."
+    },
+    {
+      "q": "In cosa è specializzato Daniel Ortega?",
+      "a": "Architettura backend e infrastruttura cloud: Python, FastAPI, Django, Node.js, PostgreSQL, Neo4j e Redis, con AWS gestito tramite Terraform. Sviluppa inoltre agenti AI e sistemi RAG, pipeline ETL e carichi di lavoro basati su code, ed è stato frontend lead su una piattaforma di trading DeFi."
+    },
+    {
+      "q": "Quale esperienza ha Daniel Ortega con l'AI?",
+      "a": "Progetta flussi agentici e sistemi RAG: ricerca semantica su pgvector di PostgreSQL, modelli OCR e Azure AI ottimizzati fino al 96 % di accuratezza nell'estrazione, e pipeline ETL basate su AI che hanno ridotto i tempi di elaborazione dell'82 %. Il lavoro attuale include flussi agentici con audit dei log su dati clinici supportati da un knowledge graph Neo4j."
+    },
+    {
+      "q": "Quale esperienza ha Daniel Ortega in Web3 e compliance fintech?",
+      "a": "Ha progettato l'integrazione bancaria e le soluzioni KYC/KYB conformi ai requisiti statunitensi per una piattaforma di tokenizzazione immobiliare (RWA) e in precedenza ha sviluppato l'autenticazione SIWE e JWT per un aggregatore di volumi di trading DeFi. Il suo percorso Web3 include contratti Solidity, ethers.js e strumenti EVM."
+    },
+    {
+      "q": "Come posso contattare Daniel Ortega?",
+      "a": "Via email all'indirizzo adros.dev17@gmail.com. È disponibile per progetti freelance, collaborazioni e ruoli a tempo pieno, ed è raggiungibile anche su GitHub (@0xaDanteees) e LinkedIn."
+    },
+    {
+      "q": "Quali lingue parla Daniel Ortega?",
+      "a": "Spagnolo madrelingua, inglese livello C1 e italiano livello A2."
+    }
+  ],
+  "faq_title": "Domande Frequenti"
 }
