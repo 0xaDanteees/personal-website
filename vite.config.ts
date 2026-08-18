@@ -15,6 +15,9 @@ type Locale = (typeof LOCALES)[number]
 
 const localePath = (l: Locale) => (l === 'en' ? '/' : `/${l}/`)
 
+/** Stamped into the structured data so engines can see how current the page is. */
+const buildDate = new Date().toISOString().slice(0, 10)
+
 /**
  * Writes a real index.html per locale, with that language's title, description
  * and hreflang set already in the markup.
@@ -89,11 +92,29 @@ function i18nHtmlPlugin(): Plugin {
                 if (node['@type'] === 'ProfilePage') {
                   node.url = `${SITE_URL}${localePath(locale)}`
                   node.inLanguage = locale
+                  // Freshness signal: answer engines weight recent sources, and
+                  // a static site has no other way to declare when it changed.
+                  node.dateModified = buildDate
                 }
                 if (node['@type'] === 'Person') {
                   node.description = dict.meta.description
                 }
               }
+
+              // FAQ pairs, in the page's own language. Answer engines quote
+              // these near-verbatim, so each answer is written to stand alone
+              // without the surrounding page for context.
+              data['@graph'].push({
+                '@type': 'FAQPage',
+                '@id': `${SITE_URL}${localePath(locale)}#faq`,
+                inLanguage: locale,
+                isPartOf: { '@id': `${SITE_URL}${localePath(locale)}` },
+                mainEntity: dict.faq.map((item) => ({
+                  '@type': 'Question',
+                  name: item.q,
+                  acceptedAnswer: { '@type': 'Answer', text: item.a },
+                })),
+              })
               return `${open}\n${JSON.stringify(data, null, 6)}\n    ${close}`
             } catch {
               return _full
@@ -199,6 +220,10 @@ AI: RAG, agentic workflows, semantic search, Claude, OpenAI, Azure Document Inte
 Interface: React, Next.js, TypeScript, TailwindCSS, Atomic Design
 Web3 & compliance: Solidity, ethers.js, SIWE, EVM/Ethereum, MetaMask, BitQuery, KYC/KYB, ACH
 Observability: Sentry, CloudWatch, Pytest, Jest, Google Analytics
+
+## Common questions
+
+${en.faq.map((f) => `**${f.q}**\n${f.a}`).join('\n\n')}
 
 ## Languages
 
