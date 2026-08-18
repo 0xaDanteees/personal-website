@@ -63,10 +63,22 @@ function syncDocument(locale: Locale, t: Dictionary) {
   }
 }
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => localeFromPath(window.location.pathname))
+export function I18nProvider({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode
+  /** Supplied when prerendering, where there is no location to read. */
+  initialLocale?: Locale
+}) {
+  const [locale, setLocaleState] = useState<Locale>(
+    () =>
+      initialLocale ??
+      (typeof window === 'undefined' ? DEFAULT_LOCALE : localeFromPath(window.location.pathname))
+  )
 
   const setLocale = useCallback((next: Locale) => {
+    if (typeof window === 'undefined') return
     // The URL is the source of truth: each language is its own indexable page,
     // so switching must change the address, not just component state.
     window.history.pushState({}, '', localePath(next))
@@ -80,12 +92,14 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   // Back/forward should move between languages like any other navigation.
   useEffect(() => {
+    if (typeof window === 'undefined') return
     const onPopState = () => setLocaleState(localeFromPath(window.location.pathname))
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
   useEffect(() => {
+    if (typeof document === 'undefined') return
     syncDocument(locale, dictionaries[locale])
   }, [locale])
 
